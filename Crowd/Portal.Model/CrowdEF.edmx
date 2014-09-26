@@ -1,0 +1,1481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CrouwdModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CrouwdModelStoreContainer">
+          <EntitySet Name="ExperienceLevelType" EntityType="CrouwdModel.Store.ExperienceLevelType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Feed" EntityType="CrouwdModel.Store.Feed" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FeedType" EntityType="CrouwdModel.Store.FeedType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Follow" EntityType="CrouwdModel.Store.Follow" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Job" EntityType="CrouwdModel.Store.Job" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="JobSkill" EntityType="CrouwdModel.Store.JobSkill" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Message" EntityType="CrouwdModel.Store.Message" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MessageType" EntityType="CrouwdModel.Store.MessageType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="CrouwdModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserEducation" EntityType="CrouwdModel.Store.UserEducation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserEducationCourse" EntityType="CrouwdModel.Store.UserEducationCourse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserEmployment" EntityType="CrouwdModel.Store.UserEmployment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserEmploymentRecommendation" EntityType="CrouwdModel.Store.UserEmploymentRecommendation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserJobApplication" EntityType="CrouwdModel.Store.UserJobApplication" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserJobFavorite" EntityType="CrouwdModel.Store.UserJobFavorite" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserSkill" EntityType="CrouwdModel.Store.UserSkill" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Feed_FeedType" Association="CrouwdModel.Store.FK_Feed_FeedType">
+            <End Role="FeedType" EntitySet="FeedType" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_Job" Association="CrouwdModel.Store.FK_Feed_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_User" Association="CrouwdModel.Store.FK_Feed_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_User1" Association="CrouwdModel.Store.FK_Feed_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follow_User" Association="CrouwdModel.Store.FK_Follow_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follow_User1" Association="CrouwdModel.Store.FK_Follow_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_ExperienceLevelType" Association="CrouwdModel.Store.FK_Job_ExperienceLevelType">
+            <End Role="ExperienceLevelType" EntitySet="ExperienceLevelType" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_User" Association="CrouwdModel.Store.FK_Job_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobSkill_Job" Association="CrouwdModel.Store.FK_JobSkill_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="JobSkill" EntitySet="JobSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Job" Association="CrouwdModel.Store.FK_Message_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_MessageType" Association="CrouwdModel.Store.FK_Message_MessageType">
+            <End Role="MessageType" EntitySet="MessageType" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="CrouwdModel.Store.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User1" Association="CrouwdModel.Store.FK_Message_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User2" Association="CrouwdModel.Store.FK_Message_User2">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ExperienceLevelType" Association="CrouwdModel.Store.FK_User_ExperienceLevelType">
+            <End Role="ExperienceLevelType" EntitySet="ExperienceLevelType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEducation_User" Association="CrouwdModel.Store.FK_UserEducation_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserEducation" EntitySet="UserEducation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEducationCourse_UserEducation" Association="CrouwdModel.Store.FK_UserEducationCourse_UserEducation">
+            <End Role="UserEducation" EntitySet="UserEducation" />
+            <End Role="UserEducationCourse" EntitySet="UserEducationCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEmployment_User" Association="CrouwdModel.Store.FK_UserEmployment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserEmployment" EntitySet="UserEmployment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEmploymentRecommendation_User" Association="CrouwdModel.Store.FK_UserEmploymentRecommendation_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserEmploymentRecommendation" EntitySet="UserEmploymentRecommendation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobApplication_Job" Association="CrouwdModel.Store.FK_UserJobApplication_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="UserJobApplication" EntitySet="UserJobApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobApplication_User" Association="CrouwdModel.Store.FK_UserJobApplication_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserJobApplication" EntitySet="UserJobApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobFavorite_Job" Association="CrouwdModel.Store.FK_UserJobFavorite_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="UserJobFavorite" EntitySet="UserJobFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobFavorite_User" Association="CrouwdModel.Store.FK_UserJobFavorite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserJobFavorite" EntitySet="UserJobFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="CrouwdModel.Store.FK_UserSkill_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ExperienceLevelType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Feed">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="FeedTypeID" Type="bigint" Nullable="false" />
+          <Property Name="JobID" Type="bigint" />
+          <Property Name="OtherUserID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="FeedType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="FollowerUserID" Type="bigint" Nullable="false" />
+          <Property Name="FollowingUserID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationCity" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationState" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationCountry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Industry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Industry2" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Responsibilities" Type="text" />
+          <Property Name="Qualifications" Type="text" />
+          <Property Name="EmployerIntroduction" Type="text" />
+          <Property Name="URL" Type="nvarchar(max)" />
+          <Property Name="ShareURL" Type="nvarchar(max)" />
+          <Property Name="State" Type="bit" Nullable="false" />
+          <Property Name="ExperienceLevelType" Type="bigint" />
+        </EntityType>
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="JobID" Type="bigint" Nullable="false" />
+          <Property Name="Skill" Type="varchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="SenderID" Type="bigint" Nullable="false" />
+          <Property Name="ReceiverID" Type="bigint" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+          <Property Name="Message" Type="text" />
+          <Property Name="LinkURL" Type="varchar(max)" />
+          <Property Name="LinkJobID" Type="bigint" />
+          <Property Name="LinkUserID" Type="bigint" />
+          <Property Name="MessageTypeID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MessageType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationCity" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationState" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationCountry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Industry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Industry2" Type="nvarchar" MaxLength="250" />
+          <Property Name="Summary" Type="text" />
+          <Property Name="PhotoURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="LinkedInId" Type="nvarchar" MaxLength="250" />
+          <Property Name="DeviceToken" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExperienceLevelType" Type="bigint" Nullable="false" />
+          <Property Name="Token" Type="varchar(max)" />
+          <Property Name="TokenExpireTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserEducation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="250" />
+          <Property Name="StartYear" Type="int" Nullable="false" />
+          <Property Name="EndYear" Type="int" />
+          <Property Name="StartMonth" Type="int" Nullable="false" />
+          <Property Name="EndMonth" Type="int" />
+        </EntityType>
+        <EntityType Name="UserEducationCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="EducationID" Type="bigint" Nullable="false" />
+          <Property Name="Course" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UserEmployment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="EmployerName" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LocationCity" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationState" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationCountry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="StartYear" Type="int" Nullable="false" />
+          <Property Name="EndYear" Type="int" />
+          <Property Name="Summary" Type="text" />
+          <Property Name="StartMonth" Type="int" Nullable="false" />
+          <Property Name="EndMonth" Type="int" />
+        </EntityType>
+        <EntityType Name="UserEmploymentRecommendation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Recommendation" Type="text" Nullable="false" />
+          <Property Name="RecommenderName" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserJobApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="JobID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserJobFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="JobID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="Skill" Type="varchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_Feed_FeedType">
+          <End Role="FeedType" Type="CrouwdModel.Store.FeedType" Multiplicity="1" />
+          <End Role="Feed" Type="CrouwdModel.Store.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="FeedTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_Job">
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="0..1" />
+          <End Role="Feed" Type="CrouwdModel.Store.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Feed" Type="CrouwdModel.Store.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_User1">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="0..1" />
+          <End Role="Feed" Type="CrouwdModel.Store.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="OtherUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follow_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Follow" Type="CrouwdModel.Store.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="FollowerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follow_User1">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Follow" Type="CrouwdModel.Store.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="FollowingUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_ExperienceLevelType">
+          <End Role="ExperienceLevelType" Type="CrouwdModel.Store.ExperienceLevelType" Multiplicity="0..1" />
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExperienceLevelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="ExperienceLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobSkill_Job">
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="1" />
+          <End Role="JobSkill" Type="CrouwdModel.Store.JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Job">
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="0..1" />
+          <End Role="Message" Type="CrouwdModel.Store.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="LinkJobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_MessageType">
+          <End Role="MessageType" Type="CrouwdModel.Store.MessageType" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Store.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="MessageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Store.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User1">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Store.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User2">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="0..1" />
+          <End Role="Message" Type="CrouwdModel.Store.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="LinkUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ExperienceLevelType">
+          <End Role="ExperienceLevelType" Type="CrouwdModel.Store.ExperienceLevelType" Multiplicity="1" />
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExperienceLevelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ExperienceLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEducation_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserEducation" Type="CrouwdModel.Store.UserEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEducation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEducationCourse_UserEducation">
+          <End Role="UserEducation" Type="CrouwdModel.Store.UserEducation" Multiplicity="1" />
+          <End Role="UserEducationCourse" Type="CrouwdModel.Store.UserEducationCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEducation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEducationCourse">
+              <PropertyRef Name="EducationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEmployment_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserEmployment" Type="CrouwdModel.Store.UserEmployment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEmployment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEmploymentRecommendation_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserEmploymentRecommendation" Type="CrouwdModel.Store.UserEmploymentRecommendation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEmploymentRecommendation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobApplication_Job">
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="1" />
+          <End Role="UserJobApplication" Type="CrouwdModel.Store.UserJobApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobApplication">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobApplication_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserJobApplication" Type="CrouwdModel.Store.UserJobApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobApplication">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobFavorite_Job">
+          <End Role="Job" Type="CrouwdModel.Store.Job" Multiplicity="1" />
+          <End Role="UserJobFavorite" Type="CrouwdModel.Store.UserJobFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobFavorite">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobFavorite_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserJobFavorite" Type="CrouwdModel.Store.UserJobFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Role="User" Type="CrouwdModel.Store.User" Multiplicity="1" />
+          <End Role="UserSkill" Type="CrouwdModel.Store.UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CrouwdModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CrouwdEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="ExperienceLevelTypes" EntityType="CrouwdModel.ExperienceLevelType" />
+          <EntitySet Name="Feeds" EntityType="CrouwdModel.Feed" />
+          <EntitySet Name="FeedTypes" EntityType="CrouwdModel.FeedType" />
+          <EntitySet Name="Follows" EntityType="CrouwdModel.Follow" />
+          <EntitySet Name="Jobs" EntityType="CrouwdModel.Job" />
+          <EntitySet Name="Messages" EntityType="CrouwdModel.Message" />
+          <EntitySet Name="MessageTypes" EntityType="CrouwdModel.MessageType" />
+          <EntitySet Name="Users" EntityType="CrouwdModel.User" />
+          <EntitySet Name="UserEducations" EntityType="CrouwdModel.UserEducation" />
+          <EntitySet Name="UserEducationCourses" EntityType="CrouwdModel.UserEducationCourse" />
+          <EntitySet Name="UserEmployments" EntityType="CrouwdModel.UserEmployment" />
+          <EntitySet Name="UserEmploymentRecommendations" EntityType="CrouwdModel.UserEmploymentRecommendation" />
+          <EntitySet Name="UserJobApplications" EntityType="CrouwdModel.UserJobApplication" />
+          <EntitySet Name="UserJobFavorites" EntityType="CrouwdModel.UserJobFavorite" />
+          <EntitySet Name="UserSkills" EntityType="CrouwdModel.UserSkill" />
+          <AssociationSet Name="FK_User_ExperienceLevelType" Association="CrouwdModel.FK_User_ExperienceLevelType">
+            <End Role="ExperienceLevelType" EntitySet="ExperienceLevelTypes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_FeedType" Association="CrouwdModel.FK_Feed_FeedType">
+            <End Role="FeedType" EntitySet="FeedTypes" />
+            <End Role="Feed" EntitySet="Feeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_Job" Association="CrouwdModel.FK_Feed_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Feed" EntitySet="Feeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_User" Association="CrouwdModel.FK_Feed_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Feed" EntitySet="Feeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_User1" Association="CrouwdModel.FK_Feed_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Feed" EntitySet="Feeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follow_User" Association="CrouwdModel.FK_Follow_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follow_User1" Association="CrouwdModel.FK_Follow_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_User" Association="CrouwdModel.FK_Job_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Job" Association="CrouwdModel.FK_Message_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobApplication_Job" Association="CrouwdModel.FK_UserJobApplication_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="UserJobApplication" EntitySet="UserJobApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobFavorite_Job" Association="CrouwdModel.FK_UserJobFavorite_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="UserJobFavorite" EntitySet="UserJobFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_MessageType" Association="CrouwdModel.FK_Message_MessageType">
+            <End Role="MessageType" EntitySet="MessageTypes" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="CrouwdModel.FK_Message_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User1" Association="CrouwdModel.FK_Message_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User2" Association="CrouwdModel.FK_Message_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEducation_User" Association="CrouwdModel.FK_UserEducation_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserEducation" EntitySet="UserEducations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEmployment_User" Association="CrouwdModel.FK_UserEmployment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserEmployment" EntitySet="UserEmployments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobApplication_User" Association="CrouwdModel.FK_UserJobApplication_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserJobApplication" EntitySet="UserJobApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserJobFavorite_User" Association="CrouwdModel.FK_UserJobFavorite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserJobFavorite" EntitySet="UserJobFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="CrouwdModel.FK_UserSkill_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserSkill" EntitySet="UserSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEducationCourse_UserEducation" Association="CrouwdModel.FK_UserEducationCourse_UserEducation">
+            <End Role="UserEducation" EntitySet="UserEducations" />
+            <End Role="UserEducationCourse" EntitySet="UserEducationCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_ExperienceLevelType" Association="CrouwdModel.FK_Job_ExperienceLevelType">
+            <End Role="ExperienceLevelType" EntitySet="ExperienceLevelTypes" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <EntitySet Name="JobSkills" EntityType="CrouwdModel.JobSkill" />
+          <AssociationSet Name="FK_JobSkill_Job" Association="CrouwdModel.FK_JobSkill_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="JobSkill" EntitySet="JobSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEmploymentRecommendation_User" Association="CrouwdModel.FK_UserEmploymentRecommendation_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserEmploymentRecommendation" EntitySet="UserEmploymentRecommendations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ExperienceLevelType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="CrouwdModel.FK_User_ExperienceLevelType" FromRole="ExperienceLevelType" ToRole="User" />
+          <NavigationProperty Name="Jobs" Relationship="CrouwdModel.FK_Job_ExperienceLevelType" FromRole="ExperienceLevelType" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="Feed">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="FeedTypeID" Type="Int64" Nullable="false" />
+          <Property Name="JobID" Type="Int64" />
+          <Property Name="OtherUserID" Type="Int64" />
+          <NavigationProperty Name="FeedType" Relationship="CrouwdModel.FK_Feed_FeedType" FromRole="Feed" ToRole="FeedType" />
+          <NavigationProperty Name="Job" Relationship="CrouwdModel.FK_Feed_Job" FromRole="Feed" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_Feed_User" FromRole="Feed" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="CrouwdModel.FK_Feed_User1" FromRole="Feed" ToRole="User" />
+        </EntityType>
+        <EntityType Name="FeedType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Feeds" Relationship="CrouwdModel.FK_Feed_FeedType" FromRole="FeedType" ToRole="Feed" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FollowerUserID" Type="Int64" Nullable="false" />
+          <Property Name="FollowingUserID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_Follow_User" FromRole="Follow" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="CrouwdModel.FK_Follow_User1" FromRole="Follow" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCity" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationState" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCountry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Industry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Industry2" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Responsibilities" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Qualifications" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="EmployerIntroduction" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ShareURL" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Feeds" Relationship="CrouwdModel.FK_Feed_Job" FromRole="Job" ToRole="Feed" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_Job_User" FromRole="Job" ToRole="User" />
+          <NavigationProperty Name="Messages" Relationship="CrouwdModel.FK_Message_Job" FromRole="Job" ToRole="Message" />
+          <NavigationProperty Name="UserJobApplications" Relationship="CrouwdModel.FK_UserJobApplication_Job" FromRole="Job" ToRole="UserJobApplication" />
+          <NavigationProperty Name="UserJobFavorites" Relationship="CrouwdModel.FK_UserJobFavorite_Job" FromRole="Job" ToRole="UserJobFavorite" />
+          <Property Type="Int64" Name="ExperienceLevelType" />
+          <NavigationProperty Name="ExperienceLevelType1" Relationship="CrouwdModel.FK_Job_ExperienceLevelType" FromRole="Job" ToRole="ExperienceLevelType" />
+          <NavigationProperty Name="JobSkills" Relationship="CrouwdModel.FK_JobSkill_Job" FromRole="Job" ToRole="JobSkill" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SenderID" Type="Int64" Nullable="false" />
+          <Property Name="ReceiverID" Type="Int64" Nullable="false" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <Property Name="Message1" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="LinkURL" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="LinkJobID" Type="Int64" />
+          <Property Name="LinkUserID" Type="Int64" />
+          <Property Name="MessageTypeID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Job" Relationship="CrouwdModel.FK_Message_Job" FromRole="Message" ToRole="Job" />
+          <NavigationProperty Name="MessageType" Relationship="CrouwdModel.FK_Message_MessageType" FromRole="Message" ToRole="MessageType" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_Message_User" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="CrouwdModel.FK_Message_User1" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User2" Relationship="CrouwdModel.FK_Message_User2" FromRole="Message" ToRole="User" />
+        </EntityType>
+        <EntityType Name="MessageType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Messages" Relationship="CrouwdModel.FK_Message_MessageType" FromRole="MessageType" ToRole="Message" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCity" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationState" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCountry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Industry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Industry2" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Summary" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="PhotoURL" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LinkedInId" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="DeviceToken" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="ExperienceLevelType" Type="Int64" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="TokenExpireTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExperienceLevelType1" Relationship="CrouwdModel.FK_User_ExperienceLevelType" FromRole="User" ToRole="ExperienceLevelType" />
+          <NavigationProperty Name="Feeds" Relationship="CrouwdModel.FK_Feed_User" FromRole="User" ToRole="Feed" />
+          <NavigationProperty Name="Feeds1" Relationship="CrouwdModel.FK_Feed_User1" FromRole="User" ToRole="Feed" />
+          <NavigationProperty Name="Follows" Relationship="CrouwdModel.FK_Follow_User" FromRole="User" ToRole="Follow" />
+          <NavigationProperty Name="Follows1" Relationship="CrouwdModel.FK_Follow_User1" FromRole="User" ToRole="Follow" />
+          <NavigationProperty Name="Jobs" Relationship="CrouwdModel.FK_Job_User" FromRole="User" ToRole="Job" />
+          <NavigationProperty Name="Messages" Relationship="CrouwdModel.FK_Message_User" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="CrouwdModel.FK_Message_User1" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages2" Relationship="CrouwdModel.FK_Message_User2" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="UserEducations" Relationship="CrouwdModel.FK_UserEducation_User" FromRole="User" ToRole="UserEducation" />
+          <NavigationProperty Name="UserEmployments" Relationship="CrouwdModel.FK_UserEmployment_User" FromRole="User" ToRole="UserEmployment" />
+          <NavigationProperty Name="UserJobApplications" Relationship="CrouwdModel.FK_UserJobApplication_User" FromRole="User" ToRole="UserJobApplication" />
+          <NavigationProperty Name="UserJobFavorites" Relationship="CrouwdModel.FK_UserJobFavorite_User" FromRole="User" ToRole="UserJobFavorite" />
+          <NavigationProperty Name="UserSkills" Relationship="CrouwdModel.FK_UserSkill_User" FromRole="User" ToRole="UserSkill" />
+          <NavigationProperty Name="UserEmploymentRecommendations" Relationship="CrouwdModel.FK_UserEmploymentRecommendation_User" FromRole="User" ToRole="UserEmploymentRecommendation" />
+        </EntityType>
+        <EntityType Name="UserEducation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Degree" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="StartYear" Type="Int32" Nullable="false" />
+          <Property Name="EndYear" Type="Int32" />
+          <Property Name="StartMonth" Type="Int32" Nullable="false" />
+          <Property Name="EndMonth" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserEducation_User" FromRole="UserEducation" ToRole="User" />
+          <NavigationProperty Name="UserEducationCourses" Relationship="CrouwdModel.FK_UserEducationCourse_UserEducation" FromRole="UserEducation" ToRole="UserEducationCourse" />
+        </EntityType>
+        <EntityType Name="UserEducationCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EducationID" Type="Int64" Nullable="false" />
+          <Property Name="Course" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="UserEducation" Relationship="CrouwdModel.FK_UserEducationCourse_UserEducation" FromRole="UserEducationCourse" ToRole="UserEducation" />
+        </EntityType>
+        <EntityType Name="UserEmployment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="EmployerName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCity" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationState" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCountry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="StartYear" Type="Int32" Nullable="false" />
+          <Property Name="EndYear" Type="Int32" />
+          <Property Name="Summary" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="StartMonth" Type="Int32" Nullable="false" />
+          <Property Name="EndMonth" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserEmployment_User" FromRole="UserEmployment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserEmploymentRecommendation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Recommendation" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="RecommenderName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserEmploymentRecommendation_User" FromRole="UserEmploymentRecommendation" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserJobApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="JobID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Job" Relationship="CrouwdModel.FK_UserJobApplication_Job" FromRole="UserJobApplication" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserJobApplication_User" FromRole="UserJobApplication" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserJobFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="JobID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Job" Relationship="CrouwdModel.FK_UserJobFavorite_Job" FromRole="UserJobFavorite" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserJobFavorite_User" FromRole="UserJobFavorite" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="Skill" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="CrouwdModel.FK_UserSkill_User" FromRole="UserSkill" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_ExperienceLevelType">
+          <End Role="ExperienceLevelType" Type="CrouwdModel.ExperienceLevelType" Multiplicity="1" />
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExperienceLevelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ExperienceLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_FeedType">
+          <End Role="FeedType" Type="CrouwdModel.FeedType" Multiplicity="1" />
+          <End Role="Feed" Type="CrouwdModel.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="FeedTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_Job">
+          <End Role="Job" Type="CrouwdModel.Job" Multiplicity="0..1" />
+          <End Role="Feed" Type="CrouwdModel.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Feed" Type="CrouwdModel.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feed_User1">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="0..1" />
+          <End Role="Feed" Type="CrouwdModel.Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feed">
+              <PropertyRef Name="OtherUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follow_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Follow" Type="CrouwdModel.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="FollowerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follow_User1">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Follow" Type="CrouwdModel.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="FollowingUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Job" Type="CrouwdModel.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Job">
+          <End Role="Job" Type="CrouwdModel.Job" Multiplicity="0..1" />
+          <End Role="Message" Type="CrouwdModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="LinkJobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobApplication_Job">
+          <End Role="Job" Type="CrouwdModel.Job" Multiplicity="1" />
+          <End Role="UserJobApplication" Type="CrouwdModel.UserJobApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobApplication">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobFavorite_Job">
+          <End Role="Job" Type="CrouwdModel.Job" Multiplicity="1" />
+          <End Role="UserJobFavorite" Type="CrouwdModel.UserJobFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobFavorite">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_MessageType">
+          <End Role="MessageType" Type="CrouwdModel.MessageType" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="MessageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User1">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="Message" Type="CrouwdModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User2">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="0..1" />
+          <End Role="Message" Type="CrouwdModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="LinkUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEducation_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="UserEducation" Type="CrouwdModel.UserEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEducation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEmployment_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="UserEmployment" Type="CrouwdModel.UserEmployment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEmployment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobApplication_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="UserJobApplication" Type="CrouwdModel.UserJobApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobApplication">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserJobFavorite_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="UserJobFavorite" Type="CrouwdModel.UserJobFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserJobFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Role="User" Type="CrouwdModel.User" Multiplicity="1" />
+          <End Role="UserSkill" Type="CrouwdModel.UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEducationCourse_UserEducation">
+          <End Role="UserEducation" Type="CrouwdModel.UserEducation" Multiplicity="1" />
+          <End Role="UserEducationCourse" Type="CrouwdModel.UserEducationCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEducation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEducationCourse">
+              <PropertyRef Name="EducationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_ExperienceLevelType">
+          <End Type="CrouwdModel.ExperienceLevelType" Role="ExperienceLevelType" Multiplicity="0..1" />
+          <End Type="CrouwdModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExperienceLevelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="ExperienceLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Type="Int64" Name="JobID" Nullable="false" />
+          <Property Type="String" Name="Skill" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Job" Relationship="CrouwdModel.FK_JobSkill_Job" FromRole="JobSkill" ToRole="Job" />
+        </EntityType>
+        <Association Name="FK_JobSkill_Job">
+          <End Type="CrouwdModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="CrouwdModel.JobSkill" Role="JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEmploymentRecommendation_User">
+          <End Type="CrouwdModel.User" Role="User" Multiplicity="1" />
+          <End Type="CrouwdModel.UserEmploymentRecommendation" Role="UserEmploymentRecommendation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserEmploymentRecommendation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CrouwdModelStoreContainer" CdmEntityContainer="CrouwdEntities">
+          <EntitySetMapping Name="ExperienceLevelTypes">
+            <EntityTypeMapping TypeName="CrouwdModel.ExperienceLevelType">
+              <MappingFragment StoreEntitySet="ExperienceLevelType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feeds">
+            <EntityTypeMapping TypeName="CrouwdModel.Feed">
+              <MappingFragment StoreEntitySet="Feed">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FeedTypeID" ColumnName="FeedTypeID" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="OtherUserID" ColumnName="OtherUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedTypes">
+            <EntityTypeMapping TypeName="CrouwdModel.FeedType">
+              <MappingFragment StoreEntitySet="FeedType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Follows">
+            <EntityTypeMapping TypeName="CrouwdModel.Follow">
+              <MappingFragment StoreEntitySet="Follow">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FollowerUserID" ColumnName="FollowerUserID" />
+                <ScalarProperty Name="FollowingUserID" ColumnName="FollowingUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="CrouwdModel.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="ExperienceLevelType" ColumnName="ExperienceLevelType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="LocationCity" ColumnName="LocationCity" />
+                <ScalarProperty Name="LocationState" ColumnName="LocationState" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Industry2" ColumnName="Industry2" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+                <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
+                <ScalarProperty Name="EmployerIntroduction" ColumnName="EmployerIntroduction" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ShareURL" ColumnName="ShareURL" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="CrouwdModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Message1" ColumnName="Message" />
+                <ScalarProperty Name="LinkURL" ColumnName="LinkURL" />
+                <ScalarProperty Name="LinkJobID" ColumnName="LinkJobID" />
+                <ScalarProperty Name="LinkUserID" ColumnName="LinkUserID" />
+                <ScalarProperty Name="MessageTypeID" ColumnName="MessageTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageTypes">
+            <EntityTypeMapping TypeName="CrouwdModel.MessageType">
+              <MappingFragment StoreEntitySet="MessageType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CrouwdModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="LocationCity" ColumnName="LocationCity" />
+                <ScalarProperty Name="LocationState" ColumnName="LocationState" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Industry2" ColumnName="Industry2" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="PhotoURL" ColumnName="PhotoURL" />
+                <ScalarProperty Name="LinkedInId" ColumnName="LinkedInId" />
+                <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+                <ScalarProperty Name="ExperienceLevelType" ColumnName="ExperienceLevelType" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="TokenExpireTime" ColumnName="TokenExpireTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserEducations">
+            <EntityTypeMapping TypeName="CrouwdModel.UserEducation">
+              <MappingFragment StoreEntitySet="UserEducation">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+                <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+                <ScalarProperty Name="StartMonth" ColumnName="StartMonth" />
+                <ScalarProperty Name="EndMonth" ColumnName="EndMonth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserEducationCourses">
+            <EntityTypeMapping TypeName="CrouwdModel.UserEducationCourse">
+              <MappingFragment StoreEntitySet="UserEducationCourse">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserEmployments">
+            <EntityTypeMapping TypeName="CrouwdModel.UserEmployment">
+              <MappingFragment StoreEntitySet="UserEmployment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LocationCity" ColumnName="LocationCity" />
+                <ScalarProperty Name="LocationState" ColumnName="LocationState" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+                <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+                <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="StartMonth" ColumnName="StartMonth" />
+                <ScalarProperty Name="EndMonth" ColumnName="EndMonth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserEmploymentRecommendations">
+            <EntityTypeMapping TypeName="CrouwdModel.UserEmploymentRecommendation">
+              <MappingFragment StoreEntitySet="UserEmploymentRecommendation">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Recommendation" ColumnName="Recommendation" />
+                <ScalarProperty Name="RecommenderName" ColumnName="RecommenderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserJobApplications">
+            <EntityTypeMapping TypeName="CrouwdModel.UserJobApplication">
+              <MappingFragment StoreEntitySet="UserJobApplication">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserJobFavorites">
+            <EntityTypeMapping TypeName="CrouwdModel.UserJobFavorite">
+              <MappingFragment StoreEntitySet="UserJobFavorite">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSkills">
+            <EntityTypeMapping TypeName="CrouwdModel.UserSkill">
+              <MappingFragment StoreEntitySet="UserSkill">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSkills">
+            <EntityTypeMapping TypeName="CrouwdModel.JobSkill">
+              <MappingFragment StoreEntitySet="JobSkill">
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

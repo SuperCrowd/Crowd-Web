@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6aed8de1e0940c0b25b0315ddad7052" Name="Diagram1">
+        <EntityTypeShape EntityType="CrouwdModel.ExperienceLevelType" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.Feed" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.FeedType" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.Follow" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.Job" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.Message" Width="1.5" PointX="10.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.MessageType" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.User" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserEducation" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserEducationCourse" Width="1.5" PointX="7.5" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserEmployment" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserEmploymentRecommendation" Width="1.5" PointX="7.5" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserJobApplication" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserJobFavorite" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrouwdModel.UserSkill" Width="1.5" PointX="5.25" PointY="27.875" IsExpanded="true" />
+        <AssociationConnector Association="CrouwdModel.FK_User_ExperienceLevelType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Feed_FeedType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Feed_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Feed_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Feed_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Follow_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Follow_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Job_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Message_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserJobApplication_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserJobFavorite_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Message_MessageType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Message_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Message_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Message_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserEducation_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserEmployment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserJobApplication_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserJobFavorite_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserSkill_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_UserEducationCourse_UserEducation" ManuallyRouted="false" />
+        <AssociationConnector Association="CrouwdModel.FK_Job_ExperienceLevelType" />
+        <EntityTypeShape EntityType="CrouwdModel.JobSkill" Width="1.5" PointX="9.57454350850291" PointY="20.228663915874744" />
+        <AssociationConnector Association="CrouwdModel.FK_JobSkill_Job" />
+        <AssociationConnector Association="CrouwdModel.FK_UserEmploymentRecommendation_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
