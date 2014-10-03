@@ -74,8 +74,31 @@ namespace CrowdWCFservice
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetUserJobs", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        GetUserJobsResult GetUserJobs(string UserID, string UserToken, string OtherUserID,string PageNumber);    
-   
+        GetUserJobsResult GetUserJobs(string UserID, string UserToken, string OtherUserID,string PageNumber);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetMessageList", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetMessageListResult GetMessageList(string UserID, string UserToken, string PageNumber);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetMessageThread", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetMessageThreadResult GetMessageThread(string UserID, string UserToken, string SenderID, string MessageCount);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "LogoutUser", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        ResultStatus LogoutUser(string UserID, string UserToken);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "UpdateMessageState", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        ResultStatus UpdateMessageState(string UserID, string UserToken, string MessageID);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "SendMessage", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetSendMessageResult SendMessage(string UserID, string UserToken, string ReceiverID, string Message, string LinkURL, string LinkUserID, string LinkJobID);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetPastMessages", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetPastMessagesResult GetPastMessages(string UserID, string UserToken, string SenderID, string MessageID, string Message_Count);
     }    
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
@@ -2116,6 +2139,307 @@ namespace CrowdWCFservice
             set { _JobFavorited = value; }
         }
 
+    }
+    #endregion
+
+    #region GetMessageListResult
+    [DataContract]
+    public class GetMessageListResult
+    {
+        private ResultStatus _ResultStatus;
+        private List<GetMessageDetailWithSender> _MesssageList;      
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+        [DataMember]
+        public List<GetMessageDetailWithSender> MesssageList
+        {
+            get { return _MesssageList; }
+            set { _MesssageList = value; }
+        }       
+    }
+    #endregion
+
+    #region GetMessageDetailWithSender
+    [DataContract]
+    public class GetMessageDetailWithSender
+    {
+        private string _ID = string.Empty;
+        private string _DateCreated = string.Empty;
+        private string _SenderID = string.Empty;
+        private GetUserDetailForFeed _SenderDetail;
+        private string _ReceiverID = string.Empty;
+        private string _State = string.Empty;
+        private string _Message = string.Empty;
+        private string _LincURL = string.Empty;
+        private string _LincUserID = string.Empty;
+        private string _LincJobID = string.Empty;
+        private string _Type = string.Empty;
+
+        private string _IsUnreadMessages = string.Empty;
+
+        [DataMember]
+        public string ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
+
+        [DataMember]
+        public string DateCreated
+        {
+            get { return _DateCreated; }
+            set { _DateCreated = value; }
+        }
+
+        [DataMember]
+        public string SenderID
+        {
+            get { return _SenderID; }
+            set { _SenderID = value; }
+        }
+
+        [DataMember]
+        public GetUserDetailForFeed SenderDetail
+        {
+            get { return _SenderDetail; }
+            set { _SenderDetail = value; }
+        }
+
+        [DataMember]
+        public string ReceiverID
+        {
+            get { return _ReceiverID; }
+            set { _ReceiverID = value; }
+        }
+
+        [DataMember]
+        public string State
+        {
+            get { return _State; }
+            set { _State = value; }
+        }
+
+        [DataMember]
+        public string Message
+        {
+            get { return _Message; }
+            set { _Message = value; }
+        }
+
+        [DataMember]
+        public string LincURL
+        {
+            get { return _LincURL; }
+            set { _LincURL = value; }
+        }
+
+        [DataMember]
+        public string LincUserID
+        {
+            get { return _LincUserID; }
+            set { _LincUserID = value; }
+        }
+
+        [DataMember]
+        public string LincJobID
+        {
+            get { return _LincJobID; }
+            set { _LincJobID = value; }
+        }
+
+        [DataMember]
+        public string Type
+        {
+            get { return _Type; }
+            set { _Type = value; }
+        }
+
+        [DataMember]
+        public string IsUnreadMessages
+        {
+            get { return _IsUnreadMessages; }
+            set { _IsUnreadMessages = value; }
+        }
+    }
+    #endregion
+
+    #region GetMessageThreadResult
+    [DataContract]
+    public class GetMessageThreadResult
+    {
+        private ResultStatus _ResultStatus;
+        private List<GetMessageDetail> _MesssageList;
+        private string _IsUnreadMessages = string.Empty;
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+        [DataMember]
+        public List<GetMessageDetail> MesssageList
+        {
+            get { return _MesssageList; }
+            set { _MesssageList = value; }
+        }
+
+        [DataMember]
+        public string IsUnreadMessages
+        {
+            get { return _IsUnreadMessages; }
+            set { _IsUnreadMessages = value; }
+        }
+    }
+    #endregion
+
+    #region GetMessageDetail
+    [DataContract]
+    public class GetMessageDetail
+    {
+        private string _ID = string.Empty;
+        private string _DateCreated = string.Empty;
+        private string _SenderID = string.Empty;
+        private string _ReceiverID = string.Empty;
+        private string _State = string.Empty;
+        private string _Message = string.Empty;
+        private string _LincURL = string.Empty;
+        private string _LincUserID = string.Empty;
+        private string _LincJobID = string.Empty;
+        private string _Type = string.Empty;        
+
+        [DataMember]
+        public string ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
+
+        [DataMember]
+        public string DateCreated
+        {
+            get { return _DateCreated; }
+            set { _DateCreated = value; }
+        }
+
+        [DataMember]
+        public string SenderID
+        {
+            get { return _SenderID; }
+            set { _SenderID = value; }
+        }
+
+        [DataMember]
+        public string ReceiverID
+        {
+            get { return _ReceiverID; }
+            set { _ReceiverID = value; }
+        }
+
+        [DataMember]
+        public string State
+        {
+            get { return _State; }
+            set { _State = value; }
+        }
+
+        [DataMember]
+        public string Message
+        {
+            get { return _Message; }
+            set { _Message = value; }
+        }
+
+        [DataMember]
+        public string LincURL
+        {
+            get { return _LincURL; }
+            set { _LincURL = value; }
+        }
+
+        [DataMember]
+        public string LincUserID
+        {
+            get { return _LincUserID; }
+            set { _LincUserID = value; }
+        }
+
+        [DataMember]
+        public string LincJobID
+        {
+            get { return _LincJobID; }
+            set { _LincJobID = value; }
+        }
+
+        [DataMember]
+        public string Type
+        {
+            get { return _Type; }
+            set { _Type = value; }
+        }
+             
+    }
+    #endregion
+
+    #region GetSendMessageResult
+    [DataContract]
+    public class GetSendMessageResult
+    {
+        private string _MessageID = string.Empty;
+        private ResultStatus _ResultStatus;
+       
+        [DataMember]
+        public string MessageID
+        {
+            get { return _MessageID; }
+            set { _MessageID = value; }
+        }
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+    }
+    #endregion
+
+    #region GetPastMessagesResult
+    [DataContract]
+    public class GetPastMessagesResult
+    {
+        private ResultStatus _ResultStatus;
+        private List<GetMessageDetail> _MesssageList;
+        private string _IsUnreadMessages = string.Empty;
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+        [DataMember]
+        public List<GetMessageDetail> MesssageList
+        {
+            get { return _MesssageList; }
+            set { _MesssageList = value; }
+        }
+
+        [DataMember]
+        public string IsUnreadMessages
+        {
+            get { return _IsUnreadMessages; }
+            set { _IsUnreadMessages = value; }
+        }
     }
     #endregion
 }

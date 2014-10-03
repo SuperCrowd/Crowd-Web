@@ -67,6 +67,31 @@ namespace CrowdWCFservice
         {
             GetIsUserExistsResult IsUserExistsResult = new GetIsUserExistsResult();
             ResultStatus ResultStatus = new ResultStatus();
+
+            //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+            //we need blank array in response. Currently we are getting “<null>” for blank array. This applies to GetUserEducationWithCourseResult, GetUserEducationCourseResult, GetUserEmploymentRecommendationResult, GetUserEmploymentResult, GetUserResult, GetUserSkillResult. 
+            GetUserResult blnkGetUserResult = new GetUserResult();
+            List<GetUserSkillResult> blnkLstUserSkillResult = new List<GetUserSkillResult>();
+            GetUserSkillResult blnkGetUserSkillResult = new GetUserSkillResult();
+            blnkLstUserSkillResult.Add(blnkGetUserSkillResult);
+
+            List<GetUserEmploymentResult> blnkLstUserEmploymentResult = new List<GetUserEmploymentResult>();
+            GetUserEmploymentResult blnkGetUserEmploymentResult = new GetUserEmploymentResult();
+            blnkLstUserEmploymentResult.Add(blnkGetUserEmploymentResult);
+            
+            List<GetUserEducationWithCourseResult> blnkLstUserEducationWithCourseResult = new List<GetUserEducationWithCourseResult>();
+            GetUserEducationWithCourseResult blnkGetUserEducationWithCourseResult = new GetUserEducationWithCourseResult();
+            List<GetUserEducationCourseResult> blnkLstUserEducationCourseResult = new List<GetUserEducationCourseResult>();
+            GetUserEducationCourseResult blnkGetUserEducationCourseResult = new GetUserEducationCourseResult();
+            blnkLstUserEducationCourseResult.Add(blnkGetUserEducationCourseResult);
+            blnkGetUserEducationWithCourseResult.GetUserEducationCourseResult = blnkLstUserEducationCourseResult;
+            blnkLstUserEducationWithCourseResult.Add(blnkGetUserEducationWithCourseResult);
+
+            List<GetUserEmploymentRecommendationResult> blnkLstUserEmploymentRecommendationResult = new List<GetUserEmploymentRecommendationResult>();
+            GetUserEmploymentRecommendationResult blnkGetUserEmploymentRecommendationResult = new GetUserEmploymentRecommendationResult();
+            blnkLstUserEmploymentRecommendationResult.Add(blnkGetUserEmploymentRecommendationResult);
+            //End Comment by himanshu
+
             try
             {
                 writeLog("IsUserExists", "START", Email);
@@ -110,9 +135,10 @@ namespace CrowdWCFservice
 
                 if (UserEducations.Length > 0)
                 {
+                    //Comment by himanshu: As per mail on 03-10-14 2nd point. Field degree is optional.
                     foreach (var ed in UserEducations)
                     {
-                        if (ed.Name == "" || ed.Degree == "" || ed.StartYear == "" || ed.StartMonth == "")
+                        if (ed.Name == "" || ed.StartYear == "" || ed.StartMonth == "") //ed.Degree == "" ||
                         {
                             IsInValidParameter = true;
                         }
@@ -141,10 +167,17 @@ namespace CrowdWCFservice
                             ResultStatus.Status = "0";
                             ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
                             IsUserExistsResult.ResultStatus = ResultStatus;
+                            //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                            IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                            IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                            IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                            IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                            IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                            //End Comment by himanshu
                         }
                         else
                         {
-                            //Check Email already exist or not if provided in request
+                            //Check Email already exist or not if provided in request(optional field if user entered then only we need to check this)
                             if (Email != null && Email != "")
                             {
                                 User objCheckEmail = db.User.Get().FirstOrDefault(n => n.Email != null && n.Email.ToUpper() == Email.ToUpper());
@@ -154,6 +187,15 @@ namespace CrowdWCFservice
                                     ResultStatus.Status = "0";
                                     ResultStatus.StatusMessage = "Requested Email is already registered!";
                                     IsUserExistsResult.ResultStatus = ResultStatus;
+                                    
+                                    //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                    IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                    IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                    IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                    IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                    IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                    //End Comment by himanshu
+
                                     writeLog("IsUserExists", "STOP", Email);
                                     return IsUserExistsResult;
                                 }
@@ -338,6 +380,14 @@ namespace CrowdWCFservice
                                 ResultStatus.Status = "0";
                                 ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
                                 IsUserExistsResult.ResultStatus = ResultStatus;
+
+                                //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                //End Comment by himanshu
                             }
                             else
                             {
@@ -351,6 +401,15 @@ namespace CrowdWCFservice
                                         ResultStatus.Status = "0";
                                         ResultStatus.StatusMessage = "Requested Email is already registered!";
                                         IsUserExistsResult.ResultStatus = ResultStatus;
+
+                                        //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                        IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                        IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                        IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                        IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                        IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                        //End Comment by himanshu
+
                                         writeLog("IsUserExists", "STOP", Email);
                                         return IsUserExistsResult;
                                     }
@@ -583,12 +642,14 @@ namespace CrowdWCFservice
                                         //=================================================//
                                         IsUserExistsResult = GetUserDetails(objGetUser.ID, false);
                                     }
-                                    else
-                                    {
-                                        ResultStatus.Status = "0";
-                                        ResultStatus.StatusMessage = "User does not exist!";
-                                        IsUserExistsResult.ResultStatus = ResultStatus;
-                                    }
+                                    //Comment by himanshu: as per mail 03-10-14 (1st point).
+                                    //else
+                                    //{
+                                    //    ResultStatus.Status = "0";
+                                    //    ResultStatus.StatusMessage = "User does not exist!";
+                                    //    IsUserExistsResult.ResultStatus = ResultStatus;
+                                    //}
+                                    //Close Comment by himanshu
                                 }
                             }
                         }
@@ -603,6 +664,14 @@ namespace CrowdWCFservice
                     ResultStatus.Status = "0";
                     ResultStatus.StatusMessage = "Invalid Parameter!";
                     IsUserExistsResult.ResultStatus = ResultStatus;
+                    IsUserExistsResult.GetUserResult = blnkGetUserResult;
+
+                    //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                    IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                    IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                    IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                    IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                    //End Comment by himanshu
                 }
             }
             catch (Exception ex)
@@ -610,6 +679,14 @@ namespace CrowdWCFservice
                 ResultStatus.Status = "0";
                 ResultStatus.StatusMessage = ex.Message;
                 IsUserExistsResult.ResultStatus = ResultStatus;
+
+                //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                //End Comment by himanshu
             }
             writeLog("IsUserExists", "STOP", Email);
             return IsUserExistsResult;
@@ -2035,15 +2112,15 @@ namespace CrowdWCFservice
                 if (objTokenInfo != null && objTokenInfo.EmailID != null)
                 {
 
-                    List<User> objGetUser = db.User.Get().OrderBy(n => n.FirstName).ToList();
+                    List<User> objGetUser = db.User.Get().Where(n => n.ID != Convert.ToInt64(UserID)).OrderBy(n => n.FirstName).ToList();
 
                     if (Industry != null && Industry != "")
                     {
-                        objGetUser = objGetUser.Where(r => r.Industry != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()))).ToList();
+                        objGetUser = objGetUser.Where(r => r.Industry != null && r.Industry2 != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()))).ToList();
                     }
                     if (Industry2 != null && Industry2 != "")
                     {
-                        objGetUser = objGetUser.Where(r => r.Industry2 != null && (r.Industry2.ToUpper().Contains(Industry2.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()))).ToList();
+                        objGetUser = objGetUser.Where(r => r.Industry2 != null && r.Industry != null && (r.Industry2.ToUpper().Contains(Industry2.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()))).ToList();
                     }
                     if (ExperienceLevel != null && ExperienceLevel != "")
                     {
@@ -2164,7 +2241,7 @@ namespace CrowdWCFservice
                         else
                         {
                             ResultStatus.Status = "0";
-                            ResultStatus.StatusMessage = "";
+                            ResultStatus.StatusMessage = "No Records on this Page Number!"; //Changes by himanshu: As per email on 03-10-14.
                             SearchCandidatesResult.ResultStatus = ResultStatus;
                             SearchCandidatesResult.UserDetail = lstUserDetail;
                         }
@@ -2215,7 +2292,7 @@ namespace CrowdWCFservice
                     long lngUserID = Convert.ToInt64(UserID);
                     long lngOtherUserID = Convert.ToInt64(OtherUserID);
                     //Posted By Me
-                    List<Job> objJobPostedByMe = db.Job.Get().Where(n => n.UserID == Convert.ToInt64(lngOtherUserID)).ToList();
+                    List<Job> objJobPostedByMe = db.Job.Get().Where(n => n.UserID == Convert.ToInt64(lngOtherUserID)).OrderByDescending(n => n.DateModified).ToList();
                     if (objJobPostedByMe.Count > 0)
                     {
                         foreach (var job in objJobPostedByMe)
@@ -2246,7 +2323,7 @@ namespace CrowdWCFservice
                     if (lngUserID == lngOtherUserID)
                     {
                         //Job applied
-                        List<Int64> objJobApplied = db.UserJobApplication.Get().Where(n => n.UserID == Convert.ToInt64(OtherUserID)).OrderByDescending(n=>n.ID).Select(n => n.JobID).ToList();
+                        List<Int64> objJobApplied = db.UserJobApplication.Get().Where(n => n.UserID == Convert.ToInt64(OtherUserID)).OrderByDescending(n => n.ID).Select(n => n.JobID).ToList();
                         if (objJobApplied.Count > 0)
                         {
                             foreach (Int64 jobid in objJobApplied)
@@ -2357,6 +2434,534 @@ namespace CrowdWCFservice
             }
             writeLog("GetUserJobs", "STOP", UserID);
             return UserJobResult;
+        }
+
+        #endregion
+
+        #region GetMessageList
+
+        public GetMessageListResult GetMessageList(string UserID, string UserToken, string PageNumber)
+        {
+            GetMessageListResult MessageListResult = new GetMessageListResult();
+            ResultStatus ResultStatus = new ResultStatus();
+            List<GetMessageDetailWithSender> MesssageList = new List<GetMessageDetailWithSender>();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("GetMessageList", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    long lngUserID = Convert.ToInt64(UserID);
+                    List<Message> lstFinal = new List<Message>();
+
+                    var lstMessageType0 = db.Message.Get(n => n.ReceiverID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList();
+                    if (lstMessageType0.Count > 0)
+                    {
+                        foreach (var message in lstMessageType0)
+                        {
+                            lstFinal.Add(message.FirstOrDefault());
+                        }
+                    }
+
+                    List<Message> lstMessageType1 = db.Message.Get().Where(n => n.ReceiverID == lngUserID && n.MessageTypeID == 2).ToList();
+                    if (lstMessageType1.Count > 0)
+                    {
+                        foreach (var message in lstMessageType1)
+                        {
+                            lstFinal.Add(message);
+                        }
+                    }
+
+                    var lstFinalOrdered = lstFinal.OrderByDescending(n => n.ID).ToList();
+
+                    if (lstFinalOrdered.Count > 0)
+                    {
+                        if (PageNumber != null && PageNumber != "")
+                        {
+                            //Paging parameters
+                            int pagesize = 3;
+                            int currentpage = Convert.ToInt32(PageNumber);
+                            int currentsize = pagesize;
+                            int skipcount = currentsize * (currentpage - 1);
+                            int takecount = currentsize * currentpage;
+                            lstFinalOrdered = lstFinalOrdered.Take(takecount).Skip(skipcount).ToList();
+                        }
+                        if (lstFinalOrdered.Count > 0)
+                        {
+                            foreach (var msg in lstFinalOrdered)
+                            {
+                                //prepare response
+                                GetMessageDetailWithSender objCurrMessage = new GetMessageDetailWithSender();
+                                objCurrMessage.ID = Convert.ToString(msg.ID);
+                                objCurrMessage.DateCreated = Convert.ToString(msg.DateCreated);
+                                objCurrMessage.SenderID = Convert.ToString(msg.SenderID);
+                                //GetSenderdetail
+                                User objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.SenderID);
+                                if (objUser != null)
+                                {
+                                    GetUserDetailForFeed UserDetail = new GetUserDetailForFeed();
+                                    UserDetail.UserId = Convert.ToString(objUser.ID);
+                                    UserDetail.DateCreated = Convert.ToString(objUser.DateCreated);
+                                    UserDetail.DateModified = Convert.ToString(objUser.DateModified);
+                                    UserDetail.Email = objUser.Email;
+                                    UserDetail.FirstName = objUser.FirstName;
+                                    UserDetail.LastName = objUser.LastName;
+                                    UserDetail.LocationCity = objUser.LocationCity;
+                                    UserDetail.LocationState = objUser.LocationState;
+                                    UserDetail.LocationCountry = objUser.LocationCountry;
+                                    UserDetail.Industry = objUser.Industry;
+                                    UserDetail.Industry2 = objUser.Industry2;
+                                    UserDetail.Summary = objUser.Summary;
+                                    UserDetail.PhotoURL = objUser.PhotoURL;
+                                    UserDetail.LinkedInId = objUser.LinkedInId;
+                                    UserDetail.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
+                                    objCurrMessage.SenderDetail = UserDetail;
+                                }
+                                objCurrMessage.ReceiverID = Convert.ToString(msg.ReceiverID);
+                                objCurrMessage.State = Convert.ToString(msg.State);
+                                objCurrMessage.Message = Convert.ToString(msg.Message1);
+                                objCurrMessage.LincURL = Convert.ToString(msg.LinkURL);
+                                objCurrMessage.LincUserID = Convert.ToString(msg.LinkUserID);
+                                objCurrMessage.LincJobID = Convert.ToString(msg.LinkJobID);
+                                objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
+
+                                //IsUnreadMessage
+                                Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State = false && n.ReceiverID == lngUserID && n.SenderID == msg.SenderID && n.MessageTypeID == 1);
+                                if (objCheckMessage != null)
+                                {
+                                    objCurrMessage.IsUnreadMessages = "True";
+                                }
+                                else
+                                {
+                                    objCurrMessage.IsUnreadMessages = "False";
+                                }
+
+                                MesssageList.Add(objCurrMessage);
+                            }
+
+                            ResultStatus.Status = "1";
+                            ResultStatus.StatusMessage = "";
+                            MessageListResult.ResultStatus = ResultStatus;
+                            MessageListResult.MesssageList = MesssageList;
+                        }
+                        else
+                        {
+                            ResultStatus.Status = "0";
+                            ResultStatus.StatusMessage = "No more records!";
+                            MessageListResult.ResultStatus = ResultStatus;
+                            MessageListResult.MesssageList = MesssageList;
+                        }
+                    }
+                    else
+                    {
+                        ResultStatus.Status = "0";
+                        ResultStatus.StatusMessage = "";
+                        MessageListResult.ResultStatus = ResultStatus;
+                        MessageListResult.MesssageList = MesssageList;
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                MessageListResult.ResultStatus = ResultStatus;
+            }
+            writeLog("GetMessageList", "STOP", UserID);
+            return MessageListResult;
+        }
+
+        #endregion
+
+        #region GetMessageThread
+
+        public GetMessageThreadResult GetMessageThread(string UserID, string UserToken, string SenderID, string MessageCount)
+        {
+            GetMessageThreadResult MessageThreadResult = new GetMessageThreadResult();
+            ResultStatus ResultStatus = new ResultStatus();
+            List<GetMessageDetail> MesssageList = new List<GetMessageDetail>();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("GetMessageThread", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    long lngUserID = Convert.ToInt64(UserID);
+                    long lngSenderID = Convert.ToInt64(SenderID);
+
+                    var lstMessageType0 = db.Message.Get(n => n.SenderID == lngSenderID && n.ReceiverID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.ID).ToList();
+
+                    if (lstMessageType0.Count > 0)
+                    {
+                        if (MessageCount != null && MessageCount != "")
+                        {
+                            lstMessageType0 = lstMessageType0.Take(Convert.ToInt32(MessageCount)).ToList();
+                        }
+                        if (lstMessageType0.Count > 0)
+                        {
+                            foreach (var msg in lstMessageType0)
+                            {
+                                //Update MessageState
+                                msg.State = true;
+                                db.Message.Update(msg);
+                                db.SaveChanges();
+
+                                //prepare response
+                                GetMessageDetail objCurrMessage = new GetMessageDetail();
+                                objCurrMessage.ID = Convert.ToString(msg.ID);
+                                objCurrMessage.DateCreated = Convert.ToString(msg.DateCreated);
+                                objCurrMessage.SenderID = Convert.ToString(msg.SenderID);
+                                objCurrMessage.ReceiverID = Convert.ToString(msg.ReceiverID);
+                                objCurrMessage.State = "True";
+                                objCurrMessage.Message = Convert.ToString(msg.Message1);
+                                objCurrMessage.LincURL = Convert.ToString(msg.LinkURL);
+                                objCurrMessage.LincUserID = Convert.ToString(msg.LinkUserID);
+                                objCurrMessage.LincJobID = Convert.ToString(msg.LinkJobID);
+                                objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
+                                MesssageList.Add(objCurrMessage);
+                            }
+
+                            //IsUnreadMessage
+                            Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1);
+                            if (objCheckMessage != null)
+                            {
+                                MessageThreadResult.IsUnreadMessages = "True";
+                            }
+                            else
+                            {
+                                MessageThreadResult.IsUnreadMessages = "False";
+                            }
+
+                            ResultStatus.Status = "1";
+                            ResultStatus.StatusMessage = "";
+                            MessageThreadResult.ResultStatus = ResultStatus;
+                            MessageThreadResult.MesssageList = MesssageList;
+                        }
+                        else
+                        {
+                            ResultStatus.Status = "0";
+                            ResultStatus.StatusMessage = "No more records!";
+                            MessageThreadResult.ResultStatus = ResultStatus;
+                            MessageThreadResult.MesssageList = MesssageList;
+                        }
+                    }
+                    else
+                    {
+                        ResultStatus.Status = "0";
+                        ResultStatus.StatusMessage = "";
+                        MessageThreadResult.ResultStatus = ResultStatus;
+                        MessageThreadResult.MesssageList = MesssageList;
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                MessageThreadResult.ResultStatus = ResultStatus;
+            }
+            writeLog("GetMessageThread", "STOP", UserID);
+            return MessageThreadResult;
+        }
+
+        #endregion
+
+        #region SendMessage
+
+        public GetSendMessageResult SendMessage(string UserID, string UserToken, string ReceiverID, string Message, string LinkURL, string LinkUserID, string LinkJobID)
+        {
+            GetSendMessageResult SendMessageResult = new GetSendMessageResult();
+            ResultStatus ResultStatus = new ResultStatus();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("SendMessage", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    long lngUserID = Convert.ToInt64(UserID);
+                    long lngReceiverId = Convert.ToInt64(ReceiverID);
+
+                    //Insert record in Message table
+                    Message objNewMessage = new Message();
+                    objNewMessage.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                    objNewMessage.SenderID = lngUserID;
+                    objNewMessage.ReceiverID = lngReceiverId;
+                    objNewMessage.Message1 = Message;
+                    if (LinkJobID != null && LinkJobID != "")
+                    {
+                        objNewMessage.LinkJobID = Convert.ToInt64(LinkJobID);
+                    }
+                    else
+                    {
+                        objNewMessage.LinkJobID = null;
+                    }
+                    objNewMessage.LinkURL = LinkURL;
+                    if (LinkUserID != null && LinkUserID != "")
+                    {
+                        objNewMessage.LinkUserID = Convert.ToInt64(LinkUserID);
+                    }
+                    else
+                    {
+                        objNewMessage.LinkUserID = null;
+                    }
+                    objNewMessage.State = false;
+                    objNewMessage.MessageTypeID = 1;
+                    db.Message.Add(objNewMessage);
+                    db.SaveChanges();
+
+                    //Insert record in feed table
+                    Feed objNewFeed = new Feed();
+                    objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                    objNewFeed.UserID = lngReceiverId;
+                    objNewFeed.FeedTypeID = 2;
+                    objNewFeed.JobID = null;
+                    objNewFeed.OtherUserID = lngUserID;
+                    db.Feed.Add(objNewFeed);
+                    db.SaveChanges();
+
+                    //Prepare Response
+                    long lngLatestMessageId = db.Message.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
+                    if (lngLatestMessageId != 0)
+                    {
+                        ResultStatus.Status = "1";
+                        ResultStatus.StatusMessage = "";
+                        SendMessageResult.ResultStatus = ResultStatus;
+                        SendMessageResult.MessageID = Convert.ToString(lngLatestMessageId);
+                    }
+                    else
+                    {
+                        ResultStatus.Status = "0";
+                        ResultStatus.StatusMessage = "";
+                        SendMessageResult.ResultStatus = ResultStatus;
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                SendMessageResult.ResultStatus = ResultStatus;
+            }
+            writeLog("SendMessage", "STOP", UserID);
+            return SendMessageResult;
+        }
+
+        #endregion
+
+        #region GetPastMessages
+
+        public GetPastMessagesResult GetPastMessages(string UserID, string UserToken, string SenderID, string MessageID, string MessageCount)
+        {
+            GetPastMessagesResult GetPastMessageResult = new GetPastMessagesResult();
+            ResultStatus ResultStatus = new ResultStatus();
+            List<GetMessageDetail> MesssageList = new List<GetMessageDetail>();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("GetPastMessages", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    long lngUserID = Convert.ToInt64(UserID);
+                    long lngSenderID = Convert.ToInt64(SenderID);
+                    long lngMessageID = Convert.ToInt64(MessageID);
+
+                    var lstMessageType0 = db.Message.Get(n => n.SenderID == lngSenderID && n.ReceiverID == lngUserID && n.MessageTypeID == 1 && n.ID < lngMessageID).OrderByDescending(n => n.ID).ToList();
+
+                    if (lstMessageType0.Count > 0)
+                    {
+                        if (MessageCount != null && MessageCount != "")
+                        {
+                            lstMessageType0 = lstMessageType0.Take(Convert.ToInt32(MessageCount)).ToList();
+                        }
+                        if (lstMessageType0.Count > 0)
+                        {
+                            foreach (var msg in lstMessageType0)
+                            {
+                                //Update MessageState
+                                msg.State = true;
+                                db.Message.Update(msg);
+                                db.SaveChanges();
+
+                                //prepare response
+                                GetMessageDetail objCurrMessage = new GetMessageDetail();
+                                objCurrMessage.ID = Convert.ToString(msg.ID);
+                                objCurrMessage.DateCreated = Convert.ToString(msg.DateCreated);
+                                objCurrMessage.SenderID = Convert.ToString(msg.SenderID);
+                                objCurrMessage.ReceiverID = Convert.ToString(msg.ReceiverID);
+                                objCurrMessage.State = "True";
+                                objCurrMessage.Message = Convert.ToString(msg.Message1);
+                                objCurrMessage.LincURL = Convert.ToString(msg.LinkURL);
+                                objCurrMessage.LincUserID = Convert.ToString(msg.LinkUserID);
+                                objCurrMessage.LincJobID = Convert.ToString(msg.LinkJobID);
+                                objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
+                                MesssageList.Add(objCurrMessage);
+                            }
+
+                            //IsUnreadMessage
+                            Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1);
+                            if (objCheckMessage != null)
+                            {
+                                GetPastMessageResult.IsUnreadMessages = "True";
+                            }
+                            else
+                            {
+                                GetPastMessageResult.IsUnreadMessages = "False";
+                            }
+
+                            ResultStatus.Status = "1";
+                            ResultStatus.StatusMessage = "";
+                            GetPastMessageResult.ResultStatus = ResultStatus;
+                            GetPastMessageResult.MesssageList = MesssageList;
+                        }
+                        else
+                        {
+                            ResultStatus.Status = "0";
+                            ResultStatus.StatusMessage = "No more records!";
+                            GetPastMessageResult.ResultStatus = ResultStatus;
+                            GetPastMessageResult.MesssageList = MesssageList;
+                        }
+                    }
+                    else
+                    {
+                        ResultStatus.Status = "0";
+                        ResultStatus.StatusMessage = "";
+                        GetPastMessageResult.ResultStatus = ResultStatus;
+                        GetPastMessageResult.MesssageList = MesssageList;
+                    }
+
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                GetPastMessageResult.ResultStatus = ResultStatus;
+            }
+            writeLog("GetPastMessages", "STOP", UserID);
+            return GetPastMessageResult;
+        }
+
+        #endregion
+
+        #region LogoutUser
+
+        public ResultStatus LogoutUser(string UserID, string UserToken)
+        {
+            ResultStatus ResultStatus = new ResultStatus();
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("LogoutUser", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    long lngUserID = Convert.ToInt64(UserID);
+                    User objUser = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+                    if (objUser != null)
+                    {
+                        objUser.DeviceToken = null;
+                        objUser.Token = null;
+                        db.User.Update(objUser);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+
+                ResultStatus.Status = "1";
+                ResultStatus.StatusMessage = "Logout user successfully!";
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+            }
+            writeLog("LogoutUser", "STOP", UserID);
+            return ResultStatus;
+        }
+
+        #endregion
+
+        #region UpdateMessageState
+
+        public ResultStatus UpdateMessageState(string UserID, string UserToken, string MessageID)
+        {
+            ResultStatus ResultStatus = new ResultStatus();
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("UpdateMessageState", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                bool isMessageExist = false;
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    string[] Messages = MessageID.Split(',');
+                    for (int i = 0; i <= Messages.Length - 1; i++)
+                    {
+                        long lngMsgID = 0;
+                        long.TryParse(Messages[i], out lngMsgID);
+                        if (lngMsgID > 0)
+                        {
+                            Message ObjMsg = db.Message.Get().FirstOrDefault(n => n.ID == lngMsgID);
+                            if (ObjMsg != null)
+                            {
+                                ObjMsg.State = true;
+                                db.Message.Update(ObjMsg);
+                                db.SaveChanges();
+                                isMessageExist = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+
+                if (!isMessageExist)
+                {
+                    ResultStatus.Status = "0";
+                    ResultStatus.StatusMessage = "message(s) does not exist!";
+                }
+                else
+                {
+                    ResultStatus.Status = "1";
+                    ResultStatus.StatusMessage = "Update message(s) state successfully!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+            }
+            writeLog("UpdateMessageState", "STOP", UserID);
+            return ResultStatus;
         }
 
         #endregion
@@ -2684,6 +3289,11 @@ namespace CrowdWCFservice
                 ResultStatus.Status = "0";
                 ResultStatus.StatusMessage = "User does not exist!";
                 GetUserDetailResult.ResultStatus = ResultStatus;
+                GetUserDetailResult.GetUserResult = UserResult;
+                GetUserDetailResult.GetUserSkillResult = lstUserSkillResult;
+                GetUserDetailResult.GetUserEmploymentResult = lstUserEmploymentResult;
+                GetUserDetailResult.GetUserEducationWithCourseResult = lstUserEducationWithCourseResult;
+                GetUserDetailResult.GetUserEmploymentRecommendationResult = lstUserEmploymentrecommendation;
             }
             return GetUserDetailResult;
         }
