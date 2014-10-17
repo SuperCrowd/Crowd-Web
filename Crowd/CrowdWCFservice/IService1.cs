@@ -99,6 +99,18 @@ namespace CrowdWCFservice
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetPastMessages", BodyStyle = WebMessageBodyStyle.Wrapped)]
         GetPastMessagesResult GetPastMessages(string UserID, string UserToken, string SenderID, string MessageID, string Message_Count);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "AcceptDeclineJobApplication", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetUnreadMessageCount", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        GetUnreadMessageCountResult GetUnreadMessageCount(string UserID, string UserToken);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "TestNotification", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        ResultStatus TestNotification();
     }    
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
@@ -2439,6 +2451,44 @@ namespace CrowdWCFservice
         {
             get { return _IsUnreadMessages; }
             set { _IsUnreadMessages = value; }
+        }
+    }
+    #endregion
+
+    #region GetAcceptDeclineJobApplicationResult
+    [DataContract]
+    public class GetAcceptDeclineJobApplicationResult
+    {
+        private ResultStatus _ResultStatus;
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+    }
+    #endregion
+
+    #region GetUnreadMessageCountResult
+    [DataContract]
+    public class GetUnreadMessageCountResult
+    {
+        private ResultStatus _ResultStatus;
+        private string _NumberOfUnreadMessage = string.Empty;
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+        [DataMember]
+        public string NumberOfUnreadMessage
+        {
+            get { return _NumberOfUnreadMessage; }
+            set { _NumberOfUnreadMessage = value; }
         }
     }
     #endregion

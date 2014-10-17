@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CrowdWCFservice" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CrowdWCFservice" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="GetIsUserExistsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GetUserEducationWithCourseResult" nillable="true" type="tns:ArrayOfGetUserEducationWithCourseResult" />
+      <xs:element minOccurs="0" name="GetUserEmploymentRecommendationResult" nillable="true" type="tns:ArrayOfGetUserEmploymentRecommendationResult" />
+      <xs:element minOccurs="0" name="GetUserEmploymentResult" nillable="true" type="tns:ArrayOfGetUserEmploymentResult" />
+      <xs:element minOccurs="0" name="GetUserResult" nillable="true" type="tns:GetUserResult" />
+      <xs:element minOccurs="0" name="GetUserSkillResult" nillable="true" type="tns:ArrayOfGetUserSkillResult" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetIsUserExistsResult" nillable="true" type="tns:GetIsUserExistsResult" />
+  <xs:complexType name="ArrayOfGetUserEducationWithCourseResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserEducationWithCourseResult" nillable="true" type="tns:GetUserEducationWithCourseResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserEducationWithCourseResult" nillable="true" type="tns:ArrayOfGetUserEducationWithCourseResult" />
+  <xs:complexType name="GetUserEducationWithCourseResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Degree" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GetUserEducationCourseResult" nillable="true" type="tns:ArrayOfGetUserEducationCourseResult" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserEducationWithCourseResult" nillable="true" type="tns:GetUserEducationWithCourseResult" />
+  <xs:complexType name="ArrayOfGetUserEducationCourseResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserEducationCourseResult" nillable="true" type="tns:GetUserEducationCourseResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserEducationCourseResult" nillable="true" type="tns:ArrayOfGetUserEducationCourseResult" />
+  <xs:complexType name="GetUserEducationCourseResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Course" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EducationID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserEducationCourseResult" nillable="true" type="tns:GetUserEducationCourseResult" />
+  <xs:complexType name="ArrayOfGetUserEmploymentRecommendationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserEmploymentRecommendationResult" nillable="true" type="tns:GetUserEmploymentRecommendationResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserEmploymentRecommendationResult" nillable="true" type="tns:ArrayOfGetUserEmploymentRecommendationResult" />
+  <xs:complexType name="GetUserEmploymentRecommendationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Recommendation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RecommenderName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserEmploymentRecommendationResult" nillable="true" type="tns:GetUserEmploymentRecommendationResult" />
+  <xs:complexType name="ArrayOfGetUserEmploymentResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserEmploymentResult" nillable="true" type="tns:GetUserEmploymentResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserEmploymentResult" nillable="true" type="tns:ArrayOfGetUserEmploymentResult" />
+  <xs:complexType name="GetUserEmploymentResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserEmploymentResult" nillable="true" type="tns:GetUserEmploymentResult" />
+  <xs:complexType name="GetUserResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkedInId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumberOfUnreadMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhotoURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserResult" nillable="true" type="tns:GetUserResult" />
+  <xs:complexType name="ArrayOfGetUserSkillResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserSkillResult" nillable="true" type="tns:GetUserSkillResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserSkillResult" nillable="true" type="tns:ArrayOfGetUserSkillResult" />
+  <xs:complexType name="GetUserSkillResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Skills" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserSkillResult" nillable="true" type="tns:GetUserSkillResult" />
+  <xs:complexType name="ResultStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+  <xs:complexType name="ArrayOfPrSkill">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrSkill" nillable="true" type="tns:PrSkill" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrSkill" nillable="true" type="tns:ArrayOfPrSkill" />
+  <xs:complexType name="PrSkill">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Skill" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrSkill" nillable="true" type="tns:PrSkill" />
+  <xs:complexType name="ArrayOfPrUserEmployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrUserEmployment" nillable="true" type="tns:PrUserEmployment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrUserEmployment" nillable="true" type="tns:ArrayOfPrUserEmployment" />
+  <xs:complexType name="PrUserEmployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmployerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrUserEmployment" nillable="true" type="tns:PrUserEmployment" />
+  <xs:complexType name="ArrayOfPrUserEducation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrUserEducation" nillable="true" type="tns:PrUserEducation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrUserEducation" nillable="true" type="tns:ArrayOfPrUserEducation" />
+  <xs:complexType name="PrUserEducation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Degree" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserEducationCourse" nillable="true" type="tns:ArrayOfPrUserEducationCourse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrUserEducation" nillable="true" type="tns:PrUserEducation" />
+  <xs:complexType name="ArrayOfPrUserEducationCourse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrUserEducationCourse" nillable="true" type="tns:PrUserEducationCourse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrUserEducationCourse" nillable="true" type="tns:ArrayOfPrUserEducationCourse" />
+  <xs:complexType name="PrUserEducationCourse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Course" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrUserEducationCourse" nillable="true" type="tns:PrUserEducationCourse" />
+  <xs:complexType name="ArrayOfPrEmploymentRecommendation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrEmploymentRecommendation" nillable="true" type="tns:PrEmploymentRecommendation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrEmploymentRecommendation" nillable="true" type="tns:ArrayOfPrEmploymentRecommendation" />
+  <xs:complexType name="PrEmploymentRecommendation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Recommendation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RecommenderName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrEmploymentRecommendation" nillable="true" type="tns:PrEmploymentRecommendation" />
+  <xs:complexType name="GetUserDetailsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserDetailResult" nillable="true" type="tns:GetIsUserExistsResult" />
+      <xs:element minOccurs="0" name="UserFollowStatus" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserDetailsResult" nillable="true" type="tns:GetUserDetailsResult" />
+  <xs:complexType name="GetActivityFeedsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GetActivityFeeds" nillable="true" type="tns:ArrayOfGetActivityFeeds" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetActivityFeedsResult" nillable="true" type="tns:GetActivityFeedsResult" />
+  <xs:complexType name="ArrayOfGetActivityFeeds">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetActivityFeeds" nillable="true" type="tns:GetActivityFeeds" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetActivityFeeds" nillable="true" type="tns:ArrayOfGetActivityFeeds" />
+  <xs:complexType name="GetActivityFeeds">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobDetail" nillable="true" type="tns:GetJobDetails" />
+      <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OtherUserDetails" nillable="true" type="tns:GetUserDetailForFeed" />
+      <xs:element minOccurs="0" name="OtherUserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetActivityFeeds" nillable="true" type="tns:GetActivityFeeds" />
+  <xs:complexType name="GetJobDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerIntroduction" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qualifications" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Responsibilities" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetJobDetails" nillable="true" type="tns:GetJobDetails" />
+  <xs:complexType name="GetUserDetailForFeed">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkedInId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhotoURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserDetailForFeed" nillable="true" type="tns:GetUserDetailForFeed" />
+  <xs:complexType name="GetMyCrowdResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FollowingMeUser" nillable="true" type="tns:ArrayOfGetUserDetailForCrowd" />
+      <xs:element minOccurs="0" name="IAmFollowingUser" nillable="true" type="tns:ArrayOfGetUserDetailForCrowd" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetMyCrowdResult" nillable="true" type="tns:GetMyCrowdResult" />
+  <xs:complexType name="ArrayOfGetUserDetailForCrowd">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserDetailForCrowd" nillable="true" type="tns:GetUserDetailForCrowd" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserDetailForCrowd" nillable="true" type="tns:ArrayOfGetUserDetailForCrowd" />
+  <xs:complexType name="GetUserDetailForCrowd">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkedInId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhotoURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserCurrentEmployer" nillable="true" type="tns:ArrayOfGetUserEmployment" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserDetailForCrowd" nillable="true" type="tns:GetUserDetailForCrowd" />
+  <xs:complexType name="ArrayOfGetUserEmployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetUserEmployment" nillable="true" type="tns:GetUserEmployment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetUserEmployment" nillable="true" type="tns:ArrayOfGetUserEmployment" />
+  <xs:complexType name="GetUserEmployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserEmployment" nillable="true" type="tns:GetUserEmployment" />
+  <xs:complexType name="GetFollowUnfollowUserResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetFollowUnfollowUserResult" nillable="true" type="tns:GetFollowUnfollowUserResult" />
+  <xs:complexType name="GetAddEditJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="JobDetailsWithSkills" nillable="true" type="tns:GetJobDetailsWithSkill" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetAddEditJobResult" nillable="true" type="tns:GetAddEditJobResult" />
+  <xs:complexType name="GetJobDetailsWithSkill">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerIntroduction" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobSkills" nillable="true" type="tns:ArrayOfGetJobSkillDetail" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qualifications" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Responsibilities" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetJobDetailsWithSkill" nillable="true" type="tns:GetJobDetailsWithSkill" />
+  <xs:complexType name="ArrayOfGetJobSkillDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetJobSkillDetail" nillable="true" type="tns:GetJobSkillDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetJobSkillDetail" nillable="true" type="tns:ArrayOfGetJobSkillDetail" />
+  <xs:complexType name="GetJobSkillDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Skill" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetJobSkillDetail" nillable="true" type="tns:GetJobSkillDetail" />
+  <xs:complexType name="GetJobDetailsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsJobApplied" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsJobFavorite" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobDetailsWithSkills" nillable="true" type="tns:GetJobDetailsWithSkill" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetJobDetailsResult" nillable="true" type="tns:GetJobDetailsResult" />
+  <xs:complexType name="GetFavoriteJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetFavoriteJobResult" nillable="true" type="tns:GetFavoriteJobResult" />
+  <xs:complexType name="GetApplyToJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetApplyToJobResult" nillable="true" type="tns:GetApplyToJobResult" />
+  <xs:complexType name="GetFillReopenJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetFillReopenJobResult" nillable="true" type="tns:GetFillReopenJobResult" />
+  <xs:complexType name="GetDeleteJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetDeleteJobResult" nillable="true" type="tns:GetDeleteJobResult" />
+  <xs:complexType name="GetSearchJobResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="JobDetails" nillable="true" type="tns:ArrayOfGetCompleteJobDetails" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetSearchJobResult" nillable="true" type="tns:GetSearchJobResult" />
+  <xs:complexType name="ArrayOfGetCompleteJobDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetCompleteJobDetails" nillable="true" type="tns:GetCompleteJobDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetCompleteJobDetails" nillable="true" type="tns:ArrayOfGetCompleteJobDetails" />
+  <xs:complexType name="GetCompleteJobDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateModified" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerIntroduction" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qualifications" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Responsibilities" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetCompleteJobDetails" nillable="true" type="tns:GetCompleteJobDetails" />
+  <xs:complexType name="GetSearchCandidatesResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+      <xs:element minOccurs="0" name="UserDetail" nillable="true" type="tns:ArrayOfGetUserDetailForCrowd" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetSearchCandidatesResult" nillable="true" type="tns:GetSearchCandidatesResult" />
+  <xs:complexType name="GetUserJobsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="JobApplied" nillable="true" type="tns:ArrayOfGetCompleteJobDetails" />
+      <xs:element minOccurs="0" name="JobFavorited" nillable="true" type="tns:ArrayOfGetCompleteJobDetails" />
+      <xs:element minOccurs="0" name="PostedByMe" nillable="true" type="tns:ArrayOfGetCompleteJobDetails" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUserJobsResult" nillable="true" type="tns:GetUserJobsResult" />
+  <xs:complexType name="GetMessageListResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MesssageList" nillable="true" type="tns:ArrayOfGetMessageDetailWithSender" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetMessageListResult" nillable="true" type="tns:GetMessageListResult" />
+  <xs:complexType name="ArrayOfGetMessageDetailWithSender">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetMessageDetailWithSender" nillable="true" type="tns:GetMessageDetailWithSender" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetMessageDetailWithSender" nillable="true" type="tns:ArrayOfGetMessageDetailWithSender" />
+  <xs:complexType name="GetMessageDetailWithSender">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsUnreadMessages" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincJobID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincUserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReceiverID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SenderDetail" nillable="true" type="tns:GetUserDetailForFeed" />
+      <xs:element minOccurs="0" name="SenderID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetMessageDetailWithSender" nillable="true" type="tns:GetMessageDetailWithSender" />
+  <xs:complexType name="GetMessageThreadResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsUnreadMessages" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MesssageList" nillable="true" type="tns:ArrayOfGetMessageDetail" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetMessageThreadResult" nillable="true" type="tns:GetMessageThreadResult" />
+  <xs:complexType name="ArrayOfGetMessageDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetMessageDetail" nillable="true" type="tns:GetMessageDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetMessageDetail" nillable="true" type="tns:ArrayOfGetMessageDetail" />
+  <xs:complexType name="GetMessageDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincJobID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LincUserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReceiverID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SenderID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetMessageDetail" nillable="true" type="tns:GetMessageDetail" />
+  <xs:complexType name="GetSendMessageResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MessageID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetSendMessageResult" nillable="true" type="tns:GetSendMessageResult" />
+  <xs:complexType name="GetPastMessagesResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsUnreadMessages" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MesssageList" nillable="true" type="tns:ArrayOfGetMessageDetail" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetPastMessagesResult" nillable="true" type="tns:GetPastMessagesResult" />
+  <xs:complexType name="GetAcceptDeclineJobApplicationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetAcceptDeclineJobApplicationResult" nillable="true" type="tns:GetAcceptDeclineJobApplicationResult" />
+  <xs:complexType name="GetUnreadMessageCountResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NumberOfUnreadMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResultStatus" nillable="true" type="tns:ResultStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUnreadMessageCountResult" nillable="true" type="tns:GetUnreadMessageCountResult" />
+</xs:schema>

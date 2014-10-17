@@ -39,7 +39,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JdSoft.Apns.Notifications">
+      <HintPath>..\DLLs\JdSoft.Apns.Notifications.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json.Compact">
+      <HintPath>..\DLLs\Newtonsoft.Json.Compact.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -77,20 +83,30 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aps-production.p12" />
+    <Content Include="aps-sandbox.p12" />
     <None Include="Properties\PublishProfiles\01102014.pubxml" />
     <None Include="Properties\PublishProfiles\04092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\04092014.pubxml" />
     <None Include="Properties\PublishProfiles\05092014.pubxml" />
+    <None Include="Properties\PublishProfiles\071014.pubxml" />
     <None Include="Properties\PublishProfiles\08092014.pubxml" />
+    <None Include="Properties\PublishProfiles\081014.pubxml" />
     <None Include="Properties\PublishProfiles\09092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\09092014-3.pubxml" />
     <None Include="Properties\PublishProfiles\09092014.pubxml" />
     <None Include="Properties\PublishProfiles\10092014.pubxml" />
+    <None Include="Properties\PublishProfiles\101014.pubxml" />
     <None Include="Properties\PublishProfiles\12092014.pubxml" />
+    <None Include="Properties\PublishProfiles\131014.pubxml" />
     <None Include="Properties\PublishProfiles\15092014.pubxml" />
+    <None Include="Properties\PublishProfiles\151014-2.pubxml" />
+    <None Include="Properties\PublishProfiles\151014.pubxml" />
     <None Include="Properties\PublishProfiles\17092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\17092014-3.pubxml" />
     <None Include="Properties\PublishProfiles\17092014.pubxml" />
+    <None Include="Properties\PublishProfiles\171014-2.pubxml" />
+    <None Include="Properties\PublishProfiles\171014.pubxml" />
     <None Include="Properties\PublishProfiles\23092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\23092014.pubxml" />
     <None Include="Properties\PublishProfiles\25092014.pubxml" />
@@ -124,9 +140,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>61090</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58725/</IISUrl>
+          <IISUrl>http://localhost:61090/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

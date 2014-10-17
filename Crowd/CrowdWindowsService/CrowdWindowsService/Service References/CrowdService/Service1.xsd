@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61090/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CrowdWCFservice" />
+  <xs:element name="DoWork">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DoWorkResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsUserExists">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LinkedInID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsUserExistsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="IsUserExistsResult" nillable="true" type="q1:GetIsUserExistsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEditUserDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PhotoData" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LinkedInId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DeviceToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="UserSkills" nillable="true" type="q2:ArrayOfPrSkill" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="UserEmployments" nillable="true" type="q3:ArrayOfPrUserEmployment" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="UserEducations" nillable="true" type="q4:ArrayOfPrUserEducation" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="EmploymentRecommendation" nillable="true" type="q5:ArrayOfPrEmploymentRecommendation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEditUserDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="AddEditUserDetailsResult" nillable="true" type="q6:GetIsUserExistsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OtherUserID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetUserDetailsResult" nillable="true" type="q7:GetUserDetailsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivityFeeds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivityFeedsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetActivityFeedsResult" nillable="true" type="q8:GetActivityFeedsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyCrowd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyCrowdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetMyCrowdResult" nillable="true" type="q9:GetMyCrowdResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FollowUnfollowUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FollowUserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FollowUnfollowUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="FollowUnfollowUserResult" nillable="true" type="q10:GetFollowUnfollowUserResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEditJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Responsibilities" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Qualifications" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="EmployerIntroduction" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobURL" nillable="true" type="xs:string" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="Skills" nillable="true" type="q11:ArrayOfPrSkill" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEditJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="AddEditJobResult" nillable="true" type="q12:GetAddEditJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJobDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJobDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetJobDetailsResult" nillable="true" type="q13:GetJobDetailsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FavoriteJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FavoriteJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="FavoriteJobResult" nillable="true" type="q14:GetFavoriteJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ApplyToJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ApplyToJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="ApplyToJobResult" nillable="true" type="q15:GetApplyToJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FillReopenJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FillReopenJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="FillReopenJobResult" nillable="true" type="q16:GetFillReopenJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="DeleteJobResult" nillable="true" type="q17:GetDeleteJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Position" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="SearchJobResult" nillable="true" type="q18:GetSearchJobResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchCandidates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Industry2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ExperienceLevel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCity" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationState" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchCandidatesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="SearchCandidatesResult" nillable="true" type="q19:GetSearchCandidatesResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserJobs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OtherUserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserJobsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetUserJobsResult" nillable="true" type="q20:GetUserJobsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PageNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetMessageListResult" nillable="true" type="q21:GetMessageListResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageThread">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SenderID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MessageCount" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageThreadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetMessageThreadResult" nillable="true" type="q22:GetMessageThreadResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogoutUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogoutUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="LogoutUserResult" nillable="true" type="q23:ResultStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMessageState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MessageID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMessageStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="UpdateMessageStateResult" nillable="true" type="q24:ResultStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ReceiverID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LinkURL" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LinkUserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LinkJobID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="SendMessageResult" nillable="true" type="q25:GetSendMessageResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPastMessages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SenderID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MessageID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Message_Count" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPastMessagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetPastMessagesResult" nillable="true" type="q26:GetPastMessagesResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptDeclineJobApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MessageID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="JobID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptDeclineJobApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="AcceptDeclineJobApplicationResult" nillable="true" type="q27:GetAcceptDeclineJobApplicationResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadMessageCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UserToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadMessageCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="GetUnreadMessageCountResult" nillable="true" type="q28:GetUnreadMessageCountResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestNotification">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestNotificationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CrowdWCFservice" minOccurs="0" name="TestNotificationResult" nillable="true" type="q29:ResultStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

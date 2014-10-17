@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:61090/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:61090/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:61090/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CrowdWCFservice" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_IsUserExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsUserExists" />
+  </wsdl:message>
+  <wsdl:message name="IService1_IsUserExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsUserExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEditUserDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddEditUserDetails" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEditUserDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddEditUserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetails" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetActivityFeeds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityFeeds" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetActivityFeeds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityFeedsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMyCrowd_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyCrowd" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMyCrowd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyCrowdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FollowUnfollowUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:FollowUnfollowUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FollowUnfollowUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FollowUnfollowUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEditJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddEditJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEditJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddEditJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetJobDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobDetails" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetJobDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FavoriteJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:FavoriteJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FavoriteJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FavoriteJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ApplyToJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApplyToJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ApplyToJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApplyToJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FillReopenJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:FillReopenJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FillReopenJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FillReopenJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchJob" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchCandidates_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchCandidates" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchCandidates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchCandidatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserJobs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserJobs" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserJobs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserJobsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMessageList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageList" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMessageList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMessageThread_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageThread" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetMessageThread_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageThreadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LogoutUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LogoutUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateMessageState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMessageState" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateMessageState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMessageStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPastMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPastMessages" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPastMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPastMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AcceptDeclineJobApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptDeclineJobApplication" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AcceptDeclineJobApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptDeclineJobApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadMessageCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadMessageCount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadMessageCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadMessageCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TestNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestNotification" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TestNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestNotificationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork" message="tns:IService1_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DoWorkResponse" message="tns:IService1_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/IsUserExists" message="tns:IService1_IsUserExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/IsUserExistsResponse" message="tns:IService1_IsUserExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEditUserDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddEditUserDetails" message="tns:IService1_AddEditUserDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddEditUserDetailsResponse" message="tns:IService1_AddEditUserDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserDetails" message="tns:IService1_GetUserDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserDetailsResponse" message="tns:IService1_GetUserDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityFeeds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetActivityFeeds" message="tns:IService1_GetActivityFeeds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetActivityFeedsResponse" message="tns:IService1_GetActivityFeeds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyCrowd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetMyCrowd" message="tns:IService1_GetMyCrowd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetMyCrowdResponse" message="tns:IService1_GetMyCrowd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FollowUnfollowUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/FollowUnfollowUser" message="tns:IService1_FollowUnfollowUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/FollowUnfollowUserResponse" message="tns:IService1_FollowUnfollowUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEditJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddEditJob" message="tns:IService1_AddEditJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddEditJobResponse" message="tns:IService1_AddEditJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetJobDetails" message="tns:IService1_GetJobDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetJobDetailsResponse" message="tns:IService1_GetJobDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FavoriteJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/FavoriteJob" message="tns:IService1_FavoriteJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/FavoriteJobResponse" message="tns:IService1_FavoriteJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplyToJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ApplyToJob" message="tns:IService1_ApplyToJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ApplyToJobResponse" message="tns:IService1_ApplyToJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FillReopenJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/FillReopenJob" message="tns:IService1_FillReopenJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/FillReopenJobResponse" message="tns:IService1_FillReopenJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteJob" message="tns:IService1_DeleteJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteJobResponse" message="tns:IService1_DeleteJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchJob" message="tns:IService1_SearchJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchJobResponse" message="tns:IService1_SearchJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchCandidates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchCandidates" message="tns:IService1_SearchCandidates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchCandidatesResponse" message="tns:IService1_SearchCandidates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJobs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserJobs" message="tns:IService1_GetUserJobs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserJobsResponse" message="tns:IService1_GetUserJobs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetMessageList" message="tns:IService1_GetMessageList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetMessageListResponse" message="tns:IService1_GetMessageList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageThread">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetMessageThread" message="tns:IService1_GetMessageThread_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetMessageThreadResponse" message="tns:IService1_GetMessageThread_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogoutUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LogoutUser" message="tns:IService1_LogoutUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LogoutUserResponse" message="tns:IService1_LogoutUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMessageState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateMessageState" message="tns:IService1_UpdateMessageState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateMessageStateResponse" message="tns:IService1_UpdateMessageState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendMessage" message="tns:IService1_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendMessageResponse" message="tns:IService1_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPastMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPastMessages" message="tns:IService1_GetPastMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPastMessagesResponse" message="tns:IService1_GetPastMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptDeclineJobApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AcceptDeclineJobApplication" message="tns:IService1_AcceptDeclineJobApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AcceptDeclineJobApplicationResponse" message="tns:IService1_AcceptDeclineJobApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadMessageCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUnreadMessageCount" message="tns:IService1_GetUnreadMessageCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUnreadMessageCountResponse" message="tns:IService1_GetUnreadMessageCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/TestNotification" message="tns:IService1_TestNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TestNotificationResponse" message="tns:IService1_TestNotification_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/IService1/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserExists">
+      <soap:operation soapAction="http://tempuri.org/IService1/IsUserExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEditUserDetails">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddEditUserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetails">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityFeeds">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetActivityFeeds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyCrowd">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetMyCrowd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FollowUnfollowUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/FollowUnfollowUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEditJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddEditJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDetails">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetJobDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FavoriteJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/FavoriteJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyToJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/ApplyToJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FillReopenJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/FillReopenJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchJob">
+      <soap:operation soapAction="http://tempuri.org/IService1/SearchJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchCandidates">
+      <soap:operation soapAction="http://tempuri.org/IService1/SearchCandidates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJobs">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUserJobs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageList">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetMessageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageThread">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetMessageThread" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogoutUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/LogoutUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMessageState">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateMessageState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPastMessages">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPastMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptDeclineJobApplication">
+      <soap:operation soapAction="http://tempuri.org/IService1/AcceptDeclineJobApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadMessageCount">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUnreadMessageCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestNotification">
+      <soap:operation soapAction="http://tempuri.org/IService1/TestNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:61090/Service1.svc/DesktopService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,7 +1,9 @@
-﻿using Portal.Model;
+﻿using JdSoft.Apple.Apns.Notifications;
+using Portal.Model;
 using Portal.Repository;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -71,25 +73,10 @@ namespace CrowdWCFservice
             //Comment by himanshu: As per mail on 03-10-14 3rd point. 
             //we need blank array in response. Currently we are getting “<null>” for blank array. This applies to GetUserEducationWithCourseResult, GetUserEducationCourseResult, GetUserEmploymentRecommendationResult, GetUserEmploymentResult, GetUserResult, GetUserSkillResult. 
             GetUserResult blnkGetUserResult = new GetUserResult();
-            List<GetUserSkillResult> blnkLstUserSkillResult = new List<GetUserSkillResult>();
-            GetUserSkillResult blnkGetUserSkillResult = new GetUserSkillResult();
-            blnkLstUserSkillResult.Add(blnkGetUserSkillResult);
-
-            List<GetUserEmploymentResult> blnkLstUserEmploymentResult = new List<GetUserEmploymentResult>();
-            GetUserEmploymentResult blnkGetUserEmploymentResult = new GetUserEmploymentResult();
-            blnkLstUserEmploymentResult.Add(blnkGetUserEmploymentResult);
-            
-            List<GetUserEducationWithCourseResult> blnkLstUserEducationWithCourseResult = new List<GetUserEducationWithCourseResult>();
-            GetUserEducationWithCourseResult blnkGetUserEducationWithCourseResult = new GetUserEducationWithCourseResult();
-            List<GetUserEducationCourseResult> blnkLstUserEducationCourseResult = new List<GetUserEducationCourseResult>();
-            GetUserEducationCourseResult blnkGetUserEducationCourseResult = new GetUserEducationCourseResult();
-            blnkLstUserEducationCourseResult.Add(blnkGetUserEducationCourseResult);
-            blnkGetUserEducationWithCourseResult.GetUserEducationCourseResult = blnkLstUserEducationCourseResult;
-            blnkLstUserEducationWithCourseResult.Add(blnkGetUserEducationWithCourseResult);
-
-            List<GetUserEmploymentRecommendationResult> blnkLstUserEmploymentRecommendationResult = new List<GetUserEmploymentRecommendationResult>();
-            GetUserEmploymentRecommendationResult blnkGetUserEmploymentRecommendationResult = new GetUserEmploymentRecommendationResult();
-            blnkLstUserEmploymentRecommendationResult.Add(blnkGetUserEmploymentRecommendationResult);
+            List<GetUserSkillResult> blnkLstUserSkillResult = new List<GetUserSkillResult>();            
+            List<GetUserEmploymentResult> blnkLstUserEmploymentResult = new List<GetUserEmploymentResult>();                        
+            List<GetUserEducationWithCourseResult> blnkLstUserEducationWithCourseResult = new List<GetUserEducationWithCourseResult>();            
+            List<GetUserEmploymentRecommendationResult> blnkLstUserEmploymentRecommendationResult = new List<GetUserEmploymentRecommendationResult>();            
             //End Comment by himanshu
 
             try
@@ -158,7 +145,7 @@ namespace CrowdWCFservice
 
                 if (IsInValidParameter == false)
                 {
-                    if (lngUserID == 0 && (UserToken == null || UserToken == ""))
+                    if (lngUserID == 0 )
                     {
                         User objChecklinkedInID = db.User.Get().FirstOrDefault(n => n.LinkedInId.ToUpper() == LinkedInId.ToUpper());
                         if (objChecklinkedInID != null)
@@ -214,12 +201,13 @@ namespace CrowdWCFservice
                             objNewUser.Industry = Industry;
                             objNewUser.Industry2 = Industry2;
                             objNewUser.Summary = Summary;
-                            //=====convert base64string in image and save it in folder=======//
-                            string filePath = "";
-                            if (PhotoData.Length > 0)
+                            string filePath = string.Empty;
+                            if (PhotoData.Length > 0) // as per rajendra's inst in mail - mail101014
+                            {
                                 filePath = SaveImage(PhotoData, "Profile", 100, 100);
+                                objNewUser.PhotoURL = filePath;
+                            }
                             //===============================================================//
-                            objNewUser.PhotoURL = filePath;
                             objNewUser.LinkedInId = LinkedInId;
 
                             //--------Check for devicetoken already exist or not-----------//
@@ -432,10 +420,12 @@ namespace CrowdWCFservice
                                     objGetUser.Summary = Summary;
                                     //=====convert base64string in image and save it in folder=======//
                                     string filePath = "";
-                                    if (PhotoData.Length > 0)
+                                    if (PhotoData.Length > 0) // as per rajendra's inst in mail - mail101014
+                                    {
                                         filePath = SaveImage(PhotoData, "Profile", 100, 100);
+                                        objGetUser.PhotoURL = filePath;
+                                    }
                                     //===============================================================//
-                                    objGetUser.PhotoURL = filePath;
                                     objGetUser.LinkedInId = LinkedInId;
 
                                     //--------Check for devicetoken already exist or not-----------//
@@ -640,7 +630,7 @@ namespace CrowdWCFservice
                                         //=====================================================//
 
                                         //=================================================//
-                                        IsUserExistsResult = GetUserDetails(objGetUser.ID, false);
+                                       
                                     }
                                     //Comment by himanshu: as per mail 03-10-14 (1st point).
                                     //else
@@ -650,6 +640,8 @@ namespace CrowdWCFservice
                                     //    IsUserExistsResult.ResultStatus = ResultStatus;
                                     //}
                                     //Close Comment by himanshu
+
+                                    IsUserExistsResult = GetUserDetails(objGetUser.ID, false);
                                 }
                             }
                         }
@@ -797,9 +789,10 @@ namespace CrowdWCFservice
                                 objCurrFeed.UserId = Convert.ToString(feed.UserID);
                                 objCurrFeed.Type = Convert.ToString(feed.FeedTypeID);
                                 objCurrFeed.JobID = Convert.ToString(feed.JobID);
+
+                                GetJobDetails JobDetail = new GetJobDetails();
                                 if (feed.JobID != null && feed.JobID != 0)
                                 {
-                                    GetJobDetails JobDetail = new GetJobDetails();
                                     Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == feed.JobID);
                                     if (objGetJob != null)
                                     {
@@ -820,13 +813,14 @@ namespace CrowdWCFservice
                                         JobDetail.URL = objGetJob.URL;
                                         JobDetail.ShareURL = objGetJob.ShareURL;
                                         JobDetail.State = Convert.ToString(objGetJob.State);
-                                        objCurrFeed.JobDetail = JobDetail;
-                                    }
+                                    }                                    
                                 }
+                                objCurrFeed.JobDetail = JobDetail;
+
+                                GetUserDetailForFeed UserDetail = new GetUserDetailForFeed();
                                 objCurrFeed.OtherUserID = Convert.ToString(feed.OtherUserID);
                                 if (feed.OtherUserID != null && feed.OtherUserID != 0)
                                 {
-                                    GetUserDetailForFeed UserDetail = new GetUserDetailForFeed();
                                     User objUser = db.User.Get().FirstOrDefault(n => n.ID == feed.OtherUserID);
                                     if (objUser != null)
                                     {
@@ -845,9 +839,9 @@ namespace CrowdWCFservice
                                         UserDetail.PhotoURL = objUser.PhotoURL;
                                         UserDetail.LinkedInId = objUser.LinkedInId;
                                         UserDetail.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
-                                        objCurrFeed.OtherUserDetails = UserDetail;
-                                    }
+                                    }                                   
                                 }
+                                objCurrFeed.OtherUserDetails = UserDetail;
                                 ActivityFeeds.Add(objCurrFeed);
                             }
 
@@ -858,7 +852,7 @@ namespace CrowdWCFservice
                         }
                         else
                         {
-                            ResultStatus.Status = "1"; // as per rajendra's instruction in  mail on dated 19/09/2014
+                            ResultStatus.Status = "0"; // as per rajendra's instruction in  mail on dated 10/10/2014
                             ResultStatus.StatusMessage = "No feeds on this Page Number!";
                             ActivityFeedsList.ResultStatus = ResultStatus;
                             ActivityFeedsList.GetActivityFeeds = ActivityFeeds;
@@ -866,7 +860,7 @@ namespace CrowdWCFservice
                     }
                     else
                     {
-                        ResultStatus.Status = "1"; // as per rajendra's instruction in  mail on dated 19/09/2014
+                        ResultStatus.Status = "0"; // as per rajendra's instruction in  mail on dated 10/10/2014
                         ResultStatus.StatusMessage = "No feeds!";
                         ActivityFeedsList.ResultStatus = ResultStatus;
                         ActivityFeedsList.GetActivityFeeds = ActivityFeeds;
@@ -1063,8 +1057,8 @@ namespace CrowdWCFservice
 
                     if (MyCrowdResult.FollowingMeUser.Count == 0 && MyCrowdResult.IAmFollowingUser.Count == 0)
                     {
-                        ResultStatus.Status = "1";//as per rajendra's instruction in mail on dated 19/09/2014
-                        ResultStatus.StatusMessage = " No Records!";
+                        ResultStatus.Status = "0";//as per rajendra's instruction in mail on dated 10/10/2014
+                        ResultStatus.StatusMessage = "No Records!";
                         MyCrowdResult.ResultStatus = ResultStatus;
                         MyCrowdResult.FollowingMeUser = lstFollowingMeUser;
                         MyCrowdResult.IAmFollowingUser = lstIAmFollowingUser;
@@ -1131,6 +1125,26 @@ namespace CrowdWCFservice
                             db.SaveChanges();
                             //=========================================================//
                             blnFlagResult = true;
+
+                            //================Code for push notification===========//
+                            User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+
+                            //Get device token of receiver
+                            string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngFollowUserID).DeviceToken;
+                            ///
+                            if (UserDeviceToken != null)
+                            {                                
+                                var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " is now following you.";
+                                Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                objParam.Add("testDeviceToken", UserDeviceToken);
+                                objParam.Add("pushMessage", msg);
+                                objParam.Add("sourceTable", "FollowUser");
+                                objParam.Add("UserID", lngUserID.ToString());
+                                SendNotificationMessage(objParam);
+                            }
+                            //=========================end=======================//
+
                         }
                         else if (Status == "0")
                         {
@@ -1678,6 +1692,26 @@ namespace CrowdWCFservice
                                     db.SaveChanges();
                                     //-------------------------------------------------------------------------//
 
+                                    //================Code for push notification===========//
+                                    User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+                                   
+                                    //Get device token of receiver
+                                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngJobUserID).DeviceToken;
+                                    ///
+                                    if (UserDeviceToken != null)
+                                    {
+                                        var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " has sent you a job application.";
+                                        Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                        objParam.Add("testDeviceToken", UserDeviceToken);
+                                        objParam.Add("pushMessage", msg);
+                                        objParam.Add("sourceTable", "JobApplication");
+                                        objParam.Add("UserID", lngUserID.ToString());
+                                        objParam.Add("JobID", lngJobID.ToString());
+                                        SendNotificationMessage(objParam);
+                                    }
+                                    //=========================end=======================//
+
                                     ResultStatus.Status = "1";
                                     ResultStatus.StatusMessage = "";
                                     ApplyToJobResult.ResultStatus = ResultStatus;
@@ -1765,12 +1799,39 @@ namespace CrowdWCFservice
                         Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
                         if (objGetJob != null)
                         {
+                            //Get List of Favorited User of Job
+                            List<Int64> lstUserOfFavoritedJob = db.UserJobFavorite.Get().Where(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
+
                             if (Convert.ToInt32(Status) == 1)
                             {
                                 objGetJob.State = true;
                                 db.Job.Update(objGetJob);
                                 db.SaveChanges();
                                 lngFeedTypeID = 4;
+
+                                if (lstUserOfFavoritedJob.Count > 0)
+                                {
+                                    foreach (Int64 id in lstUserOfFavoritedJob)
+                                    {
+                                        //================Code for push notification===========//                                        
+                                        //Get device token of receiver
+                                        string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == id).DeviceToken;
+                                        ///
+                                        if (UserDeviceToken != null)
+                                        {
+                                            var msg = "The job, "+ objGetJob.Title +" has been filled.";
+                                            Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                            objParam.Add("testDeviceToken", UserDeviceToken);
+                                            objParam.Add("pushMessage", msg);
+                                            objParam.Add("sourceTable", "FillJob");
+                                            objParam.Add("UserID", lngUserID.ToString());
+                                            objParam.Add("JobID", lngJobID.ToString());
+                                            SendNotificationMessage(objParam);
+                                        }
+                                        //=========================end=======================//
+                                    }
+                                }
                             }
                             else if (Convert.ToInt32(Status) == 0)
                             {
@@ -1781,9 +1842,7 @@ namespace CrowdWCFservice
                             }
 
                             List<Int64> lstUserID = new List<Int64>();
-
-                            //Get List of Favorited User of Job
-                            List<Int64> lstUserOfFavoritedJob = db.UserJobFavorite.Get().Where(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
+                         
                             if (lstUserOfFavoritedJob.Count > 0)
                             {
                                 foreach (long id in lstUserOfFavoritedJob)
@@ -1986,14 +2045,18 @@ namespace CrowdWCFservice
                 {
                     long lngUserID = Convert.ToInt64(UserID);
 
-                    List<Job> objGetjob = db.Job.Get().OrderByDescending(n => n.DateModified).ToList();
-                    if (Industry != null && Industry != "")
+                    List<Job> objGetjob = db.Job.Get().Where(n=>n.State != true).OrderByDescending(n => n.DateModified).ToList();
+                    if (Industry != null && Industry != "" && Industry2 != "")
                     {
-                        objGetjob = objGetjob.Where(r => r.Industry != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()))).ToList();
+                        objGetjob = objGetjob.Where(r => r.Industry != null && r.Industry2!=null  && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()) || r.Industry2.ToUpper().Contains(Industry2.ToUpper()))).ToList();
                     }
-                    if (Industry2 != null && Industry2 != "")
+                    if (Industry2 != null && Industry2 != "" && Industry == "")
                     {
                         objGetjob = objGetjob.Where(r => r.Industry2 != null && (r.Industry2.ToUpper().Contains(Industry2.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()))).ToList();
+                    }
+                    if (Industry != null && Industry != "" && Industry2 == "")
+                    {
+                        objGetjob = objGetjob.Where(r => r.Industry != null && (r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry.ToUpper()))).ToList();
                     }
                     if (ExperienceLevel != null && ExperienceLevel != "")
                     {
@@ -2113,15 +2176,18 @@ namespace CrowdWCFservice
                 {
 
                     List<User> objGetUser = db.User.Get().Where(n => n.ID != Convert.ToInt64(UserID)).OrderBy(n => n.FirstName).ToList();
-
-                    if (Industry != null && Industry != "")
+                    if (Industry != null && Industry != "" && Industry2 != "")
                     {
-                        objGetUser = objGetUser.Where(r => r.Industry != null && r.Industry2 != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()))).ToList();
+                        objGetUser = objGetUser.Where(r => r.Industry != null && r.Industry2 != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()) || r.Industry2.ToUpper().Contains(Industry2.ToUpper()))).ToList();
                     }
-                    if (Industry2 != null && Industry2 != "")
+                    if (Industry2 != null && Industry2 != "" && Industry == "")
                     {
-                        objGetUser = objGetUser.Where(r => r.Industry2 != null && r.Industry != null && (r.Industry2.ToUpper().Contains(Industry2.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()))).ToList();
+                        objGetUser = objGetUser.Where(r => r.Industry2 != null && (r.Industry2.ToUpper().Contains(Industry2.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()))).ToList();
                     }
+                    if (Industry != null && Industry != "" && Industry2 == "")
+                    {
+                        objGetUser = objGetUser.Where(r => r.Industry != null && (r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry.ToUpper()))).ToList();
+                    }                   
                     if (ExperienceLevel != null && ExperienceLevel != "")
                     {
                         objGetUser = objGetUser.Where(r => r.ExperienceLevelType != null && r.ExperienceLevelType == Convert.ToInt32(ExperienceLevel)).ToList();
@@ -2414,7 +2480,7 @@ namespace CrowdWCFservice
                     else
                     {
                         ResultStatus.Status = "0";
-                        ResultStatus.StatusMessage = "";
+                        ResultStatus.StatusMessage = "No Records!";
                         UserJobResult.ResultStatus = ResultStatus;
                         UserJobResult.PostedByMe = lstJobPostedByMe;
                         UserJobResult.JobApplied = lstJobApplied;
@@ -2456,7 +2522,8 @@ namespace CrowdWCFservice
                     long lngUserID = Convert.ToInt64(UserID);
                     List<Message> lstFinal = new List<Message>();
 
-                    var lstMessageType0 = db.Message.Get(n => n.ReceiverID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList();
+                    //Change as per mail 151014
+                    var lstMessageType0 = db.Message.Get(n => (n.ReceiverID == lngUserID || n.SenderID == lngUserID) && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList();
                     if (lstMessageType0.Count > 0)
                     {
                         foreach (var message in lstMessageType0)
@@ -2465,7 +2532,8 @@ namespace CrowdWCFservice
                         }
                     }
 
-                    List<Message> lstMessageType1 = db.Message.Get().Where(n => n.ReceiverID == lngUserID && n.MessageTypeID == 2).ToList();
+                    //Change as per mail 151014
+                    List<Message> lstMessageType1 = db.Message.Get().Where(n => (n.ReceiverID == lngUserID || n.SenderID == lngUserID) && n.MessageTypeID == 2).ToList();
                     if (lstMessageType1.Count > 0)
                     {
                         foreach (var message in lstMessageType1)
@@ -2481,7 +2549,7 @@ namespace CrowdWCFservice
                         if (PageNumber != null && PageNumber != "")
                         {
                             //Paging parameters
-                            int pagesize = 3;
+                            int pagesize = 10;
                             int currentpage = Convert.ToInt32(PageNumber);
                             int currentsize = pagesize;
                             int skipcount = currentsize * (currentpage - 1);
@@ -2528,7 +2596,7 @@ namespace CrowdWCFservice
                                 objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
 
                                 //IsUnreadMessage
-                                Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State = false && n.ReceiverID == lngUserID && n.SenderID == msg.SenderID && n.MessageTypeID == 1);
+                                Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == msg.SenderID && n.MessageTypeID == 1);
                                 if (objCheckMessage != null)
                                 {
                                     objCurrMessage.IsUnreadMessages = "True";
@@ -2596,8 +2664,9 @@ namespace CrowdWCFservice
                 {
                     long lngUserID = Convert.ToInt64(UserID);
                     long lngSenderID = Convert.ToInt64(SenderID);
-
-                    var lstMessageType0 = db.Message.Get(n => n.SenderID == lngSenderID && n.ReceiverID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.ID).ToList();
+                    
+                    //Change as per mail 151014
+                    var lstMessageType0 = db.Message.Get(n => ((n.SenderID == lngSenderID && n.ReceiverID == lngUserID) || (n.SenderID == lngUserID  && n.ReceiverID == lngSenderID)) && n.MessageTypeID == 1).OrderByDescending(n => n.ID).ToList();
 
                     if (lstMessageType0.Count > 0)
                     {
@@ -2732,6 +2801,26 @@ namespace CrowdWCFservice
                     objNewFeed.OtherUserID = lngUserID;
                     db.Feed.Add(objNewFeed);
                     db.SaveChanges();
+
+                    //================Code for push notification===========//
+                    User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+                                       
+                    //Get device token of receiver
+                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngReceiverId).DeviceToken;
+                    ///
+                    if (UserDeviceToken != null)
+                    {
+                        string strMessage = Message.Length > 40 ? Message.Substring(0, 40) + "..." : Message;
+                        var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName +":"+ strMessage;
+                        Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                        objParam.Add("testDeviceToken", UserDeviceToken);
+                        objParam.Add("pushMessage", msg);
+                        objParam.Add("sourceTable", "NewMessage");
+                        objParam.Add("UserID", lngUserID.ToString());
+                        SendNotificationMessage(objParam);
+                    }
+                    //=========================end=======================//
 
                     //Prepare Response
                     long lngLatestMessageId = db.Message.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
@@ -2966,6 +3055,229 @@ namespace CrowdWCFservice
 
         #endregion
 
+        #region AcceptDeclineJobApplication
+
+        public GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status)
+        {
+            GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplicationResult = new GetAcceptDeclineJobApplicationResult();
+            ResultStatus ResultStatus = new ResultStatus();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("AcceptDeclineJobApplication", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                { 
+                    long lngJobID ;
+                    if (JobID != null && JobID != string.Empty)
+                    {
+                        lngJobID = Convert.ToInt64(JobID);
+                    }
+                    long lngUserID = Convert.ToInt64(UserID);
+
+                    if (Status != null && Status != "")
+                    {                      
+                        if (Convert.ToInt32(Status) == 1)
+                        {
+                            Message objGetMessage = db.Message.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(MessageID));
+                            if (objGetMessage != null)
+                            {
+                                objGetMessage.MessageTypeID = 3;
+                                objGetMessage.State = true;
+                                db.Message.Update(objGetMessage);
+                                db.SaveChanges();
+
+                                //================Code for push notification===========//
+                                User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+
+                                //Get sender of messge
+                                long lngMessageSenderID = db.Message.Get().FirstOrDefault(n => n.ID == objGetMessage.ID).SenderID;
+
+                                //Get Title of job
+                                string strJobTitle = db.Job.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(JobID)).Title;
+
+                                //Get device token of receiver
+                                string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngMessageSenderID).DeviceToken;
+                                ///
+                                if (UserDeviceToken != null)
+                                {
+                                    var msg = "Your job application for " + strJobTitle + " has been approved.";
+                                    Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                    objParam.Add("testDeviceToken", UserDeviceToken);
+                                    objParam.Add("pushMessage", msg);
+                                    objParam.Add("sourceTable", "ApproveJobApplication");
+                                    objParam.Add("UserID", lngUserID.ToString());
+                                    objParam.Add("JobID", JobID);
+                                    SendNotificationMessage(objParam);
+                                }
+                                //=========================end=======================//
+
+                                ResultStatus.Status = "1";
+                                ResultStatus.StatusMessage = "";
+                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+                            }
+                            else
+                            {
+                                ResultStatus.Status = "0";
+                                ResultStatus.StatusMessage = "Message does not exist!";
+                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+                            }
+                        }
+                        else if (Convert.ToInt32(Status) == 0)
+                        {
+                            Message objGetMessage = db.Message.Get().FirstOrDefault(n => n.ID == Convert.ToInt32(MessageID));
+                            if (objGetMessage != null)
+                            {
+                                objGetMessage.MessageTypeID = 4;
+                                objGetMessage.State = true;
+                                db.Message.Update(objGetMessage);
+                                db.SaveChanges();
+
+                                //================Code for push notification===========//
+                                User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
+
+                                //Get sender of messge
+                                long lngMessageSenderID = db.Message.Get().FirstOrDefault(n => n.ID == objGetMessage.ID).SenderID;
+
+                                //Get Title of job
+                                string strJobTitle = db.Job.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(JobID)).Title;
+
+                                //Get device token of receiver
+                                string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngMessageSenderID).DeviceToken;
+                                ///
+                                if (UserDeviceToken != null)
+                                {
+                                    var msg = "Your job application for " + strJobTitle + " has been declined.";
+                                    Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                    objParam.Add("testDeviceToken", UserDeviceToken);
+                                    objParam.Add("pushMessage", msg);
+                                    objParam.Add("sourceTable", "DeclineJobApplication");
+                                    objParam.Add("UserID", lngUserID.ToString());
+                                    objParam.Add("JobID", JobID);
+                                    SendNotificationMessage(objParam);
+                                }
+                                //=========================end=======================//
+
+                                ResultStatus.Status = "1";
+                                ResultStatus.StatusMessage = "";
+                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+                            }
+                            else
+                            {
+                                ResultStatus.Status = "0";
+                                ResultStatus.StatusMessage = "Message does not exist!";
+                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+                            } 
+                        }
+                       
+                    }
+                    else
+                    {
+                        ResultStatus.Status = "0";
+                        ResultStatus.StatusMessage = "Invalid Parameter!";
+                        AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+                    }
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
+            }
+            writeLog("AcceptDeclineJobApplication", "STOP", UserID);
+            return AcceptDeclineJobApplicationResult;
+        }
+
+        #endregion
+
+        #region GetUnreadMessageCount
+
+        public GetUnreadMessageCountResult GetUnreadMessageCount(string UserID, string UserToken)
+        {
+            GetUnreadMessageCountResult UnreadMessageCountResult = new GetUnreadMessageCountResult();
+            ResultStatus ResultStatus = new ResultStatus();
+
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            try
+            {
+                writeLog("GetUnreadMessageCount", "START", UserID);
+                UnitOfWork db = new UnitOfWork();
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {                 
+                    long lngUserID = Convert.ToInt64(UserID);
+                    //Get Unread Message Count
+                    int objMessageCount = db.Message.Get().Where(n => n.ReceiverID == lngUserID && n.State == false).ToList().Count;
+
+                    UnreadMessageCountResult.NumberOfUnreadMessage = Convert.ToString(objMessageCount);
+                    //====================================================================//
+                    ResultStatus.Status = "1";
+                    ResultStatus.StatusMessage = "";
+                    UnreadMessageCountResult.ResultStatus = ResultStatus;
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter validate token.", HttpStatusCode.Unauthorized);
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                UnreadMessageCountResult.ResultStatus = ResultStatus;
+            }
+            writeLog("GetUnreadMessageCount", "STOP", UserID);
+            return UnreadMessageCountResult;
+        }
+
+        #endregion
+
+        public ResultStatus TestNotification()
+        {
+            writeLog("Notification", "START", "0");
+            ResultStatus objResultStatus = new ResultStatus();
+            CheckJobStatusAndSendNotification();
+            writeLog("Notification", "STOP", "0");
+            return objResultStatus;
+        }
+
+        public static void CheckJobStatusAndSendNotification()
+        {
+            UnitOfWork db = new UnitOfWork();
+            //List<Job> objGetJob = db.Job.Get().Where(n => n.State != true && DateTime.Compare(n.DateModified, DateTime.Now.Date) > 30)).ToList();
+            List<Job> objGetJob = db.Job.Get().Where(n => n.State != true && n.DateModified.Date < TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).Date.AddDays(-30)).ToList();
+            if (objGetJob != null)
+            {
+                foreach (var job in objGetJob)
+                { 
+                    //Get UserDevice token of JobUserID
+                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == job.UserID).DeviceToken;
+                    ///
+                    if (UserDeviceToken != null)
+                    {
+                        var msg = "Is the job, "+ job.Title  +" still active? Log in to update the status.";
+                        Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                        objParam.Add("testDeviceToken", UserDeviceToken);
+                        objParam.Add("pushMessage", msg);
+                        objParam.Add("sourceTable", "Unfilled30days");
+                        objParam.Add("UserID", job.UserID.ToString());
+                        objParam.Add("JobID", job.ID.ToString());
+                        SendNotificationMessage(objParam);
+                    }
+                    //=========================end=======================//
+
+                }
+            }
+        }
+
         #region Common Methods
 
         #region Helper methods
@@ -3047,6 +3359,75 @@ namespace CrowdWCFservice
         /// <param name="intThumbWidth"></param>
         /// <param name="intThumbHeight"></param>
         /// <returns></returns>
+
+        //public string SaveImage(string base64stringImage, string AppendPrefix, int intThumbWidth, int intThumbHeight)
+        //{
+        //    string filePath = "";
+        //    string _fileName = "";
+
+        //    try
+        //    {
+        //        if (!Directory.Exists(FindFilePath("ImageUpload")))
+        //        {
+        //            Directory.CreateDirectory(FindFilePath("ImageUpload"));
+        //        }
+        //        _fileName = AppendPrefix + Guid.NewGuid().ToString() + ".PNG";
+        //        filePath = Path.Combine(FindFilePath("ImageUpload")) + "\\" + _fileName;
+        //        if (System.IO.File.Exists(filePath))
+        //        {
+        //            System.IO.File.Delete(filePath);
+        //        }
+
+
+        //        var bytes = Convert.FromBase64String(base64stringImage);
+        //        using (var imageFile = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            imageFile.Write(bytes, 0, bytes.Length);
+        //            imageFile.Flush();
+        //        }
+
+
+        //        //Create Thumbnail
+        //        //Image image = Image.FromFile(filePath);
+        //        Image image1 = getCroppedImage(filePath);
+        //        Image thumb = image1.GetThumbnailImage(intThumbWidth, intThumbHeight, () => false, IntPtr.Zero);
+        //        thumb.Save(filePath.Replace(".PNG", "_Thumb.PNG"));
+        //        image1.Dispose();
+        //        thumb.Dispose();
+        //        return _fileName;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return _fileName;
+        //    }
+        //}
+
+        //private Image getCroppedImage(string path)
+        //{
+        //    Bitmap bmpImage = new Bitmap(path);
+
+        //    int rectX = 0;
+        //    int rectY = 0;
+        //    int rectWidthHeight = bmpImage.Width;
+
+        //    if (bmpImage.Width > bmpImage.Height)
+        //    {
+        //        rectX = (bmpImage.Width - bmpImage.Height) / 2;
+        //        rectY = 0;
+        //        rectWidthHeight = bmpImage.Height;
+        //    }
+        //    else if (bmpImage.Width < bmpImage.Height)
+        //    {
+        //        rectX = 0;
+        //        rectY = (bmpImage.Height - bmpImage.Width) / 2;
+        //        rectWidthHeight = bmpImage.Width;
+        //    }
+
+        //    Bitmap image = bmpImage.Clone(new Rectangle(rectX, rectY, rectWidthHeight, rectWidthHeight), bmpImage.PixelFormat);
+        //    bmpImage.Dispose();
+        //    return image;
+        //}
+
         public string SaveImage(string base64stringImage, string AppendPrefix, int intThumbWidth, int intThumbHeight)
         {
             string filePath = "";
@@ -3073,12 +3454,47 @@ namespace CrowdWCFservice
                     imageFile.Flush();
                 }
 
+                //--------- Check for source image have required orientation
+                Image SourceImage = Image.FromFile(filePath);
+                bool IsReqOrientation = false;
+                if (SourceImage.PropertyIdList.Contains(0x112)) //0x112 = Orientation
+                {
+                    var prop = SourceImage.GetPropertyItem(0x112);
+                    if (prop.Type == 3 && prop.Len == 2)
+                    {
+                        UInt16 orientationExif = BitConverter.ToUInt16(SourceImage.GetPropertyItem(0x112).Value, 0);
+                        if (orientationExif == 8)
+                        {
+                            IsReqOrientation = true;
+                        }
+                        else if (orientationExif == 3)
+                        {
+                            IsReqOrientation = true;
+                        }
+                        else if (orientationExif == 6)
+                        {
+                            IsReqOrientation = true;
+                        }
+                    }
+                }
+                //--------- Close Check for source image have required orientation
+                
+                //--------- If image required orientation then crop with 100*100 size otherwise do same as before.
+                Image image1 = SourceImage;
+                if (IsReqOrientation)
+                {
+                    image1 = getCroppedWithOrientation(filePath, SourceImage, image1.Width, image1.Width);
+                }
+                else
+                {
+                    image1 = getCroppedImage(filePath);
+                }
+                //-----------------------------------------------------------------------
 
-                //Create Thumbnail
-                //Image image = Image.FromFile(filePath);
-                Image image1 = getCroppedImage(filePath);
+                //Create Thumbnail  
                 Image thumb = image1.GetThumbnailImage(intThumbWidth, intThumbHeight, () => false, IntPtr.Zero);
-                thumb.Save(filePath.Replace(".PNG", "_Thumb.PNG"));
+                thumb.Save(filePath.ToLower().Contains(".png") ? filePath.ToLower().Replace(".png", "_Thumb.png") : filePath.ToLower().Contains(".jpg") ? filePath.ToLower().Replace(".jpg", "_Thumb.jpg") : filePath.ToLower().Contains(".jpeg") ? filePath.ToLower().Replace(".jpeg", "_Thumb.jpeg") : filePath.ToLower().Contains(".gif") ? filePath.ToLower().Replace(".gif", "_Thumb.gif") : filePath.ToLower().Contains(".bmp") ? filePath.ToLower().Replace(".bmp", "_Thumb.bmp") : filePath.ToLower());    
+                //thumb.Save(filePath.Replace(".PNG", "_Thumb.PNG"));
                 image1.Dispose();
                 thumb.Dispose();
                 return _fileName;
@@ -3087,6 +3503,52 @@ namespace CrowdWCFservice
             {
                 return _fileName;
             }
+        }
+
+        private Image getCroppedWithOrientation(string path, Image image1, int reqWidth, int reqHeight)
+        {           
+            Bitmap bmpImage = new Bitmap(path);
+
+
+            if (image1.PropertyIdList.Contains(0x112)) //0x112 = Orientation
+            {
+                var prop = image1.GetPropertyItem(0x112);
+                if (prop.Type == 3 && prop.Len == 2)
+                {
+                    UInt16 orientationExif = BitConverter.ToUInt16(image1.GetPropertyItem(0x112).Value, 0);
+                    if (orientationExif == 8)
+                    {
+                        bmpImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    }
+                    else if (orientationExif == 3)
+                    {
+                        bmpImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    }
+                    else if (orientationExif == 6)
+                    {
+                        bmpImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    }
+                }
+            }
+
+            int OrgX = bmpImage.Width;
+            int OrgY = bmpImage.Height;
+
+            int RectX = 0;
+            int RectY = 0;
+           
+                int center = Convert.ToInt32(OrgX / 2);
+                RectX = center - (OrgX / 2);
+           
+
+           
+                int centery = Convert.ToInt32(OrgY / 2);
+                RectY = centery - (OrgX / 2);
+
+
+                Bitmap image = bmpImage.Clone(new Rectangle(RectX, RectY, OrgX, OrgX), bmpImage.PixelFormat);
+            bmpImage.Dispose();
+            return image;
         }
 
         private Image getCroppedImage(string path)
@@ -3125,7 +3587,7 @@ namespace CrowdWCFservice
         {
             GetIsUserExistsResult GetUserDetailResult = new GetIsUserExistsResult();
             GetUserResult UserResult = new GetUserResult();
-            List<GetUserSkillResult> lstUserSkillResult = new List<GetUserSkillResult>();
+            List<GetUserSkillResult> lstUserSkillResult = new List<GetUserSkillResult>();            
             List<GetUserEmploymentResult> lstUserEmploymentResult = new List<GetUserEmploymentResult>();
             List<GetUserEducationWithCourseResult> lstUserEducationWithCourseResult = new List<GetUserEducationWithCourseResult>();
             List<GetUserEmploymentRecommendationResult> lstUserEmploymentrecommendation = new List<GetUserEmploymentRecommendationResult>();
@@ -3265,16 +3727,23 @@ namespace CrowdWCFservice
                                 objCurrCourse.EducationID = Convert.ToString(course.EducationID);
                                 objCurrCourse.Course = course.Course;
                                 lstCourseForCurrEducation.Add(objCurrCourse);
-                            }
+                            }                         
                             objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
                         }
+                        //Added by himanshu: mail on 03-10-2014.
+                        else
+                        {
+                            List<GetUserEducationCourseResult> lstCourseForCurrEducation = new List<GetUserEducationCourseResult>();                           
+                            objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
+                        }
+                        //Done Added by himanshu
                         //==================================================================//
 
                         lstUserEducationWithCourseResult.Add(objCurrUserEducation);
                     }
                 }
                 //==================================================================================================================================//
-
+                
                 ResultStatus.Status = "1";
                 ResultStatus.StatusMessage = "";
                 GetUserDetailResult.ResultStatus = ResultStatus;
@@ -3296,6 +3765,79 @@ namespace CrowdWCFservice
                 GetUserDetailResult.GetUserEmploymentRecommendationResult = lstUserEmploymentrecommendation;
             }
             return GetUserDetailResult;
+        }
+
+        public static void SendNotificationMessage(object obj)
+        {
+            bool returnValue = false;
+            string apn_developer_identity = string.Empty;
+            bool IsSandbox;
+            string strp12FileLocal = ConfigurationManager.AppSettings["p12FileName_Local"];
+            string strp12FileLive = ConfigurationManager.AppSettings["p12FileName_Live"];
+            try
+            {
+                if (ConfigurationManager.AppSettings["IsProductionForP12File"].ToUpper() == "true".ToUpper())
+                {
+                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLive);
+                    IsSandbox = false;
+                }
+                else
+                {
+                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLocal);
+                    IsSandbox = true;
+                }
+                string P12FilePassword = ConfigurationManager.AppSettings["p12FilePassword"];
+
+                ////bool IsSandbox = false;
+                //bool IsSandbox = true;
+
+                Dictionary<string, string> objParam = (obj as Dictionary<string, string>);
+                string testDeviceToken = objParam["testDeviceToken"];
+                string pushMessage = objParam["pushMessage"];
+                string sourceTable = objParam["sourceTable"];
+
+                if (testDeviceToken == null || testDeviceToken.Length < 64)
+                {
+                    return;
+                }
+
+                NotificationService service = new NotificationService(IsSandbox, apn_developer_identity, P12FilePassword, 1);
+                service.SendRetries = 5;
+                service.ReconnectDelay = 5000;
+
+                JdSoft.Apple.Apns.Notifications.Notification alertNotification = new JdSoft.Apple.Apns.Notifications.Notification(testDeviceToken);
+                alertNotification.Payload.Alert.Body = string.Format("{0}", pushMessage);
+
+                List<object> objSourceTable = new List<object>();
+                objSourceTable.Add(sourceTable);
+
+                string UserID = string.Empty;
+                string JobID = string.Empty;
+
+                if (objParam.ContainsKey("UserID") && objParam["UserID"] != null && objParam["UserID"] != "")
+                {
+                    UserID = objParam["UserID"];
+                    objSourceTable.Add(UserID);
+                }
+                if (objParam.ContainsKey("JobID") && objParam["JobID"] != null && objParam["JobID"] != "")
+                {
+                    JobID = objParam["JobID"];
+                    objSourceTable.Add(JobID);
+                } 
+                
+                alertNotification.Payload.Alert.LocalizedArgs = objSourceTable;
+
+                returnValue = service.QueueNotification(alertNotification);
+
+                System.Threading.Thread.Sleep(1000);
+                service.Close();
+                service.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #endregion
