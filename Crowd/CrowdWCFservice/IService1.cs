@@ -18,7 +18,7 @@ namespace CrowdWCFservice
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "IsUserExists", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        GetIsUserExistsResult IsUserExists(string LinkedInID);
+        GetIsUserExistsResult IsUserExists(string LinkedInID, string DeviceToken);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "AddEditUserDetails", BodyStyle = WebMessageBodyStyle.Wrapped)]
@@ -2289,6 +2289,10 @@ namespace CrowdWCFservice
         private List<GetMessageDetail> _MesssageList;
         private string _IsUnreadMessages = string.Empty;
 
+        private string _OtherUserFirstName = string.Empty;
+        private string _OtherUserLastName = string.Empty;
+        private string _OtherUserPhotoURL = string.Empty;
+
         [DataMember]
         public ResultStatus ResultStatus
         {
@@ -2309,6 +2313,27 @@ namespace CrowdWCFservice
             get { return _IsUnreadMessages; }
             set { _IsUnreadMessages = value; }
         }
+
+        [DataMember]
+        public string OtherUserFirstName
+        {
+            get { return _OtherUserFirstName; }
+            set { _OtherUserFirstName = value; }
+        }
+
+        [DataMember]
+        public string OtherUserLastName
+        {
+            get { return _OtherUserLastName; }
+            set { _OtherUserLastName = value; }
+        }
+
+        [DataMember]
+        public string OtherUserPhotoURL
+        {
+            get { return _OtherUserPhotoURL; }
+            set { _OtherUserPhotoURL = value; }
+        }
     }
     #endregion
 
@@ -2325,7 +2350,15 @@ namespace CrowdWCFservice
         private string _LincURL = string.Empty;
         private string _LincUserID = string.Empty;
         private string _LincJobID = string.Empty;
-        private string _Type = string.Empty;        
+        private string _Type = string.Empty;
+        private string _LinkJobCreatorID = string.Empty;
+
+        [DataMember]
+        public string LinkJobCreatorID
+        {
+            get { return _LinkJobCreatorID; }
+            set { _LinkJobCreatorID = value; }
+        }
 
         [DataMember]
         public string ID

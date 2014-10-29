@@ -107,9 +107,13 @@
     <None Include="Properties\PublishProfiles\17092014.pubxml" />
     <None Include="Properties\PublishProfiles\171014-2.pubxml" />
     <None Include="Properties\PublishProfiles\171014.pubxml" />
+    <None Include="Properties\PublishProfiles\201014-2.pubxml" />
+    <None Include="Properties\PublishProfiles\201014.pubxml" />
     <None Include="Properties\PublishProfiles\23092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\23092014.pubxml" />
     <None Include="Properties\PublishProfiles\25092014.pubxml" />
+    <None Include="Properties\PublishProfiles\281014.pubxml" />
+    <None Include="Properties\PublishProfiles\291014.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

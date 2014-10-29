@@ -27,7 +27,7 @@ namespace CrowdWCFservice
 
         #region IsUserExists
 
-        public GetIsUserExistsResult IsUserExists(string LinkedInID)
+        public GetIsUserExistsResult IsUserExists(string LinkedInID, string DeviceToken)
         {
             GetIsUserExistsResult IsUserExistsResult = new GetIsUserExistsResult();
             GetUserResult UserResult = new GetUserResult();
@@ -38,11 +38,33 @@ namespace CrowdWCFservice
             try
             {
                 writeLog("IsUserExists", "START", LinkedInID);
+
                 UnitOfWork db = new UnitOfWork();
+
                 User objUser = db.User.Get().FirstOrDefault(n => n.LinkedInId.ToUpper() == LinkedInID.ToUpper());
+
                 if (objUser != null)
                 {
+                    //--------Check for devicetoken already exist or not-----------//
+                    User userDeviceToken = db.User.Get().FirstOrDefault(m => m.DeviceToken == DeviceToken);
+                    if (userDeviceToken != null)
+                    {
+                        userDeviceToken.DeviceToken = null;
+                        db.User.Update(userDeviceToken);
+                        db.SaveChanges();
+                    }
+                    //------------------------------------------------------------//
+
+                    objUser.DeviceToken = DeviceToken;
+                    db.User.Update(objUser);
+                    db.SaveChanges();
+                    //========================================================//
+
+
                     IsUserExistsResult = GetUserDetails(objUser.ID, true);
+
+
+
                 }
                 else
                 {
@@ -904,6 +926,8 @@ namespace CrowdWCFservice
 
                     //Get Following Me User - users who follow requested UserID 
                     List<Int64> lstFollowerUserID = db.Follow.Get().Where(n => n.FollowingUserID == lngUserID).Select(n => n.FollowerUserID).ToList();
+                    lstFollowerUserID = lstFollowerUserID.Distinct().ToList();
+
                     if (lstFollowerUserID.Count > 0)
                     {
                         foreach (Int64 follower in lstFollowerUserID)
@@ -967,6 +991,8 @@ namespace CrowdWCFservice
 
                     //Get I am Following User - users whom requested user is following
                     List<Int64> lstFollowingUserID = db.Follow.Get().Where(n => n.FollowerUserID == lngUserID).Select(n => n.FollowingUserID).ToList();
+                    lstFollowingUserID = lstFollowingUserID.Distinct().ToList();
+
                     if (lstFollowingUserID.Count > 0)
                     {
                         foreach (Int64 following in lstFollowingUserID)
@@ -2523,7 +2549,9 @@ namespace CrowdWCFservice
                     List<Message> lstFinal = new List<Message>();
 
                     //Change as per mail 151014
-                    var lstMessageType0 = db.Message.Get(n => (n.ReceiverID == lngUserID || n.SenderID == lngUserID) && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList();
+                    var lstMessageType0 = db.Message.Get(n => n.ReceiverID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList(); // Login user is reciever By Rajendra
+
+                    //var lstMessageType0 = db.Message.Get(n => (n.ReceiverID == lngUserID || n.SenderID == lngUserID) && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.SenderID).ToList();
                     if (lstMessageType0.Count > 0)
                     {
                         foreach (var message in lstMessageType0)
@@ -2532,8 +2560,28 @@ namespace CrowdWCFservice
                         }
                     }
 
+                    // By Rajendra
+                    var lstMessageType0_2 = db.Message.Get(n => n.SenderID == lngUserID && n.MessageTypeID == 1).OrderByDescending(n => n.DateCreated).GroupBy(n => n.ReceiverID).ToList(); //  Login user is sender By Rajendra
+                    if (lstMessageType0_2.Count > 0)
+                    {
+                        foreach (var message in lstMessageType0_2)
+                        {
+
+                            Message msgObject = message.FirstOrDefault();
+
+                            Message TempMsg = lstFinal.Where(n => n.SenderID == msgObject.ReceiverID).FirstOrDefault();
+
+                            if (TempMsg == null)
+                            {
+                                lstFinal.Add(message.FirstOrDefault());
+                            }
+                        }
+                    }
+
+                    //
+
                     //Change as per mail 151014
-                    List<Message> lstMessageType1 = db.Message.Get().Where(n => (n.ReceiverID == lngUserID || n.SenderID == lngUserID) && n.MessageTypeID == 2).ToList();
+                    List<Message> lstMessageType1 = db.Message.Get().Where(n => (n.ReceiverID == lngUserID) && (n.MessageTypeID == 2 || n.MessageTypeID == 3 || n.MessageTypeID == 4)).ToList();
                     if (lstMessageType1.Count > 0)
                     {
                         foreach (var message in lstMessageType1)
@@ -2566,7 +2614,12 @@ namespace CrowdWCFservice
                                 objCurrMessage.DateCreated = Convert.ToString(msg.DateCreated);
                                 objCurrMessage.SenderID = Convert.ToString(msg.SenderID);
                                 //GetSenderdetail
-                                User objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.SenderID);
+                                User objUser = new User();
+                                if(msg.SenderID == lngUserID)
+                                    objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.ReceiverID);
+                                else
+                                    objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.SenderID);
+
                                 if (objUser != null)
                                 {
                                     GetUserDetailForFeed UserDetail = new GetUserDetailForFeed();
@@ -2617,7 +2670,7 @@ namespace CrowdWCFservice
                         else
                         {
                             ResultStatus.Status = "0";
-                            ResultStatus.StatusMessage = "No more records!";
+                            ResultStatus.StatusMessage = "No Records on this Page Number!";
                             MessageListResult.ResultStatus = ResultStatus;
                             MessageListResult.MesssageList = MesssageList;
                         }
@@ -2625,7 +2678,7 @@ namespace CrowdWCFservice
                     else
                     {
                         ResultStatus.Status = "0";
-                        ResultStatus.StatusMessage = "";
+                        ResultStatus.StatusMessage = "No Records";
                         MessageListResult.ResultStatus = ResultStatus;
                         MessageListResult.MesssageList = MesssageList;
                     }
@@ -2693,6 +2746,16 @@ namespace CrowdWCFservice
                                 objCurrMessage.Message = Convert.ToString(msg.Message1);
                                 objCurrMessage.LincURL = Convert.ToString(msg.LinkURL);
                                 objCurrMessage.LincUserID = Convert.ToString(msg.LinkUserID);
+
+                                //Added by Rajendra to add Job Creator ID on 28th October
+                                objCurrMessage.LinkJobCreatorID = string.Empty;
+                                if (msg.LinkJobID > 0) 
+                                {
+                                    Int64 intJobCreatorID = db.Job.Get().Where(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
+                                    objCurrMessage.LinkJobCreatorID = intJobCreatorID.ToString();
+                                }
+                                ///
+
                                 objCurrMessage.LincJobID = Convert.ToString(msg.LinkJobID);
                                 objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
                                 MesssageList.Add(objCurrMessage);
@@ -2709,6 +2772,14 @@ namespace CrowdWCFservice
                                 MessageThreadResult.IsUnreadMessages = "False";
                             }
 
+                            //Add by Rajendra on 28th October for sender details
+                            User objUser = db.User.Get(n => n.ID == lngSenderID).FirstOrDefault();
+                            MessageThreadResult.OtherUserFirstName = objUser.FirstName;
+                            MessageThreadResult.OtherUserLastName = objUser.LastName;
+                            MessageThreadResult.OtherUserPhotoURL = objUser.PhotoURL;
+
+                            //
+
                             ResultStatus.Status = "1";
                             ResultStatus.StatusMessage = "";
                             MessageThreadResult.ResultStatus = ResultStatus;
@@ -2717,7 +2788,7 @@ namespace CrowdWCFservice
                         else
                         {
                             ResultStatus.Status = "0";
-                            ResultStatus.StatusMessage = "No more records!";
+                            ResultStatus.StatusMessage = "No Records on this Page Number!";
                             MessageThreadResult.ResultStatus = ResultStatus;
                             MessageThreadResult.MesssageList = MesssageList;
                         }
@@ -2725,7 +2796,7 @@ namespace CrowdWCFservice
                     else
                     {
                         ResultStatus.Status = "0";
-                        ResultStatus.StatusMessage = "";
+                        ResultStatus.StatusMessage = "No Records";
                         MessageThreadResult.ResultStatus = ResultStatus;
                         MessageThreadResult.MesssageList = MesssageList;
                     }
@@ -2811,7 +2882,7 @@ namespace CrowdWCFservice
                     if (UserDeviceToken != null)
                     {
                         string strMessage = Message.Length > 40 ? Message.Substring(0, 40) + "..." : Message;
-                        var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName +":"+ strMessage;
+                        var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName +": "+ strMessage;
                         Dictionary<string, string> objParam = new Dictionary<string, string>();
 
                         objParam.Add("testDeviceToken", UserDeviceToken);
@@ -2874,7 +2945,7 @@ namespace CrowdWCFservice
                     long lngSenderID = Convert.ToInt64(SenderID);
                     long lngMessageID = Convert.ToInt64(MessageID);
 
-                    var lstMessageType0 = db.Message.Get(n => n.SenderID == lngSenderID && n.ReceiverID == lngUserID && n.MessageTypeID == 1 && n.ID < lngMessageID).OrderByDescending(n => n.ID).ToList();
+                    var lstMessageType0 = db.Message.Get(n => ((n.SenderID == lngSenderID && n.ReceiverID == lngUserID) || (n.SenderID == lngUserID && n.ReceiverID == lngSenderID)) && n.MessageTypeID == 1 && n.ID < lngMessageID).OrderByDescending(n => n.ID).ToList();
 
                     if (lstMessageType0.Count > 0)
                     {
@@ -2900,6 +2971,16 @@ namespace CrowdWCFservice
                                 objCurrMessage.State = "True";
                                 objCurrMessage.Message = Convert.ToString(msg.Message1);
                                 objCurrMessage.LincURL = Convert.ToString(msg.LinkURL);
+                                //Added by Rajendra to add Job Creator ID on 28th October
+
+                                objCurrMessage.LinkJobCreatorID = string.Empty;
+                                if (msg.LinkJobID > 0)
+                                {
+                                    Int64 intJobCreatorID = db.Job.Get().Where(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
+                                    objCurrMessage.LinkJobCreatorID = intJobCreatorID.ToString();
+                                }
+                                ///
+
                                 objCurrMessage.LincUserID = Convert.ToString(msg.LinkUserID);
                                 objCurrMessage.LincJobID = Convert.ToString(msg.LinkJobID);
                                 objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
@@ -2933,7 +3014,7 @@ namespace CrowdWCFservice
                     else
                     {
                         ResultStatus.Status = "0";
-                        ResultStatus.StatusMessage = "";
+                        ResultStatus.StatusMessage = "No Records";
                         GetPastMessageResult.ResultStatus = ResultStatus;
                         GetPastMessageResult.MesssageList = MesssageList;
                     }
@@ -3806,6 +3887,7 @@ namespace CrowdWCFservice
                 service.ReconnectDelay = 5000;
 
                 JdSoft.Apple.Apns.Notifications.Notification alertNotification = new JdSoft.Apple.Apns.Notifications.Notification(testDeviceToken);
+                alertNotification.Payload.Sound = "notification.wav";
                 alertNotification.Payload.Alert.Body = string.Format("{0}", pushMessage);
 
                 List<object> objSourceTable = new List<object>();
