@@ -1,4 +1,5 @@
 ﻿using JdSoft.Apple.Apns.Notifications;
+using PushSharp.Apple;
 using Portal.Model;
 using Portal.Repository;
 using System;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using PushSharp;
 
 namespace CrowdWCFservice
 {
@@ -3848,7 +3850,7 @@ namespace CrowdWCFservice
             return GetUserDetailResult;
         }
 
-        public static void SendNotificationMessage(object obj)
+        public static void SendNotificationMessage_JDSoft(object obj)
         {
             bool returnValue = false;
             string apn_developer_identity = string.Empty;
@@ -3922,6 +3924,77 @@ namespace CrowdWCFservice
             }
         }
 
+        public static void SendNotificationMessage(object obj)
+        {
+
+            string apn_developer_identity = string.Empty;
+            string strp12FileLocal = ConfigurationManager.AppSettings["p12FileName_Local"];
+            string strp12FileLive = ConfigurationManager.AppSettings["p12FileName_Live"];
+
+            try
+            {
+                if (ConfigurationManager.AppSettings["IsProductionForP12File"].ToUpper() == "true".ToUpper())
+                {
+                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLive);
+                }
+                else
+                {
+                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLocal);
+                }
+                string P12FilePassword = ConfigurationManager.AppSettings["p12FilePassword"];
+
+                Dictionary<string, string> objParam = (obj as Dictionary<string, string>);
+                string testDeviceToken = objParam["testDeviceToken"];
+                string pushMessage = objParam["pushMessage"];
+                string sourceTable = objParam["sourceTable"];
+
+                if (testDeviceToken == null || testDeviceToken.Length < 64)
+                {
+                    return;
+                }
+
+                //Create our push services broker
+                var push = new PushBroker();
+
+                //Registering the Apple Service and sending an iOS Notification
+                var appleCert = File.ReadAllBytes(apn_developer_identity);
+                push.RegisterAppleService(new ApplePushChannelSettings(appleCert, P12FilePassword));
+
+                AppleNotification objNotification = new AppleNotification();
+                objNotification.DeviceToken = testDeviceToken;
+                objNotification.Payload.Alert.Body = string.Format("{0}", pushMessage);
+                objNotification.Payload.Sound = "notification.wav";
+
+
+                List<object> objSourceTable = new List<object>();
+                objSourceTable.Add(sourceTable);
+
+                string UserID = string.Empty;
+                string JobID = string.Empty;
+
+                if (objParam.ContainsKey("UserID") && objParam["UserID"] != null && objParam["UserID"] != "")
+                {
+                    UserID = objParam["UserID"];
+                    objSourceTable.Add(UserID);
+                }
+                if (objParam.ContainsKey("JobID") && objParam["JobID"] != null && objParam["JobID"] != "")
+                {
+                    JobID = objParam["JobID"];
+                    objSourceTable.Add(JobID);
+                }
+
+                objNotification.Payload.Alert.LocalizedArgs = objSourceTable;
+
+                push.QueueNotification(objNotification);
+
+                System.Threading.Thread.Sleep(500);
+                //Stop and wait for the queues to drains
+                push.StopAllServices();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         #endregion
     }
 }
