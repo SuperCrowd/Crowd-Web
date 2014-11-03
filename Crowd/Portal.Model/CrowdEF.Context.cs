@@ -20,12 +20,12 @@ namespace Portal.Model
         {
         }
 
-        public CrouwdEntities(string Connection)
-            : base(Connection)
+        public CrouwdEntities(string c)
+            : base(c)
         {
         }
     
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -47,5 +47,6 @@ namespace Portal.Model
         public DbSet<UserJobFavorite> UserJobFavorites { get; set; }
         public DbSet<UserSkill> UserSkills { get; set; }
         public DbSet<JobSkill> JobSkills { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

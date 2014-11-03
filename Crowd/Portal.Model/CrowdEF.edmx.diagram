@@ -45,6 +45,7 @@
         <EntityTypeShape EntityType="CrouwdModel.JobSkill" Width="1.5" PointX="9.57454350850291" PointY="20.228663915874744" />
         <AssociationConnector Association="CrouwdModel.FK_JobSkill_Job" />
         <AssociationConnector Association="CrouwdModel.FK_UserEmploymentRecommendation_User" />
+        <EntityTypeShape EntityType="CrouwdModel.Notification" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

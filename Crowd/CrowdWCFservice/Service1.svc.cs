@@ -1,4 +1,4 @@
-﻿using JdSoft.Apple.Apns.Notifications;
+﻿
 using PushSharp.Apple;
 using Portal.Model;
 using Portal.Repository;
@@ -1163,13 +1163,25 @@ namespace CrowdWCFservice
                             if (UserDeviceToken != null)
                             {                                
                                 var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " is now following you.";
-                                Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                objParam.Add("testDeviceToken", UserDeviceToken);
-                                objParam.Add("pushMessage", msg);
-                                objParam.Add("sourceTable", "FollowUser");
-                                objParam.Add("UserID", lngUserID.ToString());
-                                SendNotificationMessage(objParam);
+                                Notification pushNotification = new Notification();
+                                DateTime now = DateTime.Now;
+
+                                pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                pushNotification.DeviceToken = UserDeviceToken;
+                                pushNotification.HasSent = false;
+                                pushNotification.PushMessage = msg;
+                                pushNotification.SourceTable = "FollowUser";
+                                pushNotification.UserID = lngUserID.ToString();
+
+                                db.Notification.Add(pushNotification);
+                                //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                //objParam.Add("testDeviceToken", UserDeviceToken);
+                                //objParam.Add("pushMessage", msg);
+                                //objParam.Add("sourceTable", "FollowUser");
+                                //objParam.Add("UserID", lngUserID.ToString());
+                                //SendNotificationMessage(objParam);
                             }
                             //=========================end=======================//
 
@@ -1729,14 +1741,29 @@ namespace CrowdWCFservice
                                     if (UserDeviceToken != null)
                                     {
                                         var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " has sent you a job application.";
-                                        Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                        objParam.Add("testDeviceToken", UserDeviceToken);
-                                        objParam.Add("pushMessage", msg);
-                                        objParam.Add("sourceTable", "JobApplication");
-                                        objParam.Add("UserID", lngUserID.ToString());
-                                        objParam.Add("JobID", lngJobID.ToString());
-                                        SendNotificationMessage(objParam);
+                                        Notification pushNotification = new Notification();
+                                        DateTime now = DateTime.Now;
+
+                                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                        pushNotification.DeviceToken = UserDeviceToken;
+                                        pushNotification.HasSent = false;
+                                        pushNotification.PushMessage = msg;
+                                        pushNotification.SourceTable = "JobApplication";
+                                        pushNotification.UserID = lngUserID.ToString();
+                                        pushNotification.JobID = lngJobID.ToString();
+
+                                        db.Notification.Add(pushNotification);
+                                        db.SaveChanges();
+
+                                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                        //objParam.Add("testDeviceToken", UserDeviceToken);
+                                        //objParam.Add("pushMessage", msg);
+                                        //objParam.Add("sourceTable", "JobApplication");
+                                        //objParam.Add("UserID", lngUserID.ToString());
+                                        //objParam.Add("JobID", lngJobID.ToString());
+                                        //SendNotificationMessage(objParam);
                                     }
                                     //=========================end=======================//
 
@@ -1848,17 +1875,35 @@ namespace CrowdWCFservice
                                         if (UserDeviceToken != null)
                                         {
                                             var msg = "The job, "+ objGetJob.Title +" has been filled.";
-                                            Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                            objParam.Add("testDeviceToken", UserDeviceToken);
-                                            objParam.Add("pushMessage", msg);
-                                            objParam.Add("sourceTable", "FillJob");
-                                            objParam.Add("UserID", lngUserID.ToString());
-                                            objParam.Add("JobID", lngJobID.ToString());
-                                            SendNotificationMessage(objParam);
+                                            Notification pushNotification = new Notification();
+                                            DateTime now = DateTime.Now;
+
+                                            pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                            pushNotification.DeviceToken = UserDeviceToken;
+                                            pushNotification.HasSent = false;
+                                            pushNotification.PushMessage = msg;
+                                            pushNotification.SourceTable = "FillJob";
+                                            pushNotification.UserID = lngUserID.ToString();
+                                            pushNotification.JobID = lngJobID.ToString();
+
+                                            db.Notification.Add(pushNotification);
+
+                                            
+                                            
+                                            
+                                            //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                            //objParam.Add("testDeviceToken", UserDeviceToken);
+                                            //objParam.Add("pushMessage", msg);
+                                            //objParam.Add("sourceTable", "FillJob");
+                                            //objParam.Add("UserID", lngUserID.ToString());
+                                            //objParam.Add("JobID", lngJobID.ToString());
+                                            //SendNotificationMessage(objParam);
                                         }
                                         //=========================end=======================//
                                     }
+                                    db.SaveChanges();
                                 }
                             }
                             else if (Convert.ToInt32(Status) == 0)
@@ -2885,13 +2930,28 @@ namespace CrowdWCFservice
                     {
                         string strMessage = Message.Length > 40 ? Message.Substring(0, 40) + "..." : Message;
                         var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName +": "+ strMessage;
-                        Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                        objParam.Add("testDeviceToken", UserDeviceToken);
-                        objParam.Add("pushMessage", msg);
-                        objParam.Add("sourceTable", "NewMessage");
-                        objParam.Add("UserID", lngUserID.ToString());
-                        SendNotificationMessage(objParam);
+                        Notification pushNotification = new Notification();
+                        DateTime now = DateTime.Now;
+
+                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                        pushNotification.DeviceToken = UserDeviceToken;
+                        pushNotification.HasSent = false;
+                        pushNotification.PushMessage = msg;
+                        pushNotification.SourceTable = "NewMessage";
+                        pushNotification.UserID = lngUserID.ToString();
+                        
+
+                        db.Notification.Add(pushNotification);
+                        db.SaveChanges();
+                        
+                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                        //objParam.Add("testDeviceToken", UserDeviceToken);
+                        //objParam.Add("pushMessage", msg);
+                        //objParam.Add("sourceTable", "NewMessage");
+                        //objParam.Add("UserID", lngUserID.ToString());
+                        //SendNotificationMessage(objParam);
                     }
                     //=========================end=======================//
 
@@ -3186,14 +3246,30 @@ namespace CrowdWCFservice
                                 if (UserDeviceToken != null)
                                 {
                                     var msg = "Your job application for " + strJobTitle + " has been approved.";
-                                    Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                    objParam.Add("testDeviceToken", UserDeviceToken);
-                                    objParam.Add("pushMessage", msg);
-                                    objParam.Add("sourceTable", "ApproveJobApplication");
-                                    objParam.Add("UserID", lngUserID.ToString());
-                                    objParam.Add("JobID", JobID);
-                                    SendNotificationMessage(objParam);
+                                    Notification pushNotification = new Notification();
+                                    DateTime now = DateTime.Now;
+
+                                    pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                    pushNotification.DeviceToken = UserDeviceToken;
+                                    pushNotification.HasSent = false;
+                                    pushNotification.PushMessage = msg;
+                                    pushNotification.SourceTable = "ApproveJobApplication";
+                                    pushNotification.UserID = lngUserID.ToString();
+                                    pushNotification.JobID = JobID;
+
+                                    db.Notification.Add(pushNotification);
+                                    db.SaveChanges();
+                                    
+                                    
+                                    //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                    //objParam.Add("testDeviceToken", UserDeviceToken);
+                                    //objParam.Add("pushMessage", msg);
+                                    //objParam.Add("sourceTable", "ApproveJobApplication");
+                                    //objParam.Add("UserID", lngUserID.ToString());
+                                    //objParam.Add("JobID", JobID);
+                                    //SendNotificationMessage(objParam);
                                 }
                                 //=========================end=======================//
 
@@ -3233,14 +3309,31 @@ namespace CrowdWCFservice
                                 if (UserDeviceToken != null)
                                 {
                                     var msg = "Your job application for " + strJobTitle + " has been declined.";
-                                    Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                    objParam.Add("testDeviceToken", UserDeviceToken);
-                                    objParam.Add("pushMessage", msg);
-                                    objParam.Add("sourceTable", "DeclineJobApplication");
-                                    objParam.Add("UserID", lngUserID.ToString());
-                                    objParam.Add("JobID", JobID);
-                                    SendNotificationMessage(objParam);
+                                    Notification pushNotification = new Notification();
+                                    DateTime now = DateTime.Now;
+
+                                    pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                    pushNotification.DeviceToken = UserDeviceToken;
+                                    pushNotification.HasSent = false;
+                                    pushNotification.PushMessage = msg;
+                                    pushNotification.SourceTable = "DeclineJobApplication";
+                                    pushNotification.UserID = lngUserID.ToString();
+                                    pushNotification.JobID = JobID;
+
+                                    db.Notification.Add(pushNotification);
+                                    db.SaveChanges();
+                                    
+                                    
+                                    
+                                    //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                    //objParam.Add("testDeviceToken", UserDeviceToken);
+                                    //objParam.Add("pushMessage", msg);
+                                    //objParam.Add("sourceTable", "DeclineJobApplication");
+                                    //objParam.Add("UserID", lngUserID.ToString());
+                                    //objParam.Add("JobID", JobID);
+                                    //SendNotificationMessage(objParam);
                                 }
                                 //=========================end=======================//
 
@@ -3348,12 +3441,26 @@ namespace CrowdWCFservice
                         var msg = "Is the job, "+ job.Title  +" still active? Log in to update the status.";
                         Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                        objParam.Add("testDeviceToken", UserDeviceToken);
-                        objParam.Add("pushMessage", msg);
-                        objParam.Add("sourceTable", "Unfilled30days");
-                        objParam.Add("UserID", job.UserID.ToString());
-                        objParam.Add("JobID", job.ID.ToString());
-                        SendNotificationMessage(objParam);
+                        Notification pushNotification = new Notification();
+                        DateTime now = DateTime.Now;
+
+                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                        pushNotification.DeviceToken = UserDeviceToken;
+                        pushNotification.HasSent = false;
+                        pushNotification.PushMessage = msg;
+                        pushNotification.SourceTable = "Unfilled30days";
+                        pushNotification.UserID = job.UserID.ToString();
+                        pushNotification.JobID = job.ID.ToString();
+
+                        db.Notification.Add(pushNotification);
+                        db.SaveChanges();
+
+                        //objParam.Add("testDeviceToken", UserDeviceToken);
+                        //objParam.Add("pushMessage", msg);
+                        //objParam.Add("sourceTable", "Unfilled30days");
+                        //objParam.Add("UserID", job.UserID.ToString());
+                        //objParam.Add("JobID", job.ID.ToString());
+                        //SendNotificationMessage(objParam);
                     }
                     //=========================end=======================//
 
@@ -3850,79 +3957,79 @@ namespace CrowdWCFservice
             return GetUserDetailResult;
         }
 
-        public static void SendNotificationMessage_JDSoft(object obj)
-        {
-            bool returnValue = false;
-            string apn_developer_identity = string.Empty;
-            bool IsSandbox;
-            string strp12FileLocal = ConfigurationManager.AppSettings["p12FileName_Local"];
-            string strp12FileLive = ConfigurationManager.AppSettings["p12FileName_Live"];
-            try
-            {
-                if (ConfigurationManager.AppSettings["IsProductionForP12File"].ToUpper() == "true".ToUpper())
-                {
-                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLive);
-                    IsSandbox = false;
-                }
-                else
-                {
-                    apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLocal);
-                    IsSandbox = true;
-                }
-                string P12FilePassword = ConfigurationManager.AppSettings["p12FilePassword"];
+        //public static void SendNotificationMessage_JDSoft(object obj)
+        //{
+        //    bool returnValue = false;
+        //    string apn_developer_identity = string.Empty;
+        //    bool IsSandbox;
+        //    string strp12FileLocal = ConfigurationManager.AppSettings["p12FileName_Local"];
+        //    string strp12FileLive = ConfigurationManager.AppSettings["p12FileName_Live"];
+        //    try
+        //    {
+        //        if (ConfigurationManager.AppSettings["IsProductionForP12File"].ToUpper() == "true".ToUpper())
+        //        {
+        //            apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLive);
+        //            IsSandbox = false;
+        //        }
+        //        else
+        //        {
+        //            apn_developer_identity = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, strp12FileLocal);
+        //            IsSandbox = true;
+        //        }
+        //        string P12FilePassword = ConfigurationManager.AppSettings["p12FilePassword"];
 
-                ////bool IsSandbox = false;
-                //bool IsSandbox = true;
+        //        ////bool IsSandbox = false;
+        //        //bool IsSandbox = true;
 
-                Dictionary<string, string> objParam = (obj as Dictionary<string, string>);
-                string testDeviceToken = objParam["testDeviceToken"];
-                string pushMessage = objParam["pushMessage"];
-                string sourceTable = objParam["sourceTable"];
+        //        Dictionary<string, string> objParam = (obj as Dictionary<string, string>);
+        //        string testDeviceToken = objParam["testDeviceToken"];
+        //        string pushMessage = objParam["pushMessage"];
+        //        string sourceTable = objParam["sourceTable"];
 
-                if (testDeviceToken == null || testDeviceToken.Length < 64)
-                {
-                    return;
-                }
+        //        if (testDeviceToken == null || testDeviceToken.Length < 64)
+        //        {
+        //            return;
+        //        }
 
-                NotificationService service = new NotificationService(IsSandbox, apn_developer_identity, P12FilePassword, 1);
-                service.SendRetries = 5;
-                service.ReconnectDelay = 5000;
+        //        NotificationService service = new NotificationService(IsSandbox, apn_developer_identity, P12FilePassword, 1);
+        //        service.SendRetries = 5;
+        //        service.ReconnectDelay = 5000;
 
-                JdSoft.Apple.Apns.Notifications.Notification alertNotification = new JdSoft.Apple.Apns.Notifications.Notification(testDeviceToken);
-                alertNotification.Payload.Sound = "notification.wav";
-                alertNotification.Payload.Alert.Body = string.Format("{0}", pushMessage);
+        //        JdSoft.Apple.Apns.Notifications.Notification alertNotification = new JdSoft.Apple.Apns.Notifications.Notification(testDeviceToken);
+        //        alertNotification.Payload.Sound = "notification.wav";
+        //        alertNotification.Payload.Alert.Body = string.Format("{0}", pushMessage);
 
-                List<object> objSourceTable = new List<object>();
-                objSourceTable.Add(sourceTable);
+        //        List<object> objSourceTable = new List<object>();
+        //        objSourceTable.Add(sourceTable);
 
-                string UserID = string.Empty;
-                string JobID = string.Empty;
+        //        string UserID = string.Empty;
+        //        string JobID = string.Empty;
 
-                if (objParam.ContainsKey("UserID") && objParam["UserID"] != null && objParam["UserID"] != "")
-                {
-                    UserID = objParam["UserID"];
-                    objSourceTable.Add(UserID);
-                }
-                if (objParam.ContainsKey("JobID") && objParam["JobID"] != null && objParam["JobID"] != "")
-                {
-                    JobID = objParam["JobID"];
-                    objSourceTable.Add(JobID);
-                } 
+        //        if (objParam.ContainsKey("UserID") && objParam["UserID"] != null && objParam["UserID"] != "")
+        //        {
+        //            UserID = objParam["UserID"];
+        //            objSourceTable.Add(UserID);
+        //        }
+        //        if (objParam.ContainsKey("JobID") && objParam["JobID"] != null && objParam["JobID"] != "")
+        //        {
+        //            JobID = objParam["JobID"];
+        //            objSourceTable.Add(JobID);
+        //        } 
                 
-                alertNotification.Payload.Alert.LocalizedArgs = objSourceTable;
+        //        alertNotification.Payload.Alert.LocalizedArgs = objSourceTable;
 
-                returnValue = service.QueueNotification(alertNotification);
+        //        returnValue = service.QueueNotification(alertNotification);
 
-                System.Threading.Thread.Sleep(1000);
-                service.Close();
-                service.Dispose();
+        //        System.Threading.Thread.Sleep(1000);
+        //        service.Close();
+        //        service.Dispose();
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         public static void SendNotificationMessage(object obj)
         {

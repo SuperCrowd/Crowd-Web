@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdWCFservice", "CrowdWCFservice\CrowdWCFservice.csproj", "{AB2825E2-8723-4B0C-980A-A6E49228D952}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Model", "Portal.Model\Portal.Model.csproj", "{377CA3AC-8066-43C4-8CA4-4EC88E489119}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Repository", "Portal.Repository\Portal.Repository.csproj", "{0395A5AB-D701-4B05-8A2D-656C3EB88ED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdNotificationService", "CrowdNotificationService\CrowdNotificationService.csproj", "{BA5F39D5-812C-4C7F-8D28-44B7CCE4F15E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{0395A5AB-D701-4B05-8A2D-656C3EB88ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0395A5AB-D701-4B05-8A2D-656C3EB88ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0395A5AB-D701-4B05-8A2D-656C3EB88ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5F39D5-812C-4C7F-8D28-44B7CCE4F15E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5F39D5-812C-4C7F-8D28-44B7CCE4F15E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5F39D5-812C-4C7F-8D28-44B7CCE4F15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5F39D5-812C-4C7F-8D28-44B7CCE4F15E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

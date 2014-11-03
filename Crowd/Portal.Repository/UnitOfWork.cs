@@ -32,7 +32,8 @@ namespace Portal.Repository
         private GenericRepository<UserJobApplication> _UserJobApplication;
         private GenericRepository<UserJobFavorite> _UserJobFavorite;
         private GenericRepository<UserSkill> _UserSkill;
-        private GenericRepository<JobSkill> _JobSkill;  
+        private GenericRepository<JobSkill> _JobSkill;
+        private GenericRepository<Notification> _Notification;
 
 
         public UnitOfWork()
@@ -199,6 +200,15 @@ namespace Portal.Repository
             }
 
         } 
+
+        public GenericRepository<Notification> Notification
+        {
+            get
+            {
+                return _Notification ??
+                    (_Notification = new GenericRepository<Notification>(_context));
+            }
+        }
 
         private const string Salt = "RnJlZWRvbTE=";
         private static string _password;

@@ -90,6 +90,9 @@
     <Compile Include="MessageType.cs">
       <DependentUpon>CrowdEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>CrowdEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs">
       <DependentUpon>CrowdEF.tt</DependentUpon>

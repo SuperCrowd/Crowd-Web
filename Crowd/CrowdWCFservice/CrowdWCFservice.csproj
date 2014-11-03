@@ -15,7 +15,7 @@
     <AssemblyName>CrowdWCFservice</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -39,9 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JdSoft.Apns.Notifications">
-      <HintPath>..\DLLs\JdSoft.Apns.Notifications.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\DLLs\Newtonsoft.Json.dll</HintPath>
@@ -92,8 +89,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="aps-production.p12" />
-    <Content Include="aps-sandbox.p12" />
     <None Include="Properties\PublishProfiles\01102014.pubxml" />
     <None Include="Properties\PublishProfiles\04092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\04092014.pubxml" />
@@ -155,7 +150,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61090</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61090/</IISUrl>
+          <IISUrl>http://localhost/crowd</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
