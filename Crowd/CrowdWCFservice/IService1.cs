@@ -98,7 +98,7 @@ namespace CrowdWCFservice
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetPastMessages", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        GetPastMessagesResult GetPastMessages(string UserID, string UserToken, string SenderID, string MessageID, string Message_Count);
+        GetPastMessagesResult GetPastMessages(string UserID, string UserToken, string SenderID, string MessageID, string MessageCount);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "AcceptDeclineJobApplication", BodyStyle = WebMessageBodyStyle.Wrapped)]
@@ -1658,6 +1658,10 @@ namespace CrowdWCFservice
         private string _State = string.Empty;
         private List<GetJobSkillDetail> _JobSkills;
 
+        private string _JobCreatorFirstName = string.Empty;
+        private string _JobCreatorLastName = string.Empty;
+        private string _JobCreatorPhotoURL = string.Empty;
+
         [DataMember]
         public string ID
         {
@@ -1789,7 +1793,28 @@ namespace CrowdWCFservice
         {
             get { return _JobSkills; }
             set { _JobSkills = value; }
-        } 
+        }
+
+        [DataMember]
+        public string JobCreatorFirstName
+        {
+            get { return _JobCreatorFirstName; }
+            set { _JobCreatorFirstName = value; }
+        }
+
+        [DataMember]
+        public string JobCreatorLastName
+        {
+            get { return _JobCreatorLastName; }
+            set { _JobCreatorLastName = value; }
+        }
+
+        [DataMember]
+        public string JobCreatorPhotoURL
+        {
+            get { return _JobCreatorPhotoURL; }
+            set { _JobCreatorPhotoURL = value; }
+        }
     }
     #endregion
 

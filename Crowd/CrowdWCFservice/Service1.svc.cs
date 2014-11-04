@@ -1497,6 +1497,15 @@ namespace CrowdWCFservice
                         JobDetailsWithSkill.DateCreated = Convert.ToString(objGetJob.DateCreated);
                         JobDetailsWithSkill.DateModified = Convert.ToString(objGetJob.DateModified);
                         JobDetailsWithSkill.UserId = Convert.ToString(objGetJob.UserID);
+
+                        //Add by Rajendra on 4th November for Job Creator details
+                        User objUser = db.User.Get(n => n.ID == objGetJob.UserID).FirstOrDefault();
+                        JobDetailsWithSkill.JobCreatorFirstName = objUser.FirstName;
+                        JobDetailsWithSkill.JobCreatorLastName = objUser.LastName;
+                        JobDetailsWithSkill.JobCreatorPhotoURL = objUser.PhotoURL;
+
+                        //
+
                         JobDetailsWithSkill.LocationCity = objGetJob.LocationCity;
                         JobDetailsWithSkill.LocationState = objGetJob.LocationState;
                         JobDetailsWithSkill.LocationCountry = objGetJob.LocationCountry;
@@ -2910,7 +2919,9 @@ namespace CrowdWCFservice
                     db.Message.Add(objNewMessage);
                     db.SaveChanges();
 
+                    //================Commented by Rajendra as not required Feed object for message ===========//
                     //Insert record in feed table
+                    /*
                     Feed objNewFeed = new Feed();
                     objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
                     objNewFeed.UserID = lngReceiverId;
@@ -2919,6 +2930,8 @@ namespace CrowdWCFservice
                     objNewFeed.OtherUserID = lngUserID;
                     db.Feed.Add(objNewFeed);
                     db.SaveChanges();
+                     */
+                    //===========================//
 
                     //================Code for push notification===========//
                     User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);

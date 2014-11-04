@@ -92,6 +92,9 @@
     <None Include="Properties\PublishProfiles\01102014.pubxml" />
     <None Include="Properties\PublishProfiles\04092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\04092014.pubxml" />
+    <None Include="Properties\PublishProfiles\041114-2.pubxml" />
+    <None Include="Properties\PublishProfiles\041114-3.pubxml" />
+    <None Include="Properties\PublishProfiles\041114.pubxml" />
     <None Include="Properties\PublishProfiles\05092014.pubxml" />
     <None Include="Properties\PublishProfiles\071014.pubxml" />
     <None Include="Properties\PublishProfiles\08092014.pubxml" />
