@@ -141,7 +141,7 @@ namespace CrowdNotificationService
             using (CrowdEntities context = new CrowdEntities())
             {
                 //lets find all notifications that are pending
-                var pendingNotifications = context.Notifications.Where(n => n.HasSent == false).ToList();
+                var pendingNotifications = context.Notifications.Where(n => n.HasSent == false && !string.IsNullOrEmpty(n.DeviceToken)).ToList();
 
                 if (pendingNotifications.Count() > 0)
                 {
@@ -183,9 +183,17 @@ namespace CrowdNotificationService
                     notification.HasSent = true;
                     notification.DateSent = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
 
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceError("{0}Received error on saving to db:{1}", activityName, ex);
+                    }
+               
                 }
 
-                context.SaveChanges();
 
             }
 
