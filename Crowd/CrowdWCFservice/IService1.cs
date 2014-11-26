@@ -111,6 +111,18 @@ namespace CrowdWCFservice
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "TestNotification", BodyStyle = WebMessageBodyStyle.Wrapped)]
         ResultStatus TestNotification();
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "SetAvailableForCall", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        AvailabilityResult SetAvailableForCall(string UserID, string UserToken);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "SetUnAvailableForCall", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        AvailabilityResult SetUnAvailableForCall(string UserID, string UserToken);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetCallAvailability", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        AvailabilityResult GetCallAvailability(string UserID);
     }    
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
@@ -139,6 +151,49 @@ namespace CrowdWCFservice
     }
     #endregion
 
+    #region AvailabilityResult
+    [DataContract]
+    public class AvailabilityResult
+    {
+        private DateTime _dateExpires;
+        private int _renewAfterSeconds;
+        private bool _isAvailableForCall;
+        private ResultStatus _ResultStatus;
+
+        [DataMember]
+        public int RenewAfterSeconds
+        {
+            get { return _renewAfterSeconds; }
+            set { _renewAfterSeconds = value; }
+        }
+
+        [DataMember]
+        public DateTime DateExpires
+        {
+            get {return _dateExpires;}
+            set {_dateExpires = value;}
+        }
+
+        [DataMember]
+        public bool IsAvailableForCall
+        {
+            get {return _isAvailableForCall;}
+            set {_isAvailableForCall = value;}
+        }
+
+        [DataMember]
+        public ResultStatus ResultStatus
+        {
+            get { return _ResultStatus; }
+            set { _ResultStatus = value; }
+        }
+
+
+    }
+    
+    #endregion
+
+
     #region GetUserResult
 
     [DataContract]
@@ -161,6 +216,7 @@ namespace CrowdWCFservice
         private string _ExperienceLevel = string.Empty;
         private string _Token = string.Empty;
         private string _NumberOfUnreadMessage = string.Empty;
+        private bool _IsAvailableForCall = false;
 
         [DataMember]
         public string UserId
@@ -279,6 +335,13 @@ namespace CrowdWCFservice
         {
             get { return _NumberOfUnreadMessage; }
             set { _NumberOfUnreadMessage = value; }
+        }
+
+        [DataMember]
+        public bool IsAvailableForCall
+        {
+            get { return _IsAvailableForCall; }
+            set { _IsAvailableForCall = value; }
         }
     }
     #endregion
@@ -1314,6 +1377,7 @@ namespace CrowdWCFservice
         private string _PhotoURL = string.Empty;
         private string _LinkedInId = string.Empty;
         private string _ExperienceLevel = string.Empty;
+        private bool _IsAvailableForCall = false;
         private List<GetUserEmployment> _UserCurrentEmployer;
 
         [DataMember]
@@ -1419,6 +1483,13 @@ namespace CrowdWCFservice
         {
             get { return _ExperienceLevel; }
             set { _ExperienceLevel = value; }
+        }
+
+        [DataMember]
+        public bool IsAvailableForCall
+        {
+            get { return _IsAvailableForCall; }
+            set { _IsAvailableForCall = value; }
         }
 
         [DataMember]

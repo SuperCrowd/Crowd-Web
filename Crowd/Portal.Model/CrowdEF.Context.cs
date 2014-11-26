@@ -20,11 +20,13 @@ namespace Portal.Model
         {
         }
 
-        public CrouwdEntities(string Connection)
-            : base(Connection)
+
+        public CrouwdEntities(string c)
+            : base(c)
         {
         }
-    
+
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

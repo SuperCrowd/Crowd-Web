@@ -50,6 +50,7 @@ namespace Portal.Model
         public long ExperienceLevelType { get; set; }
         public string Token { get; set; }
         public Nullable<System.DateTime> TokenExpireTime { get; set; }
+        public Nullable<System.DateTime> TwilioHeartbeatExpireTime { get; set; }
     
         public virtual ExperienceLevelType ExperienceLevelType1 { get; set; }
         public virtual ICollection<Feed> Feeds { get; set; }

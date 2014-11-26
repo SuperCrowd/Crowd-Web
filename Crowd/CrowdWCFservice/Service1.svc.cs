@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Diagnostics;
 using PushSharp;
 
 namespace CrowdWCFservice
@@ -26,6 +27,122 @@ namespace CrowdWCFservice
         public void DoWork()
         {
         }
+
+
+        #region Call Avaibility
+        
+        public AvailabilityResult GetCallAvailability(string UserID)
+        {
+            AvailabilityResult AvailibilityResult = new AvailabilityResult();
+            ResultStatus ResultStatus = new ResultStatus();
+
+            try
+            {
+                long lngUserID = Convert.ToInt64(UserID);
+                UnitOfWork db = new UnitOfWork();
+                User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
+
+                if (userObject != null)
+                {
+                    AvailibilityResult.IsAvailableForCall = IsUserAvailableForCall(userObject);
+                    AvailibilityResult.RenewAfterSeconds = Constants.CHECK_TWILIO_STATUS_INTERVAL;
+                }
+                else
+                {
+                    throw new WebFaultException<string>
+                        ("User does not exist",HttpStatusCode.NotFound);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                AvailibilityResult.ResultStatus = ResultStatus;
+            }
+
+            return AvailibilityResult;
+        }
+
+        public AvailabilityResult SetAvailableForCall(string UserID, string UserToken)
+        {
+            string activityName = "SetAvailableForCall:";
+            AvailabilityResult AvailibilityResult = new AvailabilityResult();
+            ResultStatus ResultStatus = new ResultStatus();
+            objTokenInfo  = LoginStatus.ValidateToken(UserToken, UserID);
+            Trace.TraceInformation("{0}Renewing availibility for UserID {1}", activityName, UserID);
+
+            try
+            {
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    UnitOfWork db = new UnitOfWork();
+                    long lngUserID = Convert.ToInt64(UserID);
+                    User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
+
+                    //we increment the heartbeat
+                    int secondsToRenewHeartbeat = Constants.TWILIO_HEARTBEAT_DURATION;
+                    DateTime heartbeatExpiry = DateTime.Now.AddSeconds(secondsToRenewHeartbeat);
+                    userObject.TwilioHeartbeatExpireTime = TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry);
+                    db.SaveChanges();
+                    AvailibilityResult.DateExpires = heartbeatExpiry;
+                    AvailibilityResult.RenewAfterSeconds = secondsToRenewHeartbeat;
+                    AvailibilityResult.IsAvailableForCall = true;
+                    Trace.TraceInformation("{0}Renewed user {1} twilio status to expire on {2}", activityName, userObject.FirstName, TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry));
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter valid token.", HttpStatusCode.Unauthorized);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                AvailibilityResult.ResultStatus = ResultStatus;
+            
+            }
+            return AvailibilityResult;
+        }
+
+        public AvailabilityResult SetUnAvailableForCall(string UserID, string UserToken)
+        {
+            string activityName = "SetAvailableForCall:";
+            AvailabilityResult AvailibilityResult = new AvailabilityResult();
+            ResultStatus ResultStatus = new ResultStatus();
+            objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
+            Trace.TraceInformation("{0}Turning off availibility for UserID {1}", activityName, UserID);
+
+            try
+            {
+                if (objTokenInfo != null && objTokenInfo.EmailID != null)
+                {
+                    UnitOfWork db = new UnitOfWork();
+                    long lngUserID = Convert.ToInt64(UserID);
+                    User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
+
+                    userObject.TwilioHeartbeatExpireTime = null;
+                    db.SaveChanges();
+                    AvailibilityResult.IsAvailableForCall = false;
+                    Trace.TraceInformation("{0}Set user {1} twilio status to unavailable", activityName, userObject.FirstName);
+                }
+                else
+                {
+                    throw new WebFaultException<string>("Please enter valid token.", HttpStatusCode.Unauthorized);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultStatus.Status = "0";
+                ResultStatus.StatusMessage = ex.Message;
+                AvailibilityResult.ResultStatus = ResultStatus;
+
+            }
+            return AvailibilityResult;
+        }
+        #endregion
 
         #region IsUserExists
 
@@ -954,7 +1071,7 @@ namespace CrowdWCFservice
                                 objCurrFollower.PhotoURL = objGetFollowerDetail.PhotoURL;
                                 objCurrFollower.LinkedInId = objGetFollowerDetail.LinkedInId;
                                 objCurrFollower.ExperienceLevel = Convert.ToString(objGetFollowerDetail.ExperienceLevelType);
-
+                                objCurrFollower.IsAvailableForCall = IsUserAvailableForCall(objGetFollowerDetail);
                                 //---------------------UserEmployment Response-------------------------------//
                                 List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
                                 List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get().Where(n => n.UserID == objGetFollowerDetail.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
@@ -1019,6 +1136,7 @@ namespace CrowdWCFservice
                                 objCurrFollowing.PhotoURL = objGetFollowingDetail.PhotoURL;
                                 objCurrFollowing.LinkedInId = objGetFollowingDetail.LinkedInId;
                                 objCurrFollowing.ExperienceLevel = Convert.ToString(objGetFollowingDetail.ExperienceLevelType);
+                                objCurrFollowing.IsAvailableForCall = IsUserAvailableForCall(objGetFollowingDetail);
 
                                 //--------------------------------Useremployment Response------------------------------------//
                                 List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
@@ -2307,6 +2425,7 @@ namespace CrowdWCFservice
                             objCurrUser.PhotoURL = user.PhotoURL;
                             objCurrUser.LinkedInId = user.LinkedInId;
                             objCurrUser.ExperienceLevel = Convert.ToString(user.ExperienceLevelType);
+                            objCurrUser.IsAvailableForCall = IsUserAvailableForCall(user);
 
                             //---------------------UserEmployment Response-------------------------------//
                             List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
@@ -3819,6 +3938,9 @@ namespace CrowdWCFservice
                 UserResult.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
                 UserResult.Token = objUser.Token;
 
+                //==We determine whether the user is available for Twilio calls=====//
+                UserResult.IsAvailableForCall = IsUserAvailableForCall(objUser);
+
                 if (IsSetToken == true)
                 {
                     //======================Set Token value====================//
@@ -3968,6 +4090,23 @@ namespace CrowdWCFservice
                 GetUserDetailResult.GetUserEmploymentRecommendationResult = lstUserEmploymentrecommendation;
             }
             return GetUserDetailResult;
+        }
+
+        private static bool IsUserAvailableForCall( User objUser)
+        {
+            bool retVal = false;
+            DateTime currentTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+            if (objUser.TwilioHeartbeatExpireTime == null ||
+                objUser.TwilioHeartbeatExpireTime.Value < currentTime)
+            {
+                //the expiry time is either null or in the past, so we say the user is unavaible
+                retVal = false;
+            }
+            else
+            {
+              retVal = true;
+            }
+            return retVal;
         }
 
         //public static void SendNotificationMessage_JDSoft(object obj)
