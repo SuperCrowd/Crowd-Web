@@ -137,61 +137,74 @@ namespace CrowdNotificationService
 
             DateTime start = DateTime.Now;
             DateTime dateTimeNow = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+            Trace.TraceInformation("{0}Begin processing of outstanding notifications at {1}", activityName, dateTimeNow);
 
             using (CrowdEntities context = new CrowdEntities())
             {
-                //lets find all notifications that are pending
-                var pendingNotifications = context.Notifications.Where(n => n.HasSent == false && !string.IsNullOrEmpty(n.DeviceToken)).ToList();
-
-                if (pendingNotifications.Count() > 0)
+                try
                 {
-                    Trace.TraceInformation("{0}Begin processing of notifications at {0}", activityName, dateTimeNow.ToString());
-                    Trace.TraceInformation("{0}Found {1} outstanding notifications to send", activityName, pendingNotifications.Count());
+                    Trace.TraceInformation("{0}About to query for outstanding notifications", activityName);
+                    //lets find all notifications that are pending
+                    var pendingNotifications = context.Notifications.Where(n => n.HasSent == false && !string.IsNullOrEmpty(n.DeviceToken)).ToList();
 
+                    if (pendingNotifications.Count() > 0)
+                    {
+                        Trace.TraceInformation("{0}Begin processing of notifications at {0}", activityName, dateTimeNow.ToString());
+                        Trace.TraceInformation("{0}Found {1} outstanding notifications to send", activityName, pendingNotifications.Count());
+
+                    }
+                    else
+                    {
+                        Trace.TraceInformation("{0}No pending notifications were found", activityName);
+                    }
+
+
+
+                    foreach (Notification notification in pendingNotifications)
+                    {
+                        AppleNotification appleNotification = new AppleNotification();
+                        appleNotification.DeviceToken = notification.DeviceToken;
+                        appleNotification.Payload.Alert.Body = notification.PushMessage;
+                        appleNotification.Payload.Badge = 1;
+                        appleNotification.Payload.Sound = "notification.wav";
+
+                        List<object> parameters = new List<object>();
+                        parameters.Add(notification.SourceTable);
+
+
+                        if (!string.IsNullOrEmpty(notification.UserID))
+                        {
+                            parameters.Add(notification.UserID);
+                        }
+
+                        if (!string.IsNullOrEmpty(notification.JobID))
+                        {
+                            parameters.Add(notification.JobID);
+                        }
+
+                        appleNotification.Payload.Alert.LocalizedArgs = parameters;
+                        appleNotification.Tag = notification.ID;
+
+                        pushBroker.QueueNotification(appleNotification);
+                        Trace.TraceInformation("{0}Enqueued notification {1} sent to deviceToken {2}", activityName, notification.ID, notification.DeviceToken);
+
+                        notification.HasSent = true;
+                        notification.DateSent = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+
+                        try
+                        {
+                            context.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.TraceError("{0}Received error on saving to db:{1}", activityName, ex);
+                        }
+
+                    }
                 }
-
-
-
-                foreach (Notification notification in pendingNotifications)
+                catch (Exception ex)
                 {
-                    AppleNotification appleNotification = new AppleNotification();
-                    appleNotification.DeviceToken = notification.DeviceToken;
-                    appleNotification.Payload.Alert.Body = notification.PushMessage;
-                    appleNotification.Payload.Badge = 1;
-                    appleNotification.Payload.Sound = "notification.wav";
-
-                    List<object> parameters = new List<object>();
-                    parameters.Add(notification.SourceTable);
-
-
-                    if (!string.IsNullOrEmpty(notification.UserID))
-                    {
-                        parameters.Add(notification.UserID);
-                    }
-
-                    if (!string.IsNullOrEmpty(notification.JobID))
-                    {
-                        parameters.Add(notification.JobID);
-                    }
-
-                    appleNotification.Payload.Alert.LocalizedArgs = parameters;
-                    appleNotification.Tag = notification.ID;
-
-                    pushBroker.QueueNotification(appleNotification);
-                    Trace.TraceInformation("{0}Enqueued notification {1} sent to deviceToken {2}", activityName, notification.ID, notification.DeviceToken);
-
-                    notification.HasSent = true;
-                    notification.DateSent = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-
-                    try
-                    {
-                        context.SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.TraceError("{0}Received error on saving to db:{1}", activityName, ex);
-                    }
-               
+                    Trace.TraceError("{0}Received error: {1}", ex.ToString());
                 }
 
 

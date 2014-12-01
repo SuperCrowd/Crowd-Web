@@ -1,0 +1,68 @@
+﻿@model CrowdWeb.Models.ViewModels.JobViewModel
+
+@{
+    ViewBag.Title = "Job";
+    Layout = "~/Views/Share/_ShareLayout.cshtml";
+}
+
+<div id="job_meta">
+    <h2 id="position">@Model.Position</h2>
+
+    @if (string.IsNullOrEmpty(Model.Industry2))
+    {
+        <span id="company">@Model.Company </span><span class="industry">(@Model.Industry)</span>
+    }
+    else
+    {
+        <span id="company">@Model.Company </span><span class="industry">(@Model.Industry, @Model.Industry2)</span>
+
+    }
+    <span id="citystate">@Model.City, @Model.State</span>
+    <span id="country">@Model.Country</span>
+    
+</div>
+<div id="job_experience">
+    <h3>Required Experience</h3>
+    <span>@Model.ExperienceLevel</span>
+</div>
+<div id="job_education">
+    <h3>Required Education</h3>
+    @if (string.IsNullOrEmpty(@Model.Education))
+    {
+        <span>N/A</span>
+    }
+    else
+    {
+        <span>@Model.Education</span>
+    }
+</div>
+<div id="job_responsibilities">
+    <h3>Roles and Responsibilities</h3>
+    @if (string.IsNullOrEmpty(@Model.RolesAndResponsibilities))
+    {
+        <span>N/A</span>
+    }
+    else
+    {
+        <span>@Model.RolesAndResponsibilities</span>
+    }
+   
+</div>
+<div id="job_skills">
+    <h3>Skill Requirements</h3>
+    @if (string.IsNullOrEmpty(@Model.SkillRequirements))
+    {
+        <span>N/A</span>
+    }
+    else
+    {
+        <span>@Model.SkillRequirements</span>
+    }
+</div>
+@if (!string.IsNullOrEmpty(@Model.URL))
+{
+    <div id="job_online">
+        <h3>Online Listing</h3>
+        <a href="@Model.URL">@Model.URL</a>
+    </div>
+}

@@ -1,0 +1,102 @@
+﻿body {
+   font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+
+}
+
+.container {
+    width:700px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#content
+{
+    margin-top:80px;
+}
+header
+{
+    position:fixed;
+    width:100%;
+   
+    top:0px;
+    background: rgba(41,45,48,1);
+background: -moz-linear-gradient(top, rgba(41,45,48,1) 0%, rgba(0,0,0,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(41,45,48,1)), color-stop(100%, rgba(0,0,0,1)));
+background: -webkit-linear-gradient(top, rgba(41,45,48,1) 0%, rgba(0,0,0,1) 100%);
+background: -o-linear-gradient(top, rgba(41,45,48,1) 0%, rgba(0,0,0,1) 100%);
+background: -ms-linear-gradient(top, rgba(41,45,48,1) 0%, rgba(0,0,0,1) 100%);
+background: linear-gradient(to bottom, rgba(41,45,48,1) 0%, rgba(0,0,0,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#292d30', endColorstr='#000000', GradientType=0 );
+}
+
+#logo
+{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:10px;
+    height:50px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+h2
+{
+    margin-bottom:0px;
+    margin-top:0px;
+    font-size:28px;
+    font-weight:normal;
+}
+
+#job_meta
+{
+    background:rgb(39,120,149);
+    padding:10px;
+}
+
+#job_meta span,#job_meta h2, #job_education h3, #job_experience h3, #job_responsibilities h3, #job_skills h3, #job_online h3
+{
+    color:white;
+}
+
+#job_experience span, #job_education span, #job_responsibilities span, #job_skills span, #job_online span
+{
+    color: rgb(81,82,81);
+}
+
+#job_experience
+{
+    margin-top:0px;
+}
+#job_experience h3,#job_education h3,#job_responsibilities h3,#job_skills h3,#job_online h3
+{
+    background:rgb(249,174,151);
+    padding:10px;
+    margin-top:0px;
+    margin-bottom:0px;
+    font-weight:normal;
+}
+
+#job_experience span, #job_education span, #job_responsibilities span, #job_skills span, #job_online span
+{
+    padding:10px;
+    display:block;
+}
+
+#citystate
+{
+    display:block;
+}
+
+
+
+#position{
+
+}
+
+
+
+.industry 
+{
+    font-style:italic;
+}

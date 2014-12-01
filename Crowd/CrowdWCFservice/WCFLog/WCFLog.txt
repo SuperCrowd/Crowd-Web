@@ -1098,3 +1098,8 @@ Date: 11/26/2014 12:35:41 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Messa
 Date: 11/26/2014 12:35:42 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Message: STOP
 Date: 11/26/2014 12:36:00 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
 Date: 11/26/2014 12:36:01 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
+Date: 11/26/2014 12:44:42 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
+Date: 11/26/2014 12:44:42 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
+Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
+Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
+Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
