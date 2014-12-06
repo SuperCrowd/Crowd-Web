@@ -28,5 +28,24 @@ namespace CrowdWeb.Controllers
             }
             return View();
         }
+
+        public ActionResult User(long userID)
+        {
+            using (CrowdEntities context = new CrowdEntities())
+            {
+                var user = context.Users.Where(j => j.ID == userID).FirstOrDefault();
+                if (user != null)
+                {
+                    //no error
+                    CandidateViewModel jvm = new CandidateViewModel(user, context);
+                    return View("User", jvm);
+                }
+                else
+                {
+                    //error
+                }
+            }
+            return View();
+        }
     }
 }
