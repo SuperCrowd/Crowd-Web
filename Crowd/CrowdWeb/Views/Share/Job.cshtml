@@ -4,6 +4,7 @@
     ViewBag.Title = "Job";
     Layout = "~/Views/Share/_ShareLayout.cshtml";
 }
+@Html.HiddenFor(model => model.ID)
 
 <div id="job_meta">
     <h2 id="position">@Model.Position</h2>

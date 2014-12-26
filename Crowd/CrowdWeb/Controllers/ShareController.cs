@@ -4,47 +4,52 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CrowdWeb.Models.ViewModels;
+using Portal.Model;
+using Portal.Repository;
 
 namespace CrowdWeb.Controllers
 {
     public class ShareController : Controller
     {
+
+        UnitOfWork db = new UnitOfWork();
         // GET: Share
-        public ActionResult Job(long jobID)
+        public ActionResult Job(long? jobID)
         {
-            using (CrowdEntities context = new CrowdEntities())
+            List<Job> lstJob = db.Job.Get(n => n.ID == jobID).ToList();
+            if (lstJob.Count > 0)
             {
-                var job = context.Jobs.Where(j => j.ID == jobID).FirstOrDefault();
-                if (job != null)
-                {
-                    //no error
-                    JobViewModel jvm = new JobViewModel(job, context);
-                    return View("Job", jvm);
-                }
-                else
-                {
-                    //error
-                }
+                Portal.Model.Job job = lstJob.FirstOrDefault();
+                JobViewModel jvm = new JobViewModel(job);
+                return View("Job", jvm);
             }
-            return View();
+            else
+            {
+                //erorr
+                return View("Error");
+            }
         }
 
-        public ActionResult User(long userID)
+        public ActionResult User(long? userID)
         {
-            using (CrowdEntities context = new CrowdEntities())
+
+            List<User> lstUser = db.User.Get(n => n.ID == userID).ToList();
+            if (lstUser.Count > 0)
             {
-                var user = context.Users.Where(j => j.ID == userID).FirstOrDefault();
+                Portal.Model.User user = lstUser.FirstOrDefault();
                 if (user != null)
                 {
                     //no error
-                    CandidateViewModel jvm = new CandidateViewModel(user, context);
+                    CandidateViewModel jvm = new CandidateViewModel(user);
                     return View("User", jvm);
                 }
-                else
-                {
-                    //error
-                }
             }
+            else
+            {
+                //error
+                return View("Error");
+            }
+
             return View();
         }
     }

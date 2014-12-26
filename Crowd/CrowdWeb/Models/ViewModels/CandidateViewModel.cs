@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Configuration;
+using Portal.Model;
 namespace CrowdWeb.Models.ViewModels
 {
     public class CandidateViewModel
@@ -27,7 +28,7 @@ namespace CrowdWeb.Models.ViewModels
         public List<dynamic> Education { get; set; }
 
         public CandidateViewModel() { }
-        public CandidateViewModel(User user, CrowdEntities context )
+        public CandidateViewModel(User user)
         {
             this.User = user;
             this.ID = user.ID;

@@ -40,17 +40,20 @@ namespace CrowdWCFservice
             {
                 long lngUserID = Convert.ToInt64(UserID);
                 UnitOfWork db = new UnitOfWork();
-                User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
-
-                if (userObject != null)
+                List<User> lstUserObject = db.User.Get(u => u.ID == lngUserID).ToList();
+                if (lstUserObject.Count > 0)
                 {
-                    AvailibilityResult.IsAvailableForCall = IsUserAvailableForCall(userObject);
-                    AvailibilityResult.RenewAfterSeconds = Constants.CHECK_TWILIO_STATUS_INTERVAL;
+                    User userObject = lstUserObject.FirstOrDefault();
+                    if (userObject != null)
+                    {
+                        AvailibilityResult.IsAvailableForCall = IsUserAvailableForCall(userObject);
+                        AvailibilityResult.RenewAfterSeconds = Constants.CHECK_TWILIO_STATUS_INTERVAL;
+                    }
                 }
                 else
                 {
                     throw new WebFaultException<string>
-                        ("User does not exist",HttpStatusCode.NotFound);
+                        ("User does not exist", HttpStatusCode.NotFound);
                 }
 
             }
@@ -78,17 +81,21 @@ namespace CrowdWCFservice
                 {
                     UnitOfWork db = new UnitOfWork();
                     long lngUserID = Convert.ToInt64(UserID);
-                    User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
+                    List<User> lstUserObject = db.User.Get(u => u.ID == lngUserID).ToList();
+                    if (lstUserObject.Count > 0)
+                    {
+                        User userObject = lstUserObject.FirstOrDefault();
 
-                    //we increment the heartbeat
-                    int secondsToRenewHeartbeat = Constants.TWILIO_HEARTBEAT_DURATION;
-                    DateTime heartbeatExpiry = DateTime.Now.AddSeconds(secondsToRenewHeartbeat);
-                    userObject.TwilioHeartbeatExpireTime = TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry);
-                    db.SaveChanges();
-                    AvailibilityResult.DateExpires = heartbeatExpiry;
-                    AvailibilityResult.RenewAfterSeconds = secondsToRenewHeartbeat;
-                    AvailibilityResult.IsAvailableForCall = true;
-                    Trace.TraceInformation("{0}Renewed user {1} twilio status to expire on {2}", activityName, userObject.FirstName, TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry));
+                        //we increment the heartbeat
+                        int secondsToRenewHeartbeat = Constants.TWILIO_HEARTBEAT_DURATION;
+                        DateTime heartbeatExpiry = DateTime.Now.AddSeconds(secondsToRenewHeartbeat);
+                        userObject.TwilioHeartbeatExpireTime = TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry);
+                        db.SaveChanges();
+                        AvailibilityResult.DateExpires = heartbeatExpiry;
+                        AvailibilityResult.RenewAfterSeconds = secondsToRenewHeartbeat;
+                        AvailibilityResult.IsAvailableForCall = true;
+                        Trace.TraceInformation("{0}Renewed user {1} twilio status to expire on {2}", activityName, userObject.FirstName, TimeZoneInfo.ConvertTimeToUtc(heartbeatExpiry));
+                    }
                 }
                 else
                 {
@@ -120,12 +127,15 @@ namespace CrowdWCFservice
                 {
                     UnitOfWork db = new UnitOfWork();
                     long lngUserID = Convert.ToInt64(UserID);
-                    User userObject = db.User.Get().Where(u => u.ID == lngUserID).FirstOrDefault();
-
-                    userObject.TwilioHeartbeatExpireTime = null;
-                    db.SaveChanges();
-                    AvailibilityResult.IsAvailableForCall = false;
-                    Trace.TraceInformation("{0}Set user {1} twilio status to unavailable", activityName, userObject.FirstName);
+                    List<User> lstUserObject = db.User.Get(u => u.ID == lngUserID).ToList();
+                    if (lstUserObject.Count > 0)
+                    {
+                        User userObject = lstUserObject.FirstOrDefault();
+                        userObject.TwilioHeartbeatExpireTime = null;
+                        db.SaveChanges();
+                        AvailibilityResult.IsAvailableForCall = false;
+                        Trace.TraceInformation("{0}Set user {1} twilio status to unavailable", activityName, userObject.FirstName);
+                    }
                 }
                 else
                 {
@@ -160,30 +170,35 @@ namespace CrowdWCFservice
 
                 UnitOfWork db = new UnitOfWork();
 
-                User objUser = db.User.Get().FirstOrDefault(n => n.LinkedInId.ToUpper() == LinkedInID.ToUpper());
-
-                if (objUser != null)
+                List<User> lstUser = db.User.Get(n => n.LinkedInId.ToUpper() == LinkedInID.ToUpper()).ToList();
+                if (lstUser.Count > 0)
                 {
-                    //--------Check for devicetoken already exist or not-----------//
-                    User userDeviceToken = db.User.Get().FirstOrDefault(m => m.DeviceToken == DeviceToken);
-                    if (userDeviceToken != null)
+                    User objUser = lstUser.FirstOrDefault();
+
+                    if (objUser != null)
                     {
-                        userDeviceToken.DeviceToken = null;
-                        db.User.Update(userDeviceToken);
+                        //--------Check for devicetoken already exist or not-----------//
+                        List<User> lstUserdeviceToken = db.User.Get(m => m.DeviceToken == DeviceToken).ToList();
+                        if (lstUserdeviceToken.Count > 0)
+                        {
+                            User userDeviceToken = lstUserdeviceToken.FirstOrDefault();
+                            if (userDeviceToken != null)
+                            {
+                                userDeviceToken.DeviceToken = null;
+                                db.User.Update(userDeviceToken);
+                                db.SaveChanges();
+                            }
+                        }
+                        //------------------------------------------------------------//
+
+                        objUser.DeviceToken = DeviceToken;
+                        db.User.Update(objUser);
                         db.SaveChanges();
+                        //========================================================//
+
+
+                        IsUserExistsResult = GetUserDetails(objUser.ID, true);
                     }
-                    //------------------------------------------------------------//
-
-                    objUser.DeviceToken = DeviceToken;
-                    db.User.Update(objUser);
-                    db.SaveChanges();
-                    //========================================================//
-
-
-                    IsUserExistsResult = GetUserDetails(objUser.ID, true);
-
-
-
                 }
                 else
                 {
@@ -288,44 +303,52 @@ namespace CrowdWCFservice
                 {
                     if (lngUserID == 0 )
                     {
-                        User objChecklinkedInID = db.User.Get().FirstOrDefault(n => n.LinkedInId.ToUpper() == LinkedInId.ToUpper());
-                        if (objChecklinkedInID != null)
+                        List<User> lstCheckLinkedInID = db.User.Get(n => n.LinkedInId.ToUpper() == LinkedInId.ToUpper()).ToList();
+                        if (lstCheckLinkedInID.Count > 0)
                         {
-                            //Linkedin Id already exist
-                            ResultStatus.Status = "0";
-                            ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
-                            IsUserExistsResult.ResultStatus = ResultStatus;
-                            //Comment by himanshu: As per mail on 03-10-14 3rd point. 
-                            IsUserExistsResult.GetUserResult = blnkGetUserResult;
-                            IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
-                            IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
-                            IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
-                            IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
-                            //End Comment by himanshu
+                            User objChecklinkedInID = lstCheckLinkedInID.FirstOrDefault();
+                            if (objChecklinkedInID != null)
+                            {
+                                //Linkedin Id already exist
+                                ResultStatus.Status = "0";
+                                ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
+                                IsUserExistsResult.ResultStatus = ResultStatus;
+                                //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                //End Comment by himanshu
+                            }
                         }
                         else
                         {
                             //Check Email already exist or not if provided in request(optional field if user entered then only we need to check this)
                             if (Email != null && Email != "")
                             {
-                                User objCheckEmail = db.User.Get().FirstOrDefault(n => n.Email != null && n.Email.ToUpper() == Email.ToUpper());
-                                if (objCheckEmail != null)
+                                List<User> lstCheckEmail = db.User.Get(n => n.Email != null && n.Email.ToUpper() == Email.ToUpper()).ToList();
+                                if (lstCheckEmail.Count > 0)
                                 {
-                                    //Email already exist
-                                    ResultStatus.Status = "0";
-                                    ResultStatus.StatusMessage = "Requested Email is already registered!";
-                                    IsUserExistsResult.ResultStatus = ResultStatus;
-                                    
-                                    //Comment by himanshu: As per mail on 03-10-14 3rd point. 
-                                    IsUserExistsResult.GetUserResult = blnkGetUserResult;
-                                    IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
-                                    IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
-                                    IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
-                                    IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
-                                    //End Comment by himanshu
+                                    User objCheckEmail = lstCheckEmail.FirstOrDefault();
+                                    if (objCheckEmail != null)
+                                    {
+                                        //Email already exist
+                                        ResultStatus.Status = "0";
+                                        ResultStatus.StatusMessage = "Requested Email is already registered!";
+                                        IsUserExistsResult.ResultStatus = ResultStatus;
 
-                                    writeLog("IsUserExists", "STOP", Email);
-                                    return IsUserExistsResult;
+                                        //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                        IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                        IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                        IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                        IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                        IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                        //End Comment by himanshu
+
+                                        writeLog("IsUserExists", "STOP", Email);
+                                        return IsUserExistsResult;
+                                    }
                                 }
                             }
                             //Register User,UserSkill, UserEmployment, UserEmploymentRecommendation, UserEducation & UserEducationCourse
@@ -352,13 +375,16 @@ namespace CrowdWCFservice
                             objNewUser.LinkedInId = LinkedInId;
 
                             //--------Check for devicetoken already exist or not-----------//
-                            User userDeviceToken = new User();
-                            userDeviceToken = db.User.Get().FirstOrDefault(m => m.DeviceToken == DeviceToken);
-                            if (userDeviceToken != null)
+                            List<User> lstUserDeviceToken = db.User.Get(m => m.DeviceToken == DeviceToken).ToList();
+                            if (lstUserDeviceToken.Count > 0)
                             {
-                                userDeviceToken.DeviceToken = null;
-                                db.User.Update(userDeviceToken);
-                                db.SaveChanges();
+                                User userDeviceToken = lstUserDeviceToken.FirstOrDefault();
+                                if (userDeviceToken != null)
+                                {
+                                    userDeviceToken.DeviceToken = null;
+                                    db.User.Update(userDeviceToken);
+                                    db.SaveChanges();
+                                }
                             }
                             //------------------------------------------------------------//
 
@@ -368,7 +394,7 @@ namespace CrowdWCFservice
                             db.SaveChanges();
                             //========================================================//
 
-                            User objGetLatestUser = db.User.Get().OrderByDescending(n => n.ID).FirstOrDefault();
+                            User objGetLatestUser = db.User.Get(x => x.ID == objNewUser.ID).FirstOrDefault();
                             if (objGetLatestUser != null)
                             {
                                 //===================Register UserSkill ================//
@@ -475,7 +501,7 @@ namespace CrowdWCFservice
                                         db.UserEducation.Add(objNewUserEducation);
                                         db.SaveChanges();
 
-                                        long lngLatestEducationId = db.UserEducation.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
+                                        long lngLatestEducationId = db.UserEducation.Get(x => x.ID == objNewUserEducation.ID).FirstOrDefault().ID;
                                         if (education.UserEducationCourse != null)
                                         {
                                             foreach (var course in education.UserEducationCourse)
@@ -502,287 +528,302 @@ namespace CrowdWCFservice
                         objTokenInfo = LoginStatus.ValidateToken(UserToken, UserID);
                         if (objTokenInfo != null && objTokenInfo.EmailID != null)
                         {
-                            User objChecklinkedInID = db.User.Get().FirstOrDefault(n => n.LinkedInId.ToUpper() == LinkedInId.ToUpper() && n.ID != lngUserID);
-                            if (objChecklinkedInID != null)
+                            List<User> lstCheckLinkedInID = db.User.Get(n => n.LinkedInId.ToUpper() == LinkedInId.ToUpper() && n.ID != lngUserID).ToList();
+                            if (lstCheckLinkedInID.Count > 0)
                             {
-                                //Linkedin Id already exist
-                                ResultStatus.Status = "0";
-                                ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
-                                IsUserExistsResult.ResultStatus = ResultStatus;
+                                User objChecklinkedInID = lstCheckLinkedInID.FirstOrDefault();
+                                if (objChecklinkedInID != null)
+                                {
+                                    //Linkedin Id already exist
+                                    ResultStatus.Status = "0";
+                                    ResultStatus.StatusMessage = "Requested LinkedInId is already registered!";
+                                    IsUserExistsResult.ResultStatus = ResultStatus;
 
-                                //Comment by himanshu: As per mail on 03-10-14 3rd point. 
-                                IsUserExistsResult.GetUserResult = blnkGetUserResult;
-                                IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
-                                IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
-                                IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
-                                IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
-                                //End Comment by himanshu
+                                    //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                    IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                    IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                    IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                    IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                    IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                    //End Comment by himanshu
+                                }
                             }
                             else
                             {
                                 //Check Email already exist or not if provided in request
                                 if (Email != null && Email != "")
                                 {
-                                    User objCheckEmail = db.User.Get().FirstOrDefault(n => n.Email != null && n.Email.ToUpper() == Email.ToUpper() && n.ID != lngUserID);
-                                    if (objCheckEmail != null)
+                                    List<User> lstCheckMail = db.User.Get(n => n.Email != null && n.Email.ToUpper() == Email.ToUpper() && n.ID != lngUserID).ToList();
+                                    if (lstCheckMail.Count > 0)
                                     {
-                                        //Email already exist
-                                        ResultStatus.Status = "0";
-                                        ResultStatus.StatusMessage = "Requested Email is already registered!";
-                                        IsUserExistsResult.ResultStatus = ResultStatus;
+                                        User objCheckEmail = lstCheckMail.FirstOrDefault();
+                                        if (objCheckEmail != null)
+                                        {
+                                            //Email already exist
+                                            ResultStatus.Status = "0";
+                                            ResultStatus.StatusMessage = "Requested Email is already registered!";
+                                            IsUserExistsResult.ResultStatus = ResultStatus;
 
-                                        //Comment by himanshu: As per mail on 03-10-14 3rd point. 
-                                        IsUserExistsResult.GetUserResult = blnkGetUserResult;
-                                        IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
-                                        IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
-                                        IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
-                                        IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
-                                        //End Comment by himanshu
+                                            //Comment by himanshu: As per mail on 03-10-14 3rd point. 
+                                            IsUserExistsResult.GetUserResult = blnkGetUserResult;
+                                            IsUserExistsResult.GetUserSkillResult = blnkLstUserSkillResult;
+                                            IsUserExistsResult.GetUserEmploymentResult = blnkLstUserEmploymentResult;
+                                            IsUserExistsResult.GetUserEducationWithCourseResult = blnkLstUserEducationWithCourseResult;
+                                            IsUserExistsResult.GetUserEmploymentRecommendationResult = blnkLstUserEmploymentRecommendationResult;
+                                            //End Comment by himanshu
 
-                                        writeLog("IsUserExists", "STOP", Email);
-                                        return IsUserExistsResult;
+                                            writeLog("IsUserExists", "STOP", Email);
+                                            return IsUserExistsResult;
+                                        }
                                     }
                                 }
-                                User objGetUser = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-                                if (objGetUser != null)
+                                List<User> lstGetUser = db.User.Get(n => n.ID == lngUserID).ToList();
+                                if (lstGetUser.Count > 0)
                                 {
-                                    //Update User,UserSkill, UserEmployment, UserEmploymentRecommendation, UserEducation & UserEducationCourse
-
-                                    //===================Update User ================//
-                                    objGetUser.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                    objGetUser.Email = Email;
-                                    objGetUser.FirstName = FirstName;
-                                    objGetUser.LastName = LastName;
-                                    objGetUser.LocationCity = LocationCity;
-                                    objGetUser.LocationState = LocationState;
-                                    objGetUser.LocationCountry = LocationCountry;
-                                    objGetUser.Industry = Industry;
-                                    objGetUser.Industry2 = Industry2;
-                                    objGetUser.Summary = Summary;
-                                    //=====convert base64string in image and save it in folder=======//
-                                    string filePath = "";
-                                    if (PhotoData.Length > 0) // as per rajendra's inst in mail - mail101014
+                                    User objGetUser = lstGetUser.FirstOrDefault();
+                                    if (objGetUser != null)
                                     {
-                                        filePath = SaveImage(PhotoData, "Profile", 100, 100);
-                                        objGetUser.PhotoURL = filePath;
-                                    }
-                                    //===============================================================//
-                                    objGetUser.LinkedInId = LinkedInId;
+                                        //Update User,UserSkill, UserEmployment, UserEmploymentRecommendation, UserEducation & UserEducationCourse
 
-                                    //--------Check for devicetoken already exist or not-----------//
-                                    User userDeviceToken = new User();
-                                    userDeviceToken = db.User.Get().FirstOrDefault(m => m.DeviceToken == DeviceToken);
-                                    if (userDeviceToken != null)
-                                    {
-                                        userDeviceToken.DeviceToken = null;
-                                        db.User.Update(userDeviceToken);
+                                        //===================Update User ================//
+                                        objGetUser.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                        objGetUser.Email = Email;
+                                        objGetUser.FirstName = FirstName;
+                                        objGetUser.LastName = LastName;
+                                        objGetUser.LocationCity = LocationCity;
+                                        objGetUser.LocationState = LocationState;
+                                        objGetUser.LocationCountry = LocationCountry;
+                                        objGetUser.Industry = Industry;
+                                        objGetUser.Industry2 = Industry2;
+                                        objGetUser.Summary = Summary;
+                                        //=====convert base64string in image and save it in folder=======//
+                                        string filePath = "";
+                                        if (PhotoData.Length > 0) // as per rajendra's inst in mail - mail101014
+                                        {
+                                            filePath = SaveImage(PhotoData, "Profile", 100, 100);
+                                            objGetUser.PhotoURL = filePath;
+                                        }
+                                        //===============================================================//
+                                        objGetUser.LinkedInId = LinkedInId;
+
+                                        //--------Check for devicetoken already exist or not-----------//
+                                        List<User> lstUserDeviceToken = db.User.Get(m => m.DeviceToken == DeviceToken).ToList();
+                                        if (lstUserDeviceToken.Count > 0)
+                                        {
+                                            User userDeviceToken = lstUserDeviceToken.FirstOrDefault();
+                                            if (userDeviceToken != null)
+                                            {
+                                                userDeviceToken.DeviceToken = null;
+                                                db.User.Update(userDeviceToken);
+                                                db.SaveChanges();
+                                            }
+                                        }
+                                        //------------------------------------------------------------//
+
+                                        objGetUser.DeviceToken = DeviceToken;
+                                        objGetUser.ExperienceLevelType = Convert.ToInt32(ExperienceLevel);
+                                        db.User.Update(objGetUser);
                                         db.SaveChanges();
-                                    }
-                                    //------------------------------------------------------------//
+                                        //========================================================//
 
-                                    objGetUser.DeviceToken = DeviceToken;
-                                    objGetUser.ExperienceLevelType = Convert.ToInt32(ExperienceLevel);
-                                    db.User.Update(objGetUser);
-                                    db.SaveChanges();
-                                    //========================================================//
-
-                                    //===================Update UserSkill ================//
-                                    if (UserSkills.Length > 0)
-                                    {
-                                        //=========Delete All skills========//
-                                        List<UserSkill> objGetUserSkill = db.UserSkill.Get().Where(n => n.UserID == objGetUser.ID).ToList();
-                                        if (objGetUserSkill.Count > 0)
+                                        //===================Update UserSkill ================//
+                                        if (UserSkills.Length > 0)
                                         {
-                                            foreach (var us in objGetUserSkill)
+                                            //=========Delete All skills========//
+                                            List<UserSkill> objGetUserSkill = db.UserSkill.Get(n => n.UserID == objGetUser.ID).ToList();
+                                            if (objGetUserSkill.Count > 0)
                                             {
-                                                db.UserSkill.Remove(us);
-                                                db.SaveChanges();
-                                            }
-                                        }
-                                        //================================//
-
-                                        //=========Add New skills========//
-                                        foreach (var skill in UserSkills)
-                                        {
-                                            UserSkill objNewUserSkill = new UserSkill();
-                                            objNewUserSkill.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUserSkill.UserID = objGetUser.ID;
-                                            objNewUserSkill.Skill = skill.Skill;
-                                            db.UserSkill.Add(objNewUserSkill);
-                                            db.SaveChanges();
-                                        }
-                                        //=================================//
-                                    }
-                                    //=================================================//
-
-
-                                    //===================Update UserEmployment ================//
-                                    if (UserEmployments.Length > 0)
-                                    {
-                                        //=========Delete All UserEmployment,Employment recommendation========//
-                                        List<UserEmployment> objGetUserEmployment = db.UserEmployment.Get().Where(n => n.UserID == objGetUser.ID).ToList();
-                                        if (objGetUserEmployment.Count > 0)
-                                        {
-                                            foreach (var ue in objGetUserEmployment)
-                                            {
-                                                db.UserEmployment.Remove(ue);
-                                                db.SaveChanges();
-                                            }
-                                        }
-                                        //================================//
-
-                                        //=========Add New UserEmployment========//
-
-                                        foreach (var employment in UserEmployments)
-                                        {
-                                            UserEmployment objNewUserEmployment = new UserEmployment();
-                                            objNewUserEmployment.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUserEmployment.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUserEmployment.UserID = objGetUser.ID;
-                                            objNewUserEmployment.EmployerName = employment.EmployerName;
-                                            objNewUserEmployment.Title = employment.Title;
-                                            objNewUserEmployment.LocationCity = employment.LocationCity;
-                                            objNewUserEmployment.LocationState = employment.LocationState;
-                                            objNewUserEmployment.LocationCountry = employment.LocationCountry;
-                                            objNewUserEmployment.StartYear = Convert.ToInt32(employment.StartYear);
-                                            if (employment.EndYear != null && employment.EndYear != "")
-                                            {
-                                                objNewUserEmployment.EndYear = Convert.ToInt32(employment.EndYear);
-                                            }
-                                            else
-                                            {
-                                                objNewUserEmployment.EndYear = null;
-                                            }
-                                            objNewUserEmployment.Summary = employment.Summary;
-                                            objNewUserEmployment.StartMonth = Convert.ToInt32(employment.StartMonth);
-                                            if (employment.EndMonth != null && employment.EndMonth != "")
-                                            {
-                                                objNewUserEmployment.EndMonth = Convert.ToInt32(employment.EndMonth);
-                                            }
-                                            else
-                                            {
-                                                objNewUserEmployment.EndMonth = null;
-                                            }
-                                            db.UserEmployment.Add(objNewUserEmployment);
-                                            db.SaveChanges();
-                                        }
-                                        //=================================//
-                                    }
-                                    //=================================================//
-
-                                    if (EmploymentRecommendation != null)
-                                    {
-                                        //------------------DeleteEmploymentRecommendation--------------//
-                                        List<UserEmploymentRecommendation> objGetUER = db.UserEmploymentRecommendation.Get().Where(n => n.UserID == objGetUser.ID).ToList();
-                                        if (objGetUER.Count > 0)
-                                        {
-                                            foreach (var uer in objGetUER)
-                                            {
-                                                db.UserEmploymentRecommendation.Remove(uer);
-                                                db.SaveChanges();
-                                            }
-                                        }
-                                        //--------------------------------------------------------------//
-
-                                        foreach (var recommendation in EmploymentRecommendation)
-                                        {
-                                            UserEmploymentRecommendation objNewUER = new UserEmploymentRecommendation();
-                                            objNewUER.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUER.UserID = objGetUser.ID;
-                                            objNewUER.Recommendation = recommendation.Recommendation;
-                                            objNewUER.RecommenderName = recommendation.RecommenderName;
-                                            db.UserEmploymentRecommendation.Add(objNewUER);
-                                            db.SaveChanges();
-                                        }
-                                    }
-
-
-                                    //===================Update UserEducations ================//
-                                    if (UserEducations.Length > 0)
-                                    {
-                                        //=========Delete All UserEducations ,UserEducationCourses========//
-                                        List<UserEducation> objGetUserEducation = db.UserEducation.Get().Where(n => n.UserID == objGetUser.ID).ToList();
-                                        if (objGetUserEducation.Count > 0)
-                                        {
-                                            foreach (var ue in objGetUserEducation)
-                                            {
-                                                //------------------DeleteUserEducationCourses--------------//
-                                                List<UserEducationCourse> objGetUEC = db.UserEducationCourse.Get().Where(n => n.EducationID == ue.ID).ToList();
-                                                if (objGetUEC.Count > 0)
+                                                foreach (var us in objGetUserSkill)
                                                 {
-                                                    foreach (var uec in objGetUEC)
-                                                    {
-                                                        db.UserEducationCourse.Remove(uec);
-                                                        db.SaveChanges();
-                                                    }
-                                                }
-                                                //--------------------------------------------------------------//
-
-                                                db.UserEducation.Remove(ue);
-                                                db.SaveChanges();
-                                            }
-                                        }
-                                        //================================//
-
-                                        //===================Add New UserEducation ================//
-                                        foreach (var education in UserEducations)
-                                        {
-                                            UserEducation objNewUserEducation = new UserEducation();
-                                            objNewUserEducation.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUserEducation.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                            objNewUserEducation.UserID = objGetUser.ID;
-                                            objNewUserEducation.Name = education.Name;
-                                            objNewUserEducation.Degree = education.Degree;
-                                            objNewUserEducation.StartYear = Convert.ToInt32(education.StartYear);
-                                            if (education.EndYear != null && education.EndYear != "")
-                                            {
-                                                objNewUserEducation.EndYear = Convert.ToInt32(education.EndYear);
-                                            }
-                                            else
-                                            {
-                                                objNewUserEducation.EndYear = null;
-                                            }
-                                            objNewUserEducation.StartMonth = Convert.ToInt32(education.StartMonth);
-                                            if (education.EndMonth != null && education.EndMonth != "")
-                                            {
-                                                objNewUserEducation.EndMonth = Convert.ToInt32(education.EndMonth);
-                                            }
-                                            else
-                                            {
-                                                objNewUserEducation.EndMonth = null;
-                                            }
-                                            db.UserEducation.Add(objNewUserEducation);
-                                            db.SaveChanges();
-
-                                            long lngLatestEducationId = db.UserEducation.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
-                                            if (education.UserEducationCourse != null)
-                                            {
-                                                foreach (var course in education.UserEducationCourse)
-                                                {
-                                                    UserEducationCourse objNewUEC = new UserEducationCourse();
-                                                    objNewUEC.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                                    objNewUEC.EducationID = lngLatestEducationId;
-                                                    objNewUEC.Course = course.Course;
-                                                    db.UserEducationCourse.Add(objNewUEC);
+                                                    db.UserSkill.Remove(us);
                                                     db.SaveChanges();
                                                 }
                                             }
+                                            //================================//
+
+                                            //=========Add New skills========//
+                                            foreach (var skill in UserSkills)
+                                            {
+                                                UserSkill objNewUserSkill = new UserSkill();
+                                                objNewUserSkill.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUserSkill.UserID = objGetUser.ID;
+                                                objNewUserSkill.Skill = skill.Skill;
+                                                db.UserSkill.Add(objNewUserSkill);
+                                                db.SaveChanges();
+                                            }
+                                            //=================================//
                                         }
-                                        //=====================================================//
-
                                         //=================================================//
-                                       
-                                    }
-                                    //Comment by himanshu: as per mail 03-10-14 (1st point).
-                                    //else
-                                    //{
-                                    //    ResultStatus.Status = "0";
-                                    //    ResultStatus.StatusMessage = "User does not exist!";
-                                    //    IsUserExistsResult.ResultStatus = ResultStatus;
-                                    //}
-                                    //Close Comment by himanshu
 
-                                    IsUserExistsResult = GetUserDetails(objGetUser.ID, false);
+
+                                        //===================Update UserEmployment ================//
+                                        if (UserEmployments.Length > 0)
+                                        {
+                                            //=========Delete All UserEmployment,Employment recommendation========//
+                                            List<UserEmployment> objGetUserEmployment = db.UserEmployment.Get(n => n.UserID == objGetUser.ID).ToList();
+                                            if (objGetUserEmployment.Count > 0)
+                                            {
+                                                foreach (var ue in objGetUserEmployment)
+                                                {
+                                                    db.UserEmployment.Remove(ue);
+                                                    db.SaveChanges();
+                                                }
+                                            }
+                                            //================================//
+
+                                            //=========Add New UserEmployment========//
+
+                                            foreach (var employment in UserEmployments)
+                                            {
+                                                UserEmployment objNewUserEmployment = new UserEmployment();
+                                                objNewUserEmployment.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUserEmployment.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUserEmployment.UserID = objGetUser.ID;
+                                                objNewUserEmployment.EmployerName = employment.EmployerName;
+                                                objNewUserEmployment.Title = employment.Title;
+                                                objNewUserEmployment.LocationCity = employment.LocationCity;
+                                                objNewUserEmployment.LocationState = employment.LocationState;
+                                                objNewUserEmployment.LocationCountry = employment.LocationCountry;
+                                                objNewUserEmployment.StartYear = Convert.ToInt32(employment.StartYear);
+                                                if (employment.EndYear != null && employment.EndYear != "")
+                                                {
+                                                    objNewUserEmployment.EndYear = Convert.ToInt32(employment.EndYear);
+                                                }
+                                                else
+                                                {
+                                                    objNewUserEmployment.EndYear = null;
+                                                }
+                                                objNewUserEmployment.Summary = employment.Summary;
+                                                objNewUserEmployment.StartMonth = Convert.ToInt32(employment.StartMonth);
+                                                if (employment.EndMonth != null && employment.EndMonth != "")
+                                                {
+                                                    objNewUserEmployment.EndMonth = Convert.ToInt32(employment.EndMonth);
+                                                }
+                                                else
+                                                {
+                                                    objNewUserEmployment.EndMonth = null;
+                                                }
+                                                db.UserEmployment.Add(objNewUserEmployment);
+                                                db.SaveChanges();
+                                            }
+                                            //=================================//
+                                        }
+                                        //=================================================//
+
+                                        if (EmploymentRecommendation != null)
+                                        {
+                                            //------------------DeleteEmploymentRecommendation--------------//
+                                            List<UserEmploymentRecommendation> objGetUER = db.UserEmploymentRecommendation.Get(n => n.UserID == objGetUser.ID).ToList();
+                                            if (objGetUER.Count > 0)
+                                            {
+                                                foreach (var uer in objGetUER)
+                                                {
+                                                    db.UserEmploymentRecommendation.Remove(uer);
+                                                    db.SaveChanges();
+                                                }
+                                            }
+                                            //--------------------------------------------------------------//
+
+                                            foreach (var recommendation in EmploymentRecommendation)
+                                            {
+                                                UserEmploymentRecommendation objNewUER = new UserEmploymentRecommendation();
+                                                objNewUER.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUER.UserID = objGetUser.ID;
+                                                objNewUER.Recommendation = recommendation.Recommendation;
+                                                objNewUER.RecommenderName = recommendation.RecommenderName;
+                                                db.UserEmploymentRecommendation.Add(objNewUER);
+                                                db.SaveChanges();
+                                            }
+                                        }
+
+
+                                        //===================Update UserEducations ================//
+                                        if (UserEducations.Length > 0)
+                                        {
+                                            //=========Delete All UserEducations ,UserEducationCourses========//
+                                            List<UserEducation> objGetUserEducation = db.UserEducation.Get(n => n.UserID == objGetUser.ID).ToList();
+                                            if (objGetUserEducation.Count > 0)
+                                            {
+                                                foreach (var ue in objGetUserEducation)
+                                                {
+                                                    //------------------DeleteUserEducationCourses--------------//
+                                                    List<UserEducationCourse> objGetUEC = db.UserEducationCourse.Get(n => n.EducationID == ue.ID).ToList();
+                                                    if (objGetUEC.Count > 0)
+                                                    {
+                                                        foreach (var uec in objGetUEC)
+                                                        {
+                                                            db.UserEducationCourse.Remove(uec);
+                                                            db.SaveChanges();
+                                                        }
+                                                    }
+                                                    //--------------------------------------------------------------//
+
+                                                    db.UserEducation.Remove(ue);
+                                                    db.SaveChanges();
+                                                }
+                                            }
+                                            //================================//
+
+                                            //===================Add New UserEducation ================//
+                                            foreach (var education in UserEducations)
+                                            {
+                                                UserEducation objNewUserEducation = new UserEducation();
+                                                objNewUserEducation.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUserEducation.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewUserEducation.UserID = objGetUser.ID;
+                                                objNewUserEducation.Name = education.Name;
+                                                objNewUserEducation.Degree = education.Degree;
+                                                objNewUserEducation.StartYear = Convert.ToInt32(education.StartYear);
+                                                if (education.EndYear != null && education.EndYear != "")
+                                                {
+                                                    objNewUserEducation.EndYear = Convert.ToInt32(education.EndYear);
+                                                }
+                                                else
+                                                {
+                                                    objNewUserEducation.EndYear = null;
+                                                }
+                                                objNewUserEducation.StartMonth = Convert.ToInt32(education.StartMonth);
+                                                if (education.EndMonth != null && education.EndMonth != "")
+                                                {
+                                                    objNewUserEducation.EndMonth = Convert.ToInt32(education.EndMonth);
+                                                }
+                                                else
+                                                {
+                                                    objNewUserEducation.EndMonth = null;
+                                                }
+                                                db.UserEducation.Add(objNewUserEducation);
+                                                db.SaveChanges();
+
+                                                long lngLatestEducationId = db.UserEducation.Get(x => x.ID == objNewUserEducation.ID).FirstOrDefault().ID;
+                                                if (education.UserEducationCourse != null)
+                                                {
+                                                    foreach (var course in education.UserEducationCourse)
+                                                    {
+                                                        UserEducationCourse objNewUEC = new UserEducationCourse();
+                                                        objNewUEC.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                        objNewUEC.EducationID = lngLatestEducationId;
+                                                        objNewUEC.Course = course.Course;
+                                                        db.UserEducationCourse.Add(objNewUEC);
+                                                        db.SaveChanges();
+                                                    }
+                                                }
+                                            }
+                                            //=====================================================//
+
+                                            //=================================================//
+
+                                        }
+                                        //Comment by himanshu: as per mail 03-10-14 (1st point).
+                                        //else
+                                        //{
+                                        //    ResultStatus.Status = "0";
+                                        //    ResultStatus.StatusMessage = "User does not exist!";
+                                        //    IsUserExistsResult.ResultStatus = ResultStatus;
+                                        //}
+                                        //Close Comment by himanshu
+
+                                        IsUserExistsResult = GetUserDetails(objGetUser.ID, false);
+                                    }
                                 }
                             }
                         }
@@ -859,12 +900,16 @@ namespace CrowdWCFservice
                     //not required if requested UserID and Requested OtherUserID are same.
                     if (lngUserID != lngOtherUserID)
                     {
-                        Follow objFollow = db.Follow.Get().FirstOrDefault(n => n.FollowerUserID == lngUserID && n.FollowingUserID == lngOtherUserID);
-                        if (objFollow != null)
+                        List<Follow> lstFollow = db.Follow.Get(n => n.FollowerUserID == lngUserID && n.FollowingUserID == lngOtherUserID).ToList();
+                        if (lstFollow.Count > 0)
                         {
-                            if (IsUserExistResult != null)
+                            Follow objFollow = lstFollow.FirstOrDefault();
+                            if (objFollow != null)
                             {
-                                UserDetailResult.UserFollowStatus = "True";
+                                if (IsUserExistResult != null)
+                                {
+                                    UserDetailResult.UserFollowStatus = "True";
+                                }
                             }
                         }
                     }
@@ -905,7 +950,7 @@ namespace CrowdWCFservice
                 {
                     long lngUserID = Convert.ToInt64(UserID);
 
-                    List<Feed> objGetFeed = db.Feed.Get().Where(n => n.UserID == lngUserID).OrderByDescending(n => n.DateCreated).ToList();
+                    List<Feed> objGetFeed = db.Feed.Get(n => n.UserID == lngUserID).OrderByDescending(n => n.DateCreated).ToList();
 
                     if (objGetFeed.Count > 0)
                     {
@@ -934,27 +979,31 @@ namespace CrowdWCFservice
                                 GetJobDetails JobDetail = new GetJobDetails();
                                 if (feed.JobID != null && feed.JobID != 0)
                                 {
-                                    Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == feed.JobID);
-                                    if (objGetJob != null)
+                                    List<Job> lstGetJob = db.Job.Get(n => n.ID == feed.JobID).ToList();
+                                    if (lstGetJob.Count > 0)
                                     {
-                                        JobDetail.ID = Convert.ToString(objGetJob.ID);
-                                        JobDetail.DateCreated = Convert.ToString(objGetJob.DateCreated);
-                                        JobDetail.DateModified = Convert.ToString(objGetJob.DateModified);
-                                        JobDetail.UserId = Convert.ToString(objGetJob.UserID);
-                                        JobDetail.LocationCity = objGetJob.LocationCity;
-                                        JobDetail.LocationState = objGetJob.LocationState;
-                                        JobDetail.LocationCountry = objGetJob.LocationCountry;
-                                        JobDetail.Industry = objGetJob.Industry;
-                                        JobDetail.Industry2 = objGetJob.Industry2;
-                                        JobDetail.Title = objGetJob.Title;
-                                        JobDetail.Responsibilities = objGetJob.Responsibilities;
-                                        JobDetail.Qualifications = objGetJob.Qualifications;
-                                        JobDetail.Company = objGetJob.Company;
-                                        JobDetail.EmployerIntroduction = objGetJob.EmployerIntroduction;
-                                        JobDetail.URL = objGetJob.URL;
-                                        JobDetail.ShareURL = objGetJob.ShareURL;
-                                        JobDetail.State = Convert.ToString(objGetJob.State);
-                                    }                                    
+                                        Job objGetJob = lstGetJob.FirstOrDefault();
+                                        if (objGetJob != null)
+                                        {
+                                            JobDetail.ID = Convert.ToString(objGetJob.ID);
+                                            JobDetail.DateCreated = Convert.ToString(objGetJob.DateCreated);
+                                            JobDetail.DateModified = Convert.ToString(objGetJob.DateModified);
+                                            JobDetail.UserId = Convert.ToString(objGetJob.UserID);
+                                            JobDetail.LocationCity = objGetJob.LocationCity;
+                                            JobDetail.LocationState = objGetJob.LocationState;
+                                            JobDetail.LocationCountry = objGetJob.LocationCountry;
+                                            JobDetail.Industry = objGetJob.Industry;
+                                            JobDetail.Industry2 = objGetJob.Industry2;
+                                            JobDetail.Title = objGetJob.Title;
+                                            JobDetail.Responsibilities = objGetJob.Responsibilities;
+                                            JobDetail.Qualifications = objGetJob.Qualifications;
+                                            JobDetail.Company = objGetJob.Company;
+                                            JobDetail.EmployerIntroduction = objGetJob.EmployerIntroduction;
+                                            JobDetail.URL = objGetJob.URL;
+                                            JobDetail.ShareURL = objGetJob.ShareURL;
+                                            JobDetail.State = Convert.ToString(objGetJob.State);
+                                        }
+                                    }
                                 }
                                 objCurrFeed.JobDetail = JobDetail;
 
@@ -962,25 +1011,29 @@ namespace CrowdWCFservice
                                 objCurrFeed.OtherUserID = Convert.ToString(feed.OtherUserID);
                                 if (feed.OtherUserID != null && feed.OtherUserID != 0)
                                 {
-                                    User objUser = db.User.Get().FirstOrDefault(n => n.ID == feed.OtherUserID);
-                                    if (objUser != null)
+                                    List<User> lstUser = db.User.Get(n => n.ID == feed.OtherUserID).ToList();
+                                    if (lstUser.Count > 0)
                                     {
-                                        UserDetail.UserId = Convert.ToString(objUser.ID);
-                                        UserDetail.DateCreated = Convert.ToString(objUser.DateCreated);
-                                        UserDetail.DateModified = Convert.ToString(objUser.DateModified);
-                                        UserDetail.Email = objUser.Email;
-                                        UserDetail.FirstName = objUser.FirstName;
-                                        UserDetail.LastName = objUser.LastName;
-                                        UserDetail.LocationCity = objUser.LocationCity;
-                                        UserDetail.LocationState = objUser.LocationState;
-                                        UserDetail.LocationCountry = objUser.LocationCountry;
-                                        UserDetail.Industry = objUser.Industry;
-                                        UserDetail.Industry2 = objUser.Industry2;
-                                        UserDetail.Summary = objUser.Summary;
-                                        UserDetail.PhotoURL = objUser.PhotoURL;
-                                        UserDetail.LinkedInId = objUser.LinkedInId;
-                                        UserDetail.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
-                                    }                                   
+                                        User objUser = lstUser.FirstOrDefault();
+                                        if (objUser != null)
+                                        {
+                                            UserDetail.UserId = Convert.ToString(objUser.ID);
+                                            UserDetail.DateCreated = Convert.ToString(objUser.DateCreated);
+                                            UserDetail.DateModified = Convert.ToString(objUser.DateModified);
+                                            UserDetail.Email = objUser.Email;
+                                            UserDetail.FirstName = objUser.FirstName;
+                                            UserDetail.LastName = objUser.LastName;
+                                            UserDetail.LocationCity = objUser.LocationCity;
+                                            UserDetail.LocationState = objUser.LocationState;
+                                            UserDetail.LocationCountry = objUser.LocationCountry;
+                                            UserDetail.Industry = objUser.Industry;
+                                            UserDetail.Industry2 = objUser.Industry2;
+                                            UserDetail.Summary = objUser.Summary;
+                                            UserDetail.PhotoURL = objUser.PhotoURL;
+                                            UserDetail.LinkedInId = objUser.LinkedInId;
+                                            UserDetail.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
+                                        }
+                                    }
                                 }
                                 objCurrFeed.OtherUserDetails = UserDetail;
                                 ActivityFeeds.Add(objCurrFeed);
@@ -1044,64 +1097,68 @@ namespace CrowdWCFservice
                     long lngUserID = Convert.ToInt64(UserID);
 
                     //Get Following Me User - users who follow requested UserID 
-                    List<Int64> lstFollowerUserID = db.Follow.Get().Where(n => n.FollowingUserID == lngUserID).Select(n => n.FollowerUserID).ToList();
+                    List<Int64> lstFollowerUserID = db.Follow.Get(n => n.FollowingUserID == lngUserID).Select(n => n.FollowerUserID).ToList();
                     lstFollowerUserID = lstFollowerUserID.Distinct().ToList();
 
                     if (lstFollowerUserID.Count > 0)
                     {
                         foreach (Int64 follower in lstFollowerUserID)
                         {
-                            User objGetFollowerDetail = db.User.Get().FirstOrDefault(n => n.ID == follower);
-                            if (objGetFollowerDetail != null)
+                            List<User> lstGetFollowerDetail = db.User.Get(n => n.ID == follower).ToList();
+                            if (lstGetFollowerDetail.Count > 0)
                             {
-                                //==============================Follower Response=============================================//
-                                GetUserDetailForCrowd objCurrFollower = new GetUserDetailForCrowd();
-                                objCurrFollower.UserId = Convert.ToString(objGetFollowerDetail.ID);
-                                objCurrFollower.DateCreated = Convert.ToString(objGetFollowerDetail.DateCreated);
-                                objCurrFollower.DateModified = Convert.ToString(objGetFollowerDetail.DateModified);
-                                objCurrFollower.Email = objGetFollowerDetail.Email;
-                                objCurrFollower.FirstName = objGetFollowerDetail.FirstName;
-                                objCurrFollower.LastName = objGetFollowerDetail.LastName;
-                                objCurrFollower.LocationCity = objGetFollowerDetail.LocationCity;
-                                objCurrFollower.LocationState = objGetFollowerDetail.LocationState;
-                                objCurrFollower.LocationCountry = objGetFollowerDetail.LocationCountry;
-                                objCurrFollower.Industry = objGetFollowerDetail.Industry;
-                                objCurrFollower.Industry2 = objGetFollowerDetail.Industry2;
-                                objCurrFollower.Summary = objGetFollowerDetail.Summary;
-                                objCurrFollower.PhotoURL = objGetFollowerDetail.PhotoURL;
-                                objCurrFollower.LinkedInId = objGetFollowerDetail.LinkedInId;
-                                objCurrFollower.ExperienceLevel = Convert.ToString(objGetFollowerDetail.ExperienceLevelType);
-                                objCurrFollower.IsAvailableForCall = IsUserAvailableForCall(objGetFollowerDetail);
-                                //---------------------UserEmployment Response-------------------------------//
-                                List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
-                                List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get().Where(n => n.UserID == objGetFollowerDetail.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
-                                if (objUserEmploymentList.Count > 0)
+                                User objGetFollowerDetail = lstGetFollowerDetail.FirstOrDefault();
+                                if (objGetFollowerDetail != null)
                                 {
-                                    foreach (var ue in objUserEmploymentList)
+                                    //==============================Follower Response=============================================//
+                                    GetUserDetailForCrowd objCurrFollower = new GetUserDetailForCrowd();
+                                    objCurrFollower.UserId = Convert.ToString(objGetFollowerDetail.ID);
+                                    objCurrFollower.DateCreated = Convert.ToString(objGetFollowerDetail.DateCreated);
+                                    objCurrFollower.DateModified = Convert.ToString(objGetFollowerDetail.DateModified);
+                                    objCurrFollower.Email = objGetFollowerDetail.Email;
+                                    objCurrFollower.FirstName = objGetFollowerDetail.FirstName;
+                                    objCurrFollower.LastName = objGetFollowerDetail.LastName;
+                                    objCurrFollower.LocationCity = objGetFollowerDetail.LocationCity;
+                                    objCurrFollower.LocationState = objGetFollowerDetail.LocationState;
+                                    objCurrFollower.LocationCountry = objGetFollowerDetail.LocationCountry;
+                                    objCurrFollower.Industry = objGetFollowerDetail.Industry;
+                                    objCurrFollower.Industry2 = objGetFollowerDetail.Industry2;
+                                    objCurrFollower.Summary = objGetFollowerDetail.Summary;
+                                    objCurrFollower.PhotoURL = objGetFollowerDetail.PhotoURL;
+                                    objCurrFollower.LinkedInId = objGetFollowerDetail.LinkedInId;
+                                    objCurrFollower.ExperienceLevel = Convert.ToString(objGetFollowerDetail.ExperienceLevelType);
+                                    objCurrFollower.IsAvailableForCall = IsUserAvailableForCall(objGetFollowerDetail);
+                                    //---------------------UserEmployment Response-------------------------------//
+                                    List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
+                                    List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get(n => n.UserID == objGetFollowerDetail.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
+                                    if (objUserEmploymentList.Count > 0)
                                     {
-                                        GetUserEmployment objCurrEmployment = new GetUserEmployment();
-                                        objCurrEmployment.ID = Convert.ToString(ue.ID);
-                                        objCurrEmployment.DateCreated = Convert.ToString(ue.DateCreated);
-                                        objCurrEmployment.DateModified = Convert.ToString(ue.DateModified);
-                                        objCurrEmployment.UserId = Convert.ToString(ue.UserID);
-                                        objCurrEmployment.EmployerName = ue.EmployerName;
-                                        objCurrEmployment.Title = ue.Title;
-                                        objCurrEmployment.LocationCity = ue.LocationCity;
-                                        objCurrEmployment.LocationState = ue.LocationState;
-                                        objCurrEmployment.LocationCountry = ue.LocationCountry;
-                                        objCurrEmployment.StartMonth = Convert.ToString(ue.StartMonth);
-                                        objCurrEmployment.StartYear = Convert.ToString(ue.StartYear);
-                                        objCurrEmployment.EndMonth = Convert.ToString(ue.EndMonth);
-                                        objCurrEmployment.EndYear = Convert.ToString(ue.EndYear);
-                                        objCurrEmployment.Summary = ue.Summary;
-                                        lstCurrentEmployerList.Add(objCurrEmployment);
+                                        foreach (var ue in objUserEmploymentList)
+                                        {
+                                            GetUserEmployment objCurrEmployment = new GetUserEmployment();
+                                            objCurrEmployment.ID = Convert.ToString(ue.ID);
+                                            objCurrEmployment.DateCreated = Convert.ToString(ue.DateCreated);
+                                            objCurrEmployment.DateModified = Convert.ToString(ue.DateModified);
+                                            objCurrEmployment.UserId = Convert.ToString(ue.UserID);
+                                            objCurrEmployment.EmployerName = ue.EmployerName;
+                                            objCurrEmployment.Title = ue.Title;
+                                            objCurrEmployment.LocationCity = ue.LocationCity;
+                                            objCurrEmployment.LocationState = ue.LocationState;
+                                            objCurrEmployment.LocationCountry = ue.LocationCountry;
+                                            objCurrEmployment.StartMonth = Convert.ToString(ue.StartMonth);
+                                            objCurrEmployment.StartYear = Convert.ToString(ue.StartYear);
+                                            objCurrEmployment.EndMonth = Convert.ToString(ue.EndMonth);
+                                            objCurrEmployment.EndYear = Convert.ToString(ue.EndYear);
+                                            objCurrEmployment.Summary = ue.Summary;
+                                            lstCurrentEmployerList.Add(objCurrEmployment);
+                                        }
                                     }
-                                }
-                                objCurrFollower.UserCurrentEmployer = lstCurrentEmployerList;
-                                //---------------------------------------------------------------------------------//
+                                    objCurrFollower.UserCurrentEmployer = lstCurrentEmployerList;
+                                    //---------------------------------------------------------------------------------//
 
-                                lstFollowingMeUser.Add(objCurrFollower);
-                                //========================================================================================================//
+                                    lstFollowingMeUser.Add(objCurrFollower);
+                                    //========================================================================================================//
+                                }
                             }
                         }
                         //Order by
@@ -1109,65 +1166,69 @@ namespace CrowdWCFservice
                     }
 
                     //Get I am Following User - users whom requested user is following
-                    List<Int64> lstFollowingUserID = db.Follow.Get().Where(n => n.FollowerUserID == lngUserID).Select(n => n.FollowingUserID).ToList();
+                    List<Int64> lstFollowingUserID = db.Follow.Get(n => n.FollowerUserID == lngUserID).Select(n => n.FollowingUserID).ToList();
                     lstFollowingUserID = lstFollowingUserID.Distinct().ToList();
 
                     if (lstFollowingUserID.Count > 0)
                     {
                         foreach (Int64 following in lstFollowingUserID)
                         {
-                            User objGetFollowingDetail = db.User.Get().FirstOrDefault(n => n.ID == following);
-                            if (objGetFollowingDetail != null)
+                            List<User> lstGetFollowingDetail = db.User.Get(n => n.ID == following).ToList();
+                            if (lstGetFollowingDetail.Count > 0)
                             {
-                                //==============================Following Response=============================================//
-                                GetUserDetailForCrowd objCurrFollowing = new GetUserDetailForCrowd();
-                                objCurrFollowing.UserId = Convert.ToString(objGetFollowingDetail.ID);
-                                objCurrFollowing.DateCreated = Convert.ToString(objGetFollowingDetail.DateCreated);
-                                objCurrFollowing.DateModified = Convert.ToString(objGetFollowingDetail.DateModified);
-                                objCurrFollowing.Email = objGetFollowingDetail.Email;
-                                objCurrFollowing.FirstName = objGetFollowingDetail.FirstName;
-                                objCurrFollowing.LastName = objGetFollowingDetail.LastName;
-                                objCurrFollowing.LocationCity = objGetFollowingDetail.LocationCity;
-                                objCurrFollowing.LocationState = objGetFollowingDetail.LocationState;
-                                objCurrFollowing.LocationCountry = objGetFollowingDetail.LocationCountry;
-                                objCurrFollowing.Industry = objGetFollowingDetail.Industry;
-                                objCurrFollowing.Industry2 = objGetFollowingDetail.Industry2;
-                                objCurrFollowing.Summary = objGetFollowingDetail.Summary;
-                                objCurrFollowing.PhotoURL = objGetFollowingDetail.PhotoURL;
-                                objCurrFollowing.LinkedInId = objGetFollowingDetail.LinkedInId;
-                                objCurrFollowing.ExperienceLevel = Convert.ToString(objGetFollowingDetail.ExperienceLevelType);
-                                objCurrFollowing.IsAvailableForCall = IsUserAvailableForCall(objGetFollowingDetail);
-
-                                //--------------------------------Useremployment Response------------------------------------//
-                                List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
-                                List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get().Where(n => n.UserID == objGetFollowingDetail.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
-                                if (objUserEmploymentList.Count > 0)
+                                User objGetFollowingDetail = lstGetFollowingDetail.FirstOrDefault();
+                                if (objGetFollowingDetail != null)
                                 {
-                                    foreach (var ue in objUserEmploymentList)
-                                    {
-                                        GetUserEmployment objCurrEmployment = new GetUserEmployment();
-                                        objCurrEmployment.ID = Convert.ToString(ue.ID);
-                                        objCurrEmployment.DateCreated = Convert.ToString(ue.DateCreated);
-                                        objCurrEmployment.DateModified = Convert.ToString(ue.DateModified);
-                                        objCurrEmployment.UserId = Convert.ToString(ue.UserID);
-                                        objCurrEmployment.EmployerName = ue.EmployerName;
-                                        objCurrEmployment.Title = ue.Title;
-                                        objCurrEmployment.LocationCity = ue.LocationCity;
-                                        objCurrEmployment.LocationState = ue.LocationState;
-                                        objCurrEmployment.LocationCountry = ue.LocationCountry;
-                                        objCurrEmployment.StartMonth = Convert.ToString(ue.StartMonth);
-                                        objCurrEmployment.StartYear = Convert.ToString(ue.StartYear);
-                                        objCurrEmployment.EndMonth = Convert.ToString(ue.EndMonth);
-                                        objCurrEmployment.EndYear = Convert.ToString(ue.EndYear);
-                                        objCurrEmployment.Summary = ue.Summary;
-                                        lstCurrentEmployerList.Add(objCurrEmployment);
-                                    }
-                                }
-                                objCurrFollowing.UserCurrentEmployer = lstCurrentEmployerList;
-                                //-----------------------------------------------------------------------------//
+                                    //==============================Following Response=============================================//
+                                    GetUserDetailForCrowd objCurrFollowing = new GetUserDetailForCrowd();
+                                    objCurrFollowing.UserId = Convert.ToString(objGetFollowingDetail.ID);
+                                    objCurrFollowing.DateCreated = Convert.ToString(objGetFollowingDetail.DateCreated);
+                                    objCurrFollowing.DateModified = Convert.ToString(objGetFollowingDetail.DateModified);
+                                    objCurrFollowing.Email = objGetFollowingDetail.Email;
+                                    objCurrFollowing.FirstName = objGetFollowingDetail.FirstName;
+                                    objCurrFollowing.LastName = objGetFollowingDetail.LastName;
+                                    objCurrFollowing.LocationCity = objGetFollowingDetail.LocationCity;
+                                    objCurrFollowing.LocationState = objGetFollowingDetail.LocationState;
+                                    objCurrFollowing.LocationCountry = objGetFollowingDetail.LocationCountry;
+                                    objCurrFollowing.Industry = objGetFollowingDetail.Industry;
+                                    objCurrFollowing.Industry2 = objGetFollowingDetail.Industry2;
+                                    objCurrFollowing.Summary = objGetFollowingDetail.Summary;
+                                    objCurrFollowing.PhotoURL = objGetFollowingDetail.PhotoURL;
+                                    objCurrFollowing.LinkedInId = objGetFollowingDetail.LinkedInId;
+                                    objCurrFollowing.ExperienceLevel = Convert.ToString(objGetFollowingDetail.ExperienceLevelType);
+                                    objCurrFollowing.IsAvailableForCall = IsUserAvailableForCall(objGetFollowingDetail);
 
-                                lstIAmFollowingUser.Add(objCurrFollowing);
-                                //===================================================================================//
+                                    //--------------------------------Useremployment Response------------------------------------//
+                                    List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
+                                    List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get(n => n.UserID == objGetFollowingDetail.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
+                                    if (objUserEmploymentList.Count > 0)
+                                    {
+                                        foreach (var ue in objUserEmploymentList)
+                                        {
+                                            GetUserEmployment objCurrEmployment = new GetUserEmployment();
+                                            objCurrEmployment.ID = Convert.ToString(ue.ID);
+                                            objCurrEmployment.DateCreated = Convert.ToString(ue.DateCreated);
+                                            objCurrEmployment.DateModified = Convert.ToString(ue.DateModified);
+                                            objCurrEmployment.UserId = Convert.ToString(ue.UserID);
+                                            objCurrEmployment.EmployerName = ue.EmployerName;
+                                            objCurrEmployment.Title = ue.Title;
+                                            objCurrEmployment.LocationCity = ue.LocationCity;
+                                            objCurrEmployment.LocationState = ue.LocationState;
+                                            objCurrEmployment.LocationCountry = ue.LocationCountry;
+                                            objCurrEmployment.StartMonth = Convert.ToString(ue.StartMonth);
+                                            objCurrEmployment.StartYear = Convert.ToString(ue.StartYear);
+                                            objCurrEmployment.EndMonth = Convert.ToString(ue.EndMonth);
+                                            objCurrEmployment.EndYear = Convert.ToString(ue.EndYear);
+                                            objCurrEmployment.Summary = ue.Summary;
+                                            lstCurrentEmployerList.Add(objCurrEmployment);
+                                        }
+                                    }
+                                    objCurrFollowing.UserCurrentEmployer = lstCurrentEmployerList;
+                                    //-----------------------------------------------------------------------------//
+
+                                    lstIAmFollowingUser.Add(objCurrFollowing);
+                                    //===================================================================================//
+                                }
                             }
                         }
 
@@ -1273,10 +1334,19 @@ namespace CrowdWCFservice
                             blnFlagResult = true;
 
                             //================Code for push notification===========//
-                            User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-
+                            List<User> lstUserInfo = db.User.Get(n => n.ID == lngUserID).ToList();
+                            User objUserInfo = new User();
+                            if (lstUserInfo.Count > 0)
+                            {
+                                objUserInfo = lstUserInfo.FirstOrDefault();
+                            }
                             //Get device token of receiver
-                            string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngFollowUserID).DeviceToken;
+                            List<User> lstUserDeviceToken = db.User.Get(n => n.ID == lngFollowUserID).ToList();
+                            string UserDeviceToken  = string.Empty;
+                            if (lstUserDeviceToken.Count > 0)
+                            {
+                                UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                            }
                             ///
                             if (UserDeviceToken != null)
                             {                                
@@ -1308,7 +1378,7 @@ namespace CrowdWCFservice
                         {
                             //unfollow
                             //==============delete record from Follow table =============//
-                            List<Follow> objGetFollowList = db.Follow.Get().Where(n => n.FollowerUserID == lngUserID && n.FollowingUserID == lngFollowUserID).ToList();
+                            List<Follow> objGetFollowList = db.Follow.Get(n => n.FollowerUserID == lngUserID && n.FollowingUserID == lngFollowUserID).ToList();
                             if (objGetFollowList.Count > 0)
                             {
                                 foreach (Follow follow in objGetFollowList)
@@ -1405,7 +1475,7 @@ namespace CrowdWCFservice
                         db.Job.Add(objNewJob);
                         db.SaveChanges();
 
-                        long objGetLatestJobID = db.Job.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
+                        long objGetLatestJobID = db.Job.Get(x => x.ID == objNewJob.ID).FirstOrDefault().ID;
 
                         //---------------------Add JobSkill--------------------------------------//
                         if (Skills.Length > 0)
@@ -1423,7 +1493,7 @@ namespace CrowdWCFservice
                         //-----------------------------------------------------------------------------//
 
                         //Prepare Response                       
-                        Job objGetLatestJob = db.Job.Get().OrderByDescending(n => n.ID).FirstOrDefault();
+                        Job objGetLatestJob = db.Job.Get(x => x.ID == objNewJob.ID).FirstOrDefault();
                         if (objGetLatestJob != null)
                         {
                             JobDetailsWithSkill.ID = Convert.ToString(objGetLatestJob.ID);
@@ -1447,7 +1517,7 @@ namespace CrowdWCFservice
                             List<GetJobSkillDetail> lstJobskill = new List<GetJobSkillDetail>();
 
                             //----------------Get Job skills---------//
-                            List<JobSkill> objJobskill = db.JobSkill.Get().Where(n => n.JobID == objGetLatestJob.ID).ToList();
+                            List<JobSkill> objJobskill = db.JobSkill.Get(n => n.JobID == objGetLatestJob.ID).ToList();
                             if (objJobskill.Count > 0)
                             {
                                 foreach (JobSkill skill in objJobskill)
@@ -1472,33 +1542,38 @@ namespace CrowdWCFservice
                     else if (lngJobID > 0)
                     {
                         //Update Job
-                        Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                        objGetJob.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                        objGetJob.Company = Company;
-                        objGetJob.Industry = Industry;
-                        objGetJob.Industry2 = Industry2;
-                        objGetJob.Title = Title;
-                        objGetJob.LocationCity = LocationCity;
-                        objGetJob.LocationCountry = LocationCountry;
-                        objGetJob.LocationState = LocationState;
-                        if (ExperienceLevel != null && ExperienceLevel != "")
+                        List<Job> lstGetJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                        Job objGetJob = new Job();
+                        if (lstGetJob.Count > 0)
                         {
-                            objGetJob.ExperienceLevelType = Convert.ToInt64(ExperienceLevel);
+                            objGetJob = lstGetJob.FirstOrDefault();
+                            objGetJob.DateModified = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                            objGetJob.Company = Company;
+                            objGetJob.Industry = Industry;
+                            objGetJob.Industry2 = Industry2;
+                            objGetJob.Title = Title;
+                            objGetJob.LocationCity = LocationCity;
+                            objGetJob.LocationCountry = LocationCountry;
+                            objGetJob.LocationState = LocationState;
+                            if (ExperienceLevel != null && ExperienceLevel != "")
+                            {
+                                objGetJob.ExperienceLevelType = Convert.ToInt64(ExperienceLevel);
+                            }
+                            else
+                            {
+                                objGetJob.ExperienceLevelType = null;
+                            }
+                            objGetJob.Responsibilities = Responsibilities;
+                            objGetJob.Qualifications = Qualifications;
+                            objGetJob.EmployerIntroduction = EmployerIntroduction;
+                            objGetJob.URL = JobURL;
+                            db.Job.Update(objGetJob);
+                            db.SaveChanges();
                         }
-                        else
-                        {
-                            objGetJob.ExperienceLevelType = null;
-                        }
-                        objGetJob.Responsibilities = Responsibilities;
-                        objGetJob.Qualifications = Qualifications;
-                        objGetJob.EmployerIntroduction = EmployerIntroduction;
-                        objGetJob.URL = JobURL;
-                        db.Job.Update(objGetJob);
-                        db.SaveChanges();
 
                         //=============Update Jobskill - delete old JobSkill and add new JobSkill ======================//
                         //-------------------------------Delete old JobSkill----------------------//
-                        List<JobSkill> objGetJobskill = db.JobSkill.Get().Where(n => n.JobID == lngJobID).ToList();
+                        List<JobSkill> objGetJobskill = db.JobSkill.Get(n => n.JobID == lngJobID).ToList();
                         if (objGetJobskill.Count > 0)
                         {
                             foreach (JobSkill skill in objGetJobskill)
@@ -1525,50 +1600,54 @@ namespace CrowdWCFservice
                         //==================================================================================================//
 
                         //Prepare Response
-                        Job objGetUpdatedJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                        if (objGetUpdatedJob != null)
+                        List<Job> lstGetUpdatedJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                        if (lstGetUpdatedJob.Count > 0)
                         {
-                            JobDetailsWithSkill.ID = Convert.ToString(objGetUpdatedJob.ID);
-                            JobDetailsWithSkill.DateCreated = Convert.ToString(objGetUpdatedJob.DateCreated);
-                            JobDetailsWithSkill.DateModified = Convert.ToString(objGetUpdatedJob.DateModified);
-                            JobDetailsWithSkill.UserId = Convert.ToString(objGetUpdatedJob.UserID);
-                            JobDetailsWithSkill.LocationCity = objGetUpdatedJob.LocationCity;
-                            JobDetailsWithSkill.LocationState = objGetUpdatedJob.LocationState;
-                            JobDetailsWithSkill.LocationCountry = objGetUpdatedJob.LocationCountry;
-                            JobDetailsWithSkill.ExperienceLevel = objGetUpdatedJob.ExperienceLevelType != null ? Convert.ToString(objGetUpdatedJob.ExperienceLevelType) : string.Empty;
-                            JobDetailsWithSkill.Industry = objGetUpdatedJob.Industry;
-                            JobDetailsWithSkill.Industry2 = objGetUpdatedJob.Industry2;
-                            JobDetailsWithSkill.Title = objGetUpdatedJob.Title;
-                            JobDetailsWithSkill.Responsibilities = objGetUpdatedJob.Responsibilities;
-                            JobDetailsWithSkill.Qualifications = objGetUpdatedJob.Qualifications;
-                            JobDetailsWithSkill.Company = objGetUpdatedJob.Company;
-                            JobDetailsWithSkill.EmployerIntroduction = objGetUpdatedJob.EmployerIntroduction;
-                            JobDetailsWithSkill.URL = objGetUpdatedJob.URL;
-                            JobDetailsWithSkill.ShareURL = objGetUpdatedJob.ShareURL;
-                            JobDetailsWithSkill.State = Convert.ToString(objGetUpdatedJob.State);
-                            List<GetJobSkillDetail> lstJobskill = new List<GetJobSkillDetail>();
-
-                            //----------------Get Job skills---------//
-                            List<JobSkill> objJobskill = db.JobSkill.Get().Where(n => n.JobID == lngJobID).ToList();
-                            if (objJobskill.Count > 0)
+                            Job objGetUpdatedJob = lstGetUpdatedJob.FirstOrDefault();
+                            if (objGetUpdatedJob != null)
                             {
-                                foreach (JobSkill skill in objJobskill)
-                                {
-                                    GetJobSkillDetail objCurrSkill = new GetJobSkillDetail();
-                                    objCurrSkill.ID = Convert.ToString(skill.ID);
-                                    objCurrSkill.DateCreated = Convert.ToString(skill.DateCreated);
-                                    objCurrSkill.JobID = Convert.ToString(skill.JobID);
-                                    objCurrSkill.Skill = skill.Skill;
-                                    lstJobskill.Add(objCurrSkill);
-                                }
-                            }
-                            //----------------------------------------//
-                            JobDetailsWithSkill.JobSkills = lstJobskill;
+                                JobDetailsWithSkill.ID = Convert.ToString(objGetUpdatedJob.ID);
+                                JobDetailsWithSkill.DateCreated = Convert.ToString(objGetUpdatedJob.DateCreated);
+                                JobDetailsWithSkill.DateModified = Convert.ToString(objGetUpdatedJob.DateModified);
+                                JobDetailsWithSkill.UserId = Convert.ToString(objGetUpdatedJob.UserID);
+                                JobDetailsWithSkill.LocationCity = objGetUpdatedJob.LocationCity;
+                                JobDetailsWithSkill.LocationState = objGetUpdatedJob.LocationState;
+                                JobDetailsWithSkill.LocationCountry = objGetUpdatedJob.LocationCountry;
+                                JobDetailsWithSkill.ExperienceLevel = objGetUpdatedJob.ExperienceLevelType != null ? Convert.ToString(objGetUpdatedJob.ExperienceLevelType) : string.Empty;
+                                JobDetailsWithSkill.Industry = objGetUpdatedJob.Industry;
+                                JobDetailsWithSkill.Industry2 = objGetUpdatedJob.Industry2;
+                                JobDetailsWithSkill.Title = objGetUpdatedJob.Title;
+                                JobDetailsWithSkill.Responsibilities = objGetUpdatedJob.Responsibilities;
+                                JobDetailsWithSkill.Qualifications = objGetUpdatedJob.Qualifications;
+                                JobDetailsWithSkill.Company = objGetUpdatedJob.Company;
+                                JobDetailsWithSkill.EmployerIntroduction = objGetUpdatedJob.EmployerIntroduction;
+                                JobDetailsWithSkill.URL = objGetUpdatedJob.URL;
+                                JobDetailsWithSkill.ShareURL = objGetUpdatedJob.ShareURL;
+                                JobDetailsWithSkill.State = Convert.ToString(objGetUpdatedJob.State);
+                                List<GetJobSkillDetail> lstJobskill = new List<GetJobSkillDetail>();
 
-                            ResultStatus.Status = "1";
-                            ResultStatus.StatusMessage = "";
-                            AddEditJobResult.ResultStatus = ResultStatus;
-                            AddEditJobResult.JobDetailsWithSkills = JobDetailsWithSkill;
+                                //----------------Get Job skills---------//
+                                List<JobSkill> objJobskill = db.JobSkill.Get(n => n.JobID == lngJobID).ToList();
+                                if (objJobskill.Count > 0)
+                                {
+                                    foreach (JobSkill skill in objJobskill)
+                                    {
+                                        GetJobSkillDetail objCurrSkill = new GetJobSkillDetail();
+                                        objCurrSkill.ID = Convert.ToString(skill.ID);
+                                        objCurrSkill.DateCreated = Convert.ToString(skill.DateCreated);
+                                        objCurrSkill.JobID = Convert.ToString(skill.JobID);
+                                        objCurrSkill.Skill = skill.Skill;
+                                        lstJobskill.Add(objCurrSkill);
+                                    }
+                                }
+                                //----------------------------------------//
+                                JobDetailsWithSkill.JobSkills = lstJobskill;
+
+                                ResultStatus.Status = "1";
+                                ResultStatus.StatusMessage = "";
+                                AddEditJobResult.ResultStatus = ResultStatus;
+                                AddEditJobResult.JobDetailsWithSkills = JobDetailsWithSkill;
+                            }
                         }
                     }
                 }
@@ -1607,69 +1686,97 @@ namespace CrowdWCFservice
                 {
                     long lngJobID = Convert.ToInt64(JobID);
                     long lngUserID = Convert.ToInt64(UserID);
-
-                    Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                    if (objGetJob != null)
+                    List<Job> lstGetJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                    if (lstGetJob.Count > 0)
                     {
-                        JobDetailsWithSkill.ID = Convert.ToString(objGetJob.ID);
-                        JobDetailsWithSkill.DateCreated = Convert.ToString(objGetJob.DateCreated);
-                        JobDetailsWithSkill.DateModified = Convert.ToString(objGetJob.DateModified);
-                        JobDetailsWithSkill.UserId = Convert.ToString(objGetJob.UserID);
-
-                        //Add by Rajendra on 4th November for Job Creator details
-                        User objUser = db.User.Get(n => n.ID == objGetJob.UserID).FirstOrDefault();
-                        JobDetailsWithSkill.JobCreatorFirstName = objUser.FirstName;
-                        JobDetailsWithSkill.JobCreatorLastName = objUser.LastName;
-                        JobDetailsWithSkill.JobCreatorPhotoURL = objUser.PhotoURL;
-
-                        //
-
-                        JobDetailsWithSkill.LocationCity = objGetJob.LocationCity;
-                        JobDetailsWithSkill.LocationState = objGetJob.LocationState;
-                        JobDetailsWithSkill.LocationCountry = objGetJob.LocationCountry;
-                        JobDetailsWithSkill.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
-                        JobDetailsWithSkill.Industry = objGetJob.Industry;
-                        JobDetailsWithSkill.Industry2 = objGetJob.Industry2;
-                        JobDetailsWithSkill.Title = objGetJob.Title;
-                        JobDetailsWithSkill.Responsibilities = objGetJob.Responsibilities;
-                        JobDetailsWithSkill.Qualifications = objGetJob.Qualifications;
-                        JobDetailsWithSkill.Company = objGetJob.Company;
-                        JobDetailsWithSkill.EmployerIntroduction = objGetJob.EmployerIntroduction;
-                        JobDetailsWithSkill.URL = objGetJob.URL;
-                        JobDetailsWithSkill.ShareURL = objGetJob.ShareURL;
-                        JobDetailsWithSkill.State = Convert.ToString(objGetJob.State);
-
-                        //----------------Get Job skills---------//
-                        List<GetJobSkillDetail> lstJobskill = new List<GetJobSkillDetail>();
-                        List<JobSkill> objJobskill = db.JobSkill.Get().Where(n => n.JobID == lngJobID).ToList();
-                        if (objJobskill.Count > 0)
+                        Job objGetJob = lstGetJob.FirstOrDefault();
+                        if (objGetJob != null)
                         {
-                            foreach (JobSkill skill in objJobskill)
+                            JobDetailsWithSkill.ID = Convert.ToString(objGetJob.ID);
+                            JobDetailsWithSkill.DateCreated = Convert.ToString(objGetJob.DateCreated);
+                            JobDetailsWithSkill.DateModified = Convert.ToString(objGetJob.DateModified);
+                            JobDetailsWithSkill.UserId = Convert.ToString(objGetJob.UserID);
+
+                            //Add by Rajendra on 4th November for Job Creator details
+                            List<User> lstUser = db.User.Get(n => n.ID == objGetJob.UserID).ToList();
+                            if (lstUser.Count > 0)
                             {
-                                GetJobSkillDetail objCurrSkill = new GetJobSkillDetail();
-                                objCurrSkill.ID = Convert.ToString(skill.ID);
-                                objCurrSkill.DateCreated = Convert.ToString(skill.DateCreated);
-                                objCurrSkill.JobID = Convert.ToString(skill.JobID);
-                                objCurrSkill.Skill = skill.Skill;
-                                lstJobskill.Add(objCurrSkill);
+                                User objUser = lstUser.FirstOrDefault();
+                                JobDetailsWithSkill.JobCreatorFirstName = objUser.FirstName;
+                                JobDetailsWithSkill.JobCreatorLastName = objUser.LastName;
+                                JobDetailsWithSkill.JobCreatorPhotoURL = objUser.PhotoURL;
                             }
+                            //
+
+                            JobDetailsWithSkill.LocationCity = objGetJob.LocationCity;
+                            JobDetailsWithSkill.LocationState = objGetJob.LocationState;
+                            JobDetailsWithSkill.LocationCountry = objGetJob.LocationCountry;
+                            JobDetailsWithSkill.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
+                            JobDetailsWithSkill.Industry = objGetJob.Industry;
+                            JobDetailsWithSkill.Industry2 = objGetJob.Industry2;
+                            JobDetailsWithSkill.Title = objGetJob.Title;
+                            JobDetailsWithSkill.Responsibilities = objGetJob.Responsibilities;
+                            JobDetailsWithSkill.Qualifications = objGetJob.Qualifications;
+                            JobDetailsWithSkill.Company = objGetJob.Company;
+                            JobDetailsWithSkill.EmployerIntroduction = objGetJob.EmployerIntroduction;
+                            JobDetailsWithSkill.URL = objGetJob.URL;
+                            JobDetailsWithSkill.ShareURL = objGetJob.ShareURL;
+                            JobDetailsWithSkill.State = Convert.ToString(objGetJob.State);
+
+                            //----------------Get Job skills---------//
+                            List<GetJobSkillDetail> lstJobskill = new List<GetJobSkillDetail>();
+                            List<JobSkill> objJobskill = db.JobSkill.Get(n => n.JobID == lngJobID).ToList();
+                            if (objJobskill.Count > 0)
+                            {
+                                foreach (JobSkill skill in objJobskill)
+                                {
+                                    GetJobSkillDetail objCurrSkill = new GetJobSkillDetail();
+                                    objCurrSkill.ID = Convert.ToString(skill.ID);
+                                    objCurrSkill.DateCreated = Convert.ToString(skill.DateCreated);
+                                    objCurrSkill.JobID = Convert.ToString(skill.JobID);
+                                    objCurrSkill.Skill = skill.Skill;
+                                    lstJobskill.Add(objCurrSkill);
+                                }
+                            }
+                            //----------------------------------------//
+                            JobDetailsWithSkill.JobSkills = lstJobskill;
+
+                            //User Job Favorite
+                            List<UserJobFavorite> lstUserJobFavorite = db.UserJobFavorite.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                            if (lstUserJobFavorite.Count > 0)
+                            {
+                                UserJobFavorite objUserJobFavorite = lstUserJobFavorite.FirstOrDefault();
+                                if (objUserJobFavorite != null)
+                                {
+                                    JobDetailsResult.IsJobFavorite = "True";
+                                }
+                            }
+                            else
+                            {
+                                JobDetailsResult.IsJobFavorite = "False";
+                            }
+                            //User Job Applied
+
+                            List<UserJobApplication> lstUserJobApplication = db.UserJobApplication.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                            if (lstUserJobApplication.Count > 0)
+                            {
+                                UserJobApplication objUserJobApplication = lstUserJobApplication.FirstOrDefault();
+                                if (objUserJobApplication != null)
+                                {
+                                    JobDetailsResult.IsJobApplied = "True";
+                                }
+                            }
+                            else
+                            {
+
+                                JobDetailsResult.IsJobApplied = "False";
+                            }
+
+                            ResultStatus.Status = "1";
+                            ResultStatus.StatusMessage = "";
+                            JobDetailsResult.ResultStatus = ResultStatus;
+                            JobDetailsResult.JobDetailsWithSkills = JobDetailsWithSkill;
                         }
-                        //----------------------------------------//
-                        JobDetailsWithSkill.JobSkills = lstJobskill;
-
-                        //User Job Favorite
-                        UserJobFavorite objUserJobFavorite = db.UserJobFavorite.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                        JobDetailsResult.IsJobFavorite = objUserJobFavorite != null ? "True" : "False";
-
-                        //User Job Applied
-
-                        UserJobApplication objUserJobApplication = db.UserJobApplication.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                        JobDetailsResult.IsJobApplied = objUserJobApplication != null ? "True" : "False";
-
-                        ResultStatus.Status = "1";
-                        ResultStatus.StatusMessage = "";
-                        JobDetailsResult.ResultStatus = ResultStatus;
-                        JobDetailsResult.JobDetailsWithSkills = JobDetailsWithSkill;
                     }
                     else
                     {
@@ -1714,53 +1821,65 @@ namespace CrowdWCFservice
 
                     if (Status != null && Status != "")
                     {
-                        Job objCheckJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                        if (objCheckJob != null)
+                        List<Job> lstCheckJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                        if (lstCheckJob.Count > 0)
                         {
-                            if (Convert.ToInt32(Status) == 1)
+                            Job objCheckJob = lstCheckJob.FirstOrDefault();
+                            if (objCheckJob != null)
                             {
-                                //add new record
-                                UserJobFavorite objCheckJobFavorite = db.UserJobFavorite.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                                if (objCheckJobFavorite == null)
+                                if (Convert.ToInt32(Status) == 1)
                                 {
-                                    UserJobFavorite objNewUserJobFavorite = new UserJobFavorite();
-                                    objNewUserJobFavorite.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                    objNewUserJobFavorite.UserID = lngUserID;
-                                    objNewUserJobFavorite.JobID = lngJobID;
-                                    db.UserJobFavorite.Add(objNewUserJobFavorite);
-                                    db.SaveChanges();
+                                    //add new record
+                                    List<UserJobFavorite> lstUserJobFavorite = db.UserJobFavorite.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                                    if (lstUserJobFavorite.Count == 0)
+                                    {
+                                        UserJobFavorite objCheckJobFavorite = lstUserJobFavorite.FirstOrDefault();
+                                        if (objCheckJobFavorite == null)
+                                        {
+                                            UserJobFavorite objNewUserJobFavorite = new UserJobFavorite();
+                                            objNewUserJobFavorite.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            objNewUserJobFavorite.UserID = lngUserID;
+                                            objNewUserJobFavorite.JobID = lngJobID;
+                                            db.UserJobFavorite.Add(objNewUserJobFavorite);
+                                            db.SaveChanges();
 
-                                    ResultStatus.Status = "1";
-                                    ResultStatus.StatusMessage = "";
-                                    FavoriteJobResult.ResultStatus = ResultStatus;
+                                            ResultStatus.Status = "1";
+                                            ResultStatus.StatusMessage = "";
+                                            FavoriteJobResult.ResultStatus = ResultStatus;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //already favorited
+                                        ResultStatus.Status = "0";
+                                        ResultStatus.StatusMessage = "Record alerady exist!";
+                                        FavoriteJobResult.ResultStatus = ResultStatus;
+                                    }
                                 }
-                                else
+                                else if (Convert.ToInt32(Status) == 0)
                                 {
-                                    //already favorited
-                                    ResultStatus.Status = "0";
-                                    ResultStatus.StatusMessage = "Record alerady exist!";
-                                    FavoriteJobResult.ResultStatus = ResultStatus;
-                                }
-                            }
-                            else if (Convert.ToInt32(Status) == 0)
-                            {
-                                //delete record 
-                                UserJobFavorite objCheckJobFavorite = db.UserJobFavorite.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                                if (objCheckJobFavorite != null)
-                                {
-                                    db.UserJobFavorite.Remove(objCheckJobFavorite);
-                                    db.SaveChanges();
+                                    //delete record 
+                                    List<UserJobFavorite> lstUserJobFavorite = db.UserJobFavorite.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                                    if (lstUserJobFavorite.Count > 0)
+                                    {
+                                        UserJobFavorite objCheckJobFavorite = lstUserJobFavorite.FirstOrDefault();
+                                        if (objCheckJobFavorite != null)
+                                        {
+                                            db.UserJobFavorite.Remove(objCheckJobFavorite);
+                                            db.SaveChanges();
 
-                                    ResultStatus.Status = "1";
-                                    ResultStatus.StatusMessage = "";
-                                    FavoriteJobResult.ResultStatus = ResultStatus;
-                                }
-                                else
-                                {
-                                    //already favorited
-                                    ResultStatus.Status = "0";
-                                    ResultStatus.StatusMessage = "Record does not exist!";
-                                    FavoriteJobResult.ResultStatus = ResultStatus;
+                                            ResultStatus.Status = "1";
+                                            ResultStatus.StatusMessage = "";
+                                            FavoriteJobResult.ResultStatus = ResultStatus;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //already favorited
+                                        ResultStatus.Status = "0";
+                                        ResultStatus.StatusMessage = "Record does not exist!";
+                                        FavoriteJobResult.ResultStatus = ResultStatus;
+                                    }
                                 }
                             }
                         }
@@ -1814,117 +1933,144 @@ namespace CrowdWCFservice
 
                     if (Status != null && Status != "")
                     {
-                        Job objCheckJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                        if (objCheckJob != null)
+                        List<Job> lstCheckJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                        if (lstCheckJob.Count > 0)
                         {
-                            if (Convert.ToInt32(Status) == 1)
+                            Job objCheckJob = lstCheckJob.FirstOrDefault();
+                            if (objCheckJob != null)
                             {
-                                //add new record
-                                UserJobApplication objCheckJobApplication = db.UserJobApplication.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                                if (objCheckJobApplication == null)
+                                if (Convert.ToInt32(Status) == 1)
                                 {
-                                    //----------------add record UserJobApplication-----------------------------//
-                                    UserJobApplication objNewUserJobApplication = new UserJobApplication();
-                                    objNewUserJobApplication.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                    objNewUserJobApplication.UserID = lngUserID;
-                                    objNewUserJobApplication.JobID = lngJobID;
-                                    db.UserJobApplication.Add(objNewUserJobApplication);
-                                    db.SaveChanges();
-                                    //-------------------------------------------------------------------------------//
-
-                                    //-----------------add record in Feed Table--------------------------------//
-                                    Feed objNewFeed = new Feed();
-                                    objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                    long lngJobUserID = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID).UserID; //Get Job UserId
-                                    objNewFeed.UserID = lngJobUserID;
-                                    objNewFeed.FeedTypeID = 3;
-                                    objNewFeed.JobID = lngJobID;
-                                    objNewFeed.OtherUserID = lngUserID;
-                                    db.Feed.Add(objNewFeed);
-                                    db.SaveChanges();
-                                    //-------------------------------------------------------------------------//
-
-                                    //--------------Add Record in Message table -------------------------------//
-                                    Message objNewMessage = new Message();
-                                    objNewMessage.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                    objNewMessage.SenderID = lngUserID;
-                                    objNewMessage.ReceiverID = lngJobUserID;
-                                    objNewMessage.Message1 = "Job Application";
-                                    objNewMessage.MessageTypeID = 2;
-                                    objNewMessage.LinkURL = null;
-                                    objNewMessage.LinkUserID = null;
-                                    objNewMessage.LinkJobID = lngJobID;
-                                    objNewMessage.State = false;
-                                    db.Message.Add(objNewMessage);
-                                    db.SaveChanges();
-                                    //-------------------------------------------------------------------------//
-
-                                    //================Code for push notification===========//
-                                    User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-                                   
-                                    //Get device token of receiver
-                                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngJobUserID).DeviceToken;
-                                    ///
-                                    if (UserDeviceToken != null)
+                                    //add new record
+                                    List<UserJobApplication> lstUserJobApplication = db.UserJobApplication.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                                    if (lstUserJobApplication.Count == 0)
                                     {
-                                        var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " has sent you a job application.";
+                                        UserJobApplication objCheckJobApplication = lstUserJobApplication.FirstOrDefault();
+                                        if (objCheckJobApplication == null)
+                                        {
+                                            //----------------add record UserJobApplication-----------------------------//
+                                            UserJobApplication objNewUserJobApplication = new UserJobApplication();
+                                            objNewUserJobApplication.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            objNewUserJobApplication.UserID = lngUserID;
+                                            objNewUserJobApplication.JobID = lngJobID;
+                                            db.UserJobApplication.Add(objNewUserJobApplication);
+                                            db.SaveChanges();
+                                            //-------------------------------------------------------------------------------//
 
-                                        Notification pushNotification = new Notification();
-                                        DateTime now = DateTime.Now;
+                                            //-----------------add record in Feed Table--------------------------------//
+                                            Feed objNewFeed = new Feed();
+                                            objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            List<Job> lstJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                                            long lngJobUserID = 0;
+                                            if (lstJob.Count > 0)
+                                            {
+                                                lngJobUserID = lstJob.FirstOrDefault().UserID; //Get Job UserId
+                                            }
+                                            objNewFeed.UserID = lngJobUserID;
+                                            objNewFeed.FeedTypeID = 3;
+                                            objNewFeed.JobID = lngJobID;
+                                            objNewFeed.OtherUserID = lngUserID;
+                                            db.Feed.Add(objNewFeed);
+                                            db.SaveChanges();
+                                            //-------------------------------------------------------------------------//
 
-                                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                                        pushNotification.DeviceToken = UserDeviceToken;
-                                        pushNotification.HasSent = false;
-                                        pushNotification.PushMessage = msg;
-                                        pushNotification.SourceTable = "JobApplication";
-                                        pushNotification.UserID = lngUserID.ToString();
-                                        pushNotification.JobID = lngJobID.ToString();
+                                            //--------------Add Record in Message table -------------------------------//
+                                            Message objNewMessage = new Message();
+                                            objNewMessage.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            objNewMessage.SenderID = lngUserID;
+                                            objNewMessage.ReceiverID = lngJobUserID;
+                                            objNewMessage.Message1 = "Job Application";
+                                            objNewMessage.MessageTypeID = 2;
+                                            objNewMessage.LinkURL = null;
+                                            objNewMessage.LinkUserID = null;
+                                            objNewMessage.LinkJobID = lngJobID;
+                                            objNewMessage.State = false;
+                                            db.Message.Add(objNewMessage);
+                                            db.SaveChanges();
+                                            //-------------------------------------------------------------------------//
 
-                                        db.Notification.Add(pushNotification);
-                                        db.SaveChanges();
+                                            //================Code for push notification===========//
+                                            List<User> lstUserInfo = db.User.Get(n => n.ID == lngUserID).ToList();
+                                            User objUserInfo = new User();
+                                            if (lstUserInfo.Count > 0)
+                                            {
+                                                objUserInfo = lstUserInfo.FirstOrDefault();
+                                            }
+                                            //Get device token of receiver
+                                            List<User> lstUserDeviceToken = db.User.Get(n => n.ID == lngJobUserID).ToList();
+                                            string UserDeviceToken = string.Empty;
+                                            if (lstUserDeviceToken.Count > 0)
+                                            {
+                                                UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngJobUserID).DeviceToken;
 
-                                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+                                            }
+                                                ///
+                                            if (UserDeviceToken != null)
+                                            {
+                                                var msg = objUserInfo.FirstName + " " + objUserInfo.LastName + " has sent you a job application.";
 
-                                        //objParam.Add("testDeviceToken", UserDeviceToken);
-                                        //objParam.Add("pushMessage", msg);
-                                        //objParam.Add("sourceTable", "JobApplication");
-                                        //objParam.Add("UserID", lngUserID.ToString());
-                                        //objParam.Add("JobID", lngJobID.ToString());
-                                        //SendNotificationMessage(objParam);
+                                                Notification pushNotification = new Notification();
+                                                DateTime now = DateTime.Now;
+
+                                                pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                                pushNotification.DeviceToken = UserDeviceToken;
+                                                pushNotification.HasSent = false;
+                                                pushNotification.PushMessage = msg;
+                                                pushNotification.SourceTable = "JobApplication";
+                                                pushNotification.UserID = lngUserID.ToString();
+                                                pushNotification.JobID = lngJobID.ToString();
+
+                                                db.Notification.Add(pushNotification);
+                                                db.SaveChanges();
+
+                                                //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                                //objParam.Add("testDeviceToken", UserDeviceToken);
+                                                //objParam.Add("pushMessage", msg);
+                                                //objParam.Add("sourceTable", "JobApplication");
+                                                //objParam.Add("UserID", lngUserID.ToString());
+                                                //objParam.Add("JobID", lngJobID.ToString());
+                                                //SendNotificationMessage(objParam);
+                                            }
+                                            //=========================end=======================//
+
+                                            ResultStatus.Status = "1";
+                                            ResultStatus.StatusMessage = "";
+                                            ApplyToJobResult.ResultStatus = ResultStatus;
+                                        }
                                     }
-                                    //=========================end=======================//
+                                    else
+                                    {
+                                        //already applied
+                                        ResultStatus.Status = "0";
+                                        ResultStatus.StatusMessage = "Record already exist!";
+                                        ApplyToJobResult.ResultStatus = ResultStatus;
+                                    }
+                                }
+                                else if (Convert.ToInt32(Status) == 0)
+                                {
+                                    //delete record 
+                                    List<UserJobApplication> lstCheckJobApplication = db.UserJobApplication.Get(n => n.JobID == lngJobID && n.UserID == lngUserID).ToList();
+                                    if (lstCheckJobApplication.Count > 0)
+                                    {
+                                        UserJobApplication objCheckJobApplication = lstCheckJobApplication.FirstOrDefault();
+                                        if (objCheckJobApplication != null)
+                                        {
+                                            db.UserJobApplication.Remove(objCheckJobApplication);
+                                            db.SaveChanges();
 
-                                    ResultStatus.Status = "1";
-                                    ResultStatus.StatusMessage = "";
-                                    ApplyToJobResult.ResultStatus = ResultStatus;
-                                }
-                                else
-                                {
-                                    //already applied
-                                    ResultStatus.Status = "0";
-                                    ResultStatus.StatusMessage = "Record already exist!";
-                                    ApplyToJobResult.ResultStatus = ResultStatus;
-                                }
-                            }
-                            else if (Convert.ToInt32(Status) == 0)
-                            {
-                                //delete record 
-                                UserJobApplication objCheckJobApplication = db.UserJobApplication.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == lngUserID);
-                                if (objCheckJobApplication != null)
-                                {
-                                    db.UserJobApplication.Remove(objCheckJobApplication);
-                                    db.SaveChanges();
-
-                                    ResultStatus.Status = "1";
-                                    ResultStatus.StatusMessage = "";
-                                    ApplyToJobResult.ResultStatus = ResultStatus;
-                                }
-                                else
-                                {
-                                    //already applied
-                                    ResultStatus.Status = "0";
-                                    ResultStatus.StatusMessage = "Record does not exist!";
-                                    ApplyToJobResult.ResultStatus = ResultStatus;
+                                            ResultStatus.Status = "1";
+                                            ResultStatus.StatusMessage = "";
+                                            ApplyToJobResult.ResultStatus = ResultStatus;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //already applied
+                                        ResultStatus.Status = "0";
+                                        ResultStatus.StatusMessage = "Record does not exist!";
+                                        ApplyToJobResult.ResultStatus = ResultStatus;
+                                    }
                                 }
                             }
                         }
@@ -1978,116 +2124,125 @@ namespace CrowdWCFservice
                     long lngFeedTypeID = 0;
                     if (Status != null && Status != "")
                     {
-                        Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID);
-                        if (objGetJob != null)
+                        List<Job> lstGetJob = db.Job.Get(n => n.ID == lngJobID).ToList();
+                        if (lstGetJob.Count > 0)
                         {
-                            //Get List of Favorited User of Job
-                            List<Int64> lstUserOfFavoritedJob = db.UserJobFavorite.Get().Where(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
-
-                            if (Convert.ToInt32(Status) == 1)
+                            Job objGetJob = lstGetJob.FirstOrDefault();
+                            if (objGetJob != null)
                             {
-                                objGetJob.State = true;
-                                db.Job.Update(objGetJob);
-                                db.SaveChanges();
-                                lngFeedTypeID = 4;
+                                //Get List of Favorited User of Job
+                                List<Int64> lstUserOfFavoritedJob = db.UserJobFavorite.Get(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
 
-                                if (lstUserOfFavoritedJob.Count > 0)
+                                if (Convert.ToInt32(Status) == 1)
                                 {
-                                    foreach (Int64 id in lstUserOfFavoritedJob)
-                                    {
-                                        //================Code for push notification===========//                                        
-                                        //Get device token of receiver
-                                        string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == id).DeviceToken;
-                                        ///
-                                        if (UserDeviceToken != null)
-                                        {
-                                            var msg = "The job, "+ objGetJob.Title +" has been filled.";
-
-                                            Notification pushNotification = new Notification();
-                                            DateTime now = DateTime.Now;
-
-                                            pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                                            pushNotification.DeviceToken = UserDeviceToken;
-                                            pushNotification.HasSent = false;
-                                            pushNotification.PushMessage = msg;
-                                            pushNotification.SourceTable = "FillJob";
-                                            pushNotification.UserID = lngUserID.ToString();
-                                            pushNotification.JobID = lngJobID.ToString();
-
-                                            db.Notification.Add(pushNotification);
-
-                                            
-                                            
-                                            
-                                            //Dictionary<string, string> objParam = new Dictionary<string, string>();
-
-                                            //objParam.Add("testDeviceToken", UserDeviceToken);
-                                            //objParam.Add("pushMessage", msg);
-                                            //objParam.Add("sourceTable", "FillJob");
-                                            //objParam.Add("UserID", lngUserID.ToString());
-                                            //objParam.Add("JobID", lngJobID.ToString());
-                                            //SendNotificationMessage(objParam);
-                                        }
-                                        //=========================end=======================//
-                                    }
+                                    objGetJob.State = true;
+                                    db.Job.Update(objGetJob);
                                     db.SaveChanges();
-                                }
-                            }
-                            else if (Convert.ToInt32(Status) == 0)
-                            {
-                                objGetJob.State = false;
-                                db.Job.Update(objGetJob);
-                                db.SaveChanges();
-                                lngFeedTypeID = 5;
-                            }
+                                    lngFeedTypeID = 4;
 
-                            List<Int64> lstUserID = new List<Int64>();
-                         
-                            if (lstUserOfFavoritedJob.Count > 0)
-                            {
-                                foreach (long id in lstUserOfFavoritedJob)
-                                {
-                                    lstUserID.Add(id);
-                                }
-                            }
-                            //Get List of applied user of Job
-                            List<Int64> lstUserOfAppliedJob = db.UserJobApplication.Get().Where(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
-                            if (lstUserOfAppliedJob.Count > 0)
-                            {
-                                foreach (long id in lstUserOfAppliedJob)
-                                {
-                                    lstUserID.Add(id);
-                                }
-                            }
-
-                            if (lstUserID.Count > 0)
-                            {
-                                foreach (long id in lstUserID)
-                                {
-                                    Feed objCheckForFeed = db.Feed.Get().FirstOrDefault(n => n.JobID == lngJobID && n.UserID == id && n.FeedTypeID == lngFeedTypeID);
-                                    if (objCheckForFeed == null)
+                                    if (lstUserOfFavoritedJob.Count > 0)
                                     {
-                                        Feed objNewFeed = new Feed();
-                                        objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-                                        objNewFeed.UserID = id;
-                                        if (Convert.ToInt32(Status) == 1)
+                                        foreach (Int64 id in lstUserOfFavoritedJob)
                                         {
-                                            objNewFeed.FeedTypeID = 4;
+                                            //================Code for push notification===========//                                        
+                                            //Get device token of receiver
+                                            List<User> lstUserDeviceToken = db.User.Get(n => n.ID == id).ToList();
+                                            string UserDeviceToken = string.Empty;
+                                            if (lstUserDeviceToken.Count > 0)
+                                            {
+                                                UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                                            }
+                                            ///
+                                            if (UserDeviceToken != null)
+                                            {
+                                                var msg = "The job, " + objGetJob.Title + " has been filled.";
+
+                                                Notification pushNotification = new Notification();
+                                                DateTime now = DateTime.Now;
+
+                                                pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                                pushNotification.DeviceToken = UserDeviceToken;
+                                                pushNotification.HasSent = false;
+                                                pushNotification.PushMessage = msg;
+                                                pushNotification.SourceTable = "FillJob";
+                                                pushNotification.UserID = lngUserID.ToString();
+                                                pushNotification.JobID = lngJobID.ToString();
+
+                                                db.Notification.Add(pushNotification);
+                                                //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                                //objParam.Add("testDeviceToken", UserDeviceToken);
+                                                //objParam.Add("pushMessage", msg);
+                                                //objParam.Add("sourceTable", "FillJob");
+                                                //objParam.Add("UserID", lngUserID.ToString());
+                                                //objParam.Add("JobID", lngJobID.ToString());
+                                                //SendNotificationMessage(objParam);
+                                            }
+                                            //=========================end=======================//
                                         }
-                                        else if (Convert.ToInt32(Status) == 0)
-                                        {
-                                            objNewFeed.FeedTypeID = 5;
-                                        }
-                                        objNewFeed.JobID = lngJobID;
-                                        objNewFeed.OtherUserID = lngUserID;
-                                        db.Feed.Add(objNewFeed);
                                         db.SaveChanges();
                                     }
                                 }
+                                else if (Convert.ToInt32(Status) == 0)
+                                {
+                                    objGetJob.State = false;
+                                    db.Job.Update(objGetJob);
+                                    db.SaveChanges();
+                                    lngFeedTypeID = 5;
+                                }
+
+                                List<Int64> lstUserID = new List<Int64>();
+
+                                if (lstUserOfFavoritedJob.Count > 0)
+                                {
+                                    foreach (long id in lstUserOfFavoritedJob)
+                                    {
+                                        lstUserID.Add(id);
+                                    }
+                                }
+                                //Get List of applied user of Job
+                                List<Int64> lstUserOfAppliedJob = db.UserJobApplication.Get(n => n.JobID == lngJobID).Select(n => n.UserID).ToList();
+                                if (lstUserOfAppliedJob.Count > 0)
+                                {
+                                    foreach (long id in lstUserOfAppliedJob)
+                                    {
+                                        lstUserID.Add(id);
+                                    }
+                                }
+
+                                if (lstUserID.Count > 0)
+                                {
+                                    foreach (long id in lstUserID)
+                                    {
+                                        List<Feed> lstCheckForFeed = db.Feed.Get(n => n.JobID == lngJobID && n.UserID == id && n.FeedTypeID == lngFeedTypeID).ToList();
+                                        if (lstCheckForFeed.Count == 0)
+                                        {
+                                            Feed objCheckForFeed = lstCheckForFeed.FirstOrDefault();
+                                            if (objCheckForFeed == null)
+                                            {
+                                                Feed objNewFeed = new Feed();
+                                                objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                                objNewFeed.UserID = id;
+                                                if (Convert.ToInt32(Status) == 1)
+                                                {
+                                                    objNewFeed.FeedTypeID = 4;
+                                                }
+                                                else if (Convert.ToInt32(Status) == 0)
+                                                {
+                                                    objNewFeed.FeedTypeID = 5;
+                                                }
+                                                objNewFeed.JobID = lngJobID;
+                                                objNewFeed.OtherUserID = lngUserID;
+                                                db.Feed.Add(objNewFeed);
+                                                db.SaveChanges();
+                                            }
+                                        }
+                                    }
+                                }
+                                ResultStatus.Status = "1";
+                                ResultStatus.StatusMessage = "";
+                                FillReopenResult.ResultStatus = ResultStatus;
                             }
-                            ResultStatus.Status = "1";
-                            ResultStatus.StatusMessage = "";
-                            FillReopenResult.ResultStatus = ResultStatus;
                         }
                         else
                         {
@@ -2138,71 +2293,75 @@ namespace CrowdWCFservice
                     long lngUserID = Convert.ToInt64(UserID);
 
                     //Check for the user is creator of job or not
-                    Job objCheckJob = db.Job.Get().FirstOrDefault(n => n.ID == lngJobID && n.UserID == lngUserID);
-                    if (objCheckJob != null)
+                    List<Job> lstCheckJob = db.Job.Get(n => n.ID == lngJobID && n.UserID == lngUserID).ToList();
+                    if (lstCheckJob.Count > 0)
                     {
-                        //Remove UserJobApplication
-                        List<UserJobApplication> lstGetUJApplication = db.UserJobApplication.Get().Where(n => n.JobID == lngJobID).ToList();
-                        if (lstGetUJApplication.Count > 0)
+                        Job objCheckJob = lstCheckJob.FirstOrDefault();
+                        if (objCheckJob != null)
                         {
-                            foreach (var uja in lstGetUJApplication)
+                            //Remove UserJobApplication
+                            List<UserJobApplication> lstGetUJApplication = db.UserJobApplication.Get(n => n.JobID == lngJobID).ToList();
+                            if (lstGetUJApplication.Count > 0)
                             {
-                                db.UserJobApplication.Remove(uja);
-                                db.SaveChanges();
+                                foreach (var uja in lstGetUJApplication)
+                                {
+                                    db.UserJobApplication.Remove(uja);
+                                    db.SaveChanges();
+                                }
                             }
-                        }
 
-                        //Remove UserJobFavourite
-                        List<UserJobFavorite> lstGetUJFavourite = db.UserJobFavorite.Get().Where(n => n.JobID == lngJobID).ToList();
-                        if (lstGetUJFavourite.Count > 0)
-                        {
-                            foreach (var ujf in lstGetUJFavourite)
+                            //Remove UserJobFavourite
+                            List<UserJobFavorite> lstGetUJFavourite = db.UserJobFavorite.Get(n => n.JobID == lngJobID).ToList();
+                            if (lstGetUJFavourite.Count > 0)
                             {
-                                db.UserJobFavorite.Remove(ujf);
-                                db.SaveChanges();
+                                foreach (var ujf in lstGetUJFavourite)
+                                {
+                                    db.UserJobFavorite.Remove(ujf);
+                                    db.SaveChanges();
+                                }
                             }
-                        }
 
-                        //Remove Message
-                        List<Message> lstMessage = db.Message.Get().Where(n => n.LinkJobID == lngJobID).ToList();
-                        if (lstMessage.Count > 0)
-                        {
-                            foreach (var msg in lstMessage)
+                            //Remove Message
+                            List<Message> lstMessage = db.Message.Get(n => n.LinkJobID == lngJobID).ToList();
+                            if (lstMessage.Count > 0)
                             {
-                                db.Message.Remove(msg);
-                                db.SaveChanges();
+                                foreach (var msg in lstMessage)
+                                {
+                                    db.Message.Remove(msg);
+                                    db.SaveChanges();
+                                }
                             }
-                        }
 
-                        //Remove Feed
-                        List<Feed> lstFeed = db.Feed.Get().Where(n => n.JobID == lngJobID).ToList();
-                        if (lstFeed.Count > 0)
-                        {
-                            foreach (var feed in lstFeed)
+                            //Remove Feed
+                            List<Feed> lstFeed = db.Feed.Get(n => n.JobID == lngJobID).ToList();
+                            if (lstFeed.Count > 0)
                             {
-                                db.Feed.Remove(feed);
-                                db.SaveChanges();
+                                foreach (var feed in lstFeed)
+                                {
+                                    db.Feed.Remove(feed);
+                                    db.SaveChanges();
+                                }
                             }
-                        }
 
-                        //Remove JobSkill
-                        List<JobSkill> lstJobSkill = db.JobSkill.Get().Where(n => n.JobID == lngJobID).ToList();
-                        if (lstJobSkill.Count > 0)
-                        {
-                            foreach (var skill in lstJobSkill)
+                            //Remove JobSkill
+                            List<JobSkill> lstJobSkill = db.JobSkill.Get(n => n.JobID == lngJobID).ToList();
+                            if (lstJobSkill.Count > 0)
                             {
-                                db.JobSkill.Remove(skill);
-                                db.SaveChanges();
+                                foreach (var skill in lstJobSkill)
+                                {
+                                    db.JobSkill.Remove(skill);
+                                    db.SaveChanges();
+                                }
                             }
+
+                            //Remove Job
+                            db.Job.Remove(objCheckJob);
+                            db.SaveChanges();
+
+                            ResultStatus.Status = "1";
+                            ResultStatus.StatusMessage = "Job Deleted!";
+                            DeleteJobResult.ResultStatus = ResultStatus;
                         }
-
-                        //Remove Job
-                        db.Job.Remove(objCheckJob);
-                        db.SaveChanges();
-
-                        ResultStatus.Status = "1";
-                        ResultStatus.StatusMessage = "Job Deleted!";
-                        DeleteJobResult.ResultStatus = ResultStatus;
                     }
                     else
                     {
@@ -2245,7 +2404,7 @@ namespace CrowdWCFservice
                 {
                     long lngUserID = Convert.ToInt64(UserID);
 
-                    List<Job> objGetjob = db.Job.Get().Where(n=>n.State != true).OrderByDescending(n => n.DateModified).ToList();
+                    List<Job> objGetjob = db.Job.Get(n=>n.State != true).OrderByDescending(n => n.DateModified).ToList();
                     if (Industry != null && Industry != "" && Industry2 != "")
                     {
                         objGetjob = objGetjob.Where(r => r.Industry != null && r.Industry2!=null  && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()) || r.Industry2.ToUpper().Contains(Industry2.ToUpper()))).ToList();
@@ -2374,8 +2533,9 @@ namespace CrowdWCFservice
                 UnitOfWork db = new UnitOfWork();
                 if (objTokenInfo != null && objTokenInfo.EmailID != null)
                 {
-
-                    List<User> objGetUser = db.User.Get().Where(n => n.ID != Convert.ToInt64(UserID)).OrderBy(n => n.FirstName).ToList();
+                    long lngUserID = Convert.ToInt64(UserID);
+                    //List<User> objGetUser = db.User.Get(n => n.ID != lngUserID).OrderBy(n => n.FirstName).ToList();
+                    List<User> objGetUser = db.User.Get().OrderBy(n => n.FirstName).ToList();
                     if (Industry != null && Industry != "" && Industry2 != "")
                     {
                         objGetUser = objGetUser.Where(r => r.Industry != null && r.Industry2 != null && (r.Industry.ToUpper().Contains(Industry.ToUpper()) || r.Industry2.ToUpper().Contains(Industry.ToUpper()) || r.Industry.ToUpper().Contains(Industry2.ToUpper()) || r.Industry2.ToUpper().Contains(Industry2.ToUpper()))).ToList();
@@ -2429,7 +2589,7 @@ namespace CrowdWCFservice
 
                             //---------------------UserEmployment Response-------------------------------//
                             List<GetUserEmployment> lstCurrentEmployerList = new List<GetUserEmployment>();
-                            List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get().Where(n => n.UserID == user.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
+                            List<UserEmployment> objUserEmploymentList = db.UserEmployment.Get(n => n.UserID == user.ID && (n.EndMonth == 0 || n.EndMonth == null)).ToList();
                             if (objUserEmploymentList.Count > 0)
                             {
                                 foreach (var ue in objUserEmploymentList)
@@ -2559,7 +2719,7 @@ namespace CrowdWCFservice
                     long lngUserID = Convert.ToInt64(UserID);
                     long lngOtherUserID = Convert.ToInt64(OtherUserID);
                     //Posted By Me
-                    List<Job> objJobPostedByMe = db.Job.Get().Where(n => n.UserID == Convert.ToInt64(lngOtherUserID)).OrderByDescending(n => n.DateModified).ToList();
+                    List<Job> objJobPostedByMe = db.Job.Get(n => n.UserID == lngOtherUserID).OrderByDescending(n => n.DateModified).ToList();
                     if (objJobPostedByMe.Count > 0)
                     {
                         foreach (var job in objJobPostedByMe)
@@ -2590,67 +2750,75 @@ namespace CrowdWCFservice
                     if (lngUserID == lngOtherUserID)
                     {
                         //Job applied
-                        List<Int64> objJobApplied = db.UserJobApplication.Get().Where(n => n.UserID == Convert.ToInt64(OtherUserID)).OrderByDescending(n => n.ID).Select(n => n.JobID).ToList();
+                        List<Int64> objJobApplied = db.UserJobApplication.Get(n => n.UserID == lngOtherUserID).OrderByDescending(n => n.ID).Select(n => n.JobID).ToList();
                         if (objJobApplied.Count > 0)
                         {
                             foreach (Int64 jobid in objJobApplied)
                             {
-                                Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == jobid);
-                                if (objGetJob != null)
+                                List<Job> lstGetJob = db.Job.Get(n => n.ID == jobid).ToList();
+                                if (lstGetJob.Count > 0)
                                 {
-                                    GetCompleteJobDetails objCurrJob = new GetCompleteJobDetails();
-                                    objCurrJob.ID = Convert.ToString(objGetJob.ID);
-                                    objCurrJob.DateCreated = Convert.ToString(objGetJob.DateCreated);
-                                    objCurrJob.DateModified = Convert.ToString(objGetJob.DateModified);
-                                    objCurrJob.UserId = Convert.ToString(objGetJob.UserID);
-                                    objCurrJob.LocationCity = objGetJob.LocationCity;
-                                    objCurrJob.LocationState = objGetJob.LocationState;
-                                    objCurrJob.LocationCountry = objGetJob.LocationCountry;
-                                    objCurrJob.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
-                                    objCurrJob.Industry = objGetJob.Industry;
-                                    objCurrJob.Industry2 = objGetJob.Industry2;
-                                    objCurrJob.Title = objGetJob.Title;
-                                    objCurrJob.Responsibilities = objGetJob.Responsibilities;
-                                    objCurrJob.Qualifications = objGetJob.Qualifications;
-                                    objCurrJob.Company = objGetJob.Company;
-                                    objCurrJob.EmployerIntroduction = objGetJob.EmployerIntroduction;
-                                    objCurrJob.URL = objGetJob.URL;
-                                    objCurrJob.ShareURL = objGetJob.ShareURL;
-                                    objCurrJob.State = Convert.ToString(objGetJob.State);
-                                    lstJobApplied.Add(objCurrJob);
+                                    Job objGetJob = lstGetJob.FirstOrDefault();
+                                    if (objGetJob != null)
+                                    {
+                                        GetCompleteJobDetails objCurrJob = new GetCompleteJobDetails();
+                                        objCurrJob.ID = Convert.ToString(objGetJob.ID);
+                                        objCurrJob.DateCreated = Convert.ToString(objGetJob.DateCreated);
+                                        objCurrJob.DateModified = Convert.ToString(objGetJob.DateModified);
+                                        objCurrJob.UserId = Convert.ToString(objGetJob.UserID);
+                                        objCurrJob.LocationCity = objGetJob.LocationCity;
+                                        objCurrJob.LocationState = objGetJob.LocationState;
+                                        objCurrJob.LocationCountry = objGetJob.LocationCountry;
+                                        objCurrJob.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
+                                        objCurrJob.Industry = objGetJob.Industry;
+                                        objCurrJob.Industry2 = objGetJob.Industry2;
+                                        objCurrJob.Title = objGetJob.Title;
+                                        objCurrJob.Responsibilities = objGetJob.Responsibilities;
+                                        objCurrJob.Qualifications = objGetJob.Qualifications;
+                                        objCurrJob.Company = objGetJob.Company;
+                                        objCurrJob.EmployerIntroduction = objGetJob.EmployerIntroduction;
+                                        objCurrJob.URL = objGetJob.URL;
+                                        objCurrJob.ShareURL = objGetJob.ShareURL;
+                                        objCurrJob.State = Convert.ToString(objGetJob.State);
+                                        lstJobApplied.Add(objCurrJob);
+                                    }
                                 }
                             }
                         }
 
                         //Job Favorited
-                        List<Int64> objJobFavourited = db.UserJobFavorite.Get().Where(n => n.UserID == Convert.ToInt64(OtherUserID)).OrderByDescending(n => n.ID).Select(n => n.JobID).ToList();
+                        List<Int64> objJobFavourited = db.UserJobFavorite.Get(n => n.UserID == lngOtherUserID).OrderByDescending(n => n.ID).Select(n => n.JobID).ToList();
                         if (objJobFavourited.Count > 0)
                         {
                             foreach (Int64 jobid in objJobFavourited)
                             {
-                                Job objGetJob = db.Job.Get().FirstOrDefault(n => n.ID == jobid);
-                                if (objGetJob != null)
+                                List<Job> lstGetJob = db.Job.Get(n => n.ID == jobid).ToList();
+                                if (lstGetJob.Count > 0)
                                 {
-                                    GetCompleteJobDetails objCurrJob = new GetCompleteJobDetails();
-                                    objCurrJob.ID = Convert.ToString(objGetJob.ID);
-                                    objCurrJob.DateCreated = Convert.ToString(objGetJob.DateCreated);
-                                    objCurrJob.DateModified = Convert.ToString(objGetJob.DateModified);
-                                    objCurrJob.UserId = Convert.ToString(objGetJob.UserID);
-                                    objCurrJob.LocationCity = objGetJob.LocationCity;
-                                    objCurrJob.LocationState = objGetJob.LocationState;
-                                    objCurrJob.LocationCountry = objGetJob.LocationCountry;
-                                    objCurrJob.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
-                                    objCurrJob.Industry = objGetJob.Industry;
-                                    objCurrJob.Industry2 = objGetJob.Industry2;
-                                    objCurrJob.Title = objGetJob.Title;
-                                    objCurrJob.Responsibilities = objGetJob.Responsibilities;
-                                    objCurrJob.Qualifications = objGetJob.Qualifications;
-                                    objCurrJob.Company = objGetJob.Company;
-                                    objCurrJob.EmployerIntroduction = objGetJob.EmployerIntroduction;
-                                    objCurrJob.URL = objGetJob.URL;
-                                    objCurrJob.ShareURL = objGetJob.ShareURL;
-                                    objCurrJob.State = Convert.ToString(objGetJob.State);
-                                    lstJobFavorited.Add(objCurrJob);
+                                    Job objGetJob = lstGetJob.FirstOrDefault();
+                                    if (objGetJob != null)
+                                    {
+                                        GetCompleteJobDetails objCurrJob = new GetCompleteJobDetails();
+                                        objCurrJob.ID = Convert.ToString(objGetJob.ID);
+                                        objCurrJob.DateCreated = Convert.ToString(objGetJob.DateCreated);
+                                        objCurrJob.DateModified = Convert.ToString(objGetJob.DateModified);
+                                        objCurrJob.UserId = Convert.ToString(objGetJob.UserID);
+                                        objCurrJob.LocationCity = objGetJob.LocationCity;
+                                        objCurrJob.LocationState = objGetJob.LocationState;
+                                        objCurrJob.LocationCountry = objGetJob.LocationCountry;
+                                        objCurrJob.ExperienceLevel = objGetJob.ExperienceLevelType != null ? Convert.ToString(objGetJob.ExperienceLevelType) : string.Empty;
+                                        objCurrJob.Industry = objGetJob.Industry;
+                                        objCurrJob.Industry2 = objGetJob.Industry2;
+                                        objCurrJob.Title = objGetJob.Title;
+                                        objCurrJob.Responsibilities = objGetJob.Responsibilities;
+                                        objCurrJob.Qualifications = objGetJob.Qualifications;
+                                        objCurrJob.Company = objGetJob.Company;
+                                        objCurrJob.EmployerIntroduction = objGetJob.EmployerIntroduction;
+                                        objCurrJob.URL = objGetJob.URL;
+                                        objCurrJob.ShareURL = objGetJob.ShareURL;
+                                        objCurrJob.State = Convert.ToString(objGetJob.State);
+                                        lstJobFavorited.Add(objCurrJob);
+                                    }
                                 }
                             }
                         }
@@ -2756,7 +2924,7 @@ namespace CrowdWCFservice
                     //
 
                     //Change as per mail 151014
-                    List<Message> lstMessageType1 = db.Message.Get().Where(n => (n.ReceiverID == lngUserID) && (n.MessageTypeID == 2 || n.MessageTypeID == 3 || n.MessageTypeID == 4)).ToList();
+                    List<Message> lstMessageType1 = db.Message.Get(n => (n.ReceiverID == lngUserID) && (n.MessageTypeID == 2 || n.MessageTypeID == 3 || n.MessageTypeID == 4)).ToList();
                     if (lstMessageType1.Count > 0)
                     {
                         foreach (var message in lstMessageType1)
@@ -2790,10 +2958,22 @@ namespace CrowdWCFservice
                                 objCurrMessage.SenderID = Convert.ToString(msg.SenderID);
                                 //GetSenderdetail
                                 User objUser = new User();
-                                if(msg.SenderID == lngUserID)
-                                    objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.ReceiverID);
+                                if (msg.SenderID == lngUserID)
+                                {
+                                    List<User> lstUser = db.User.Get(n => n.ID == msg.ReceiverID).ToList();
+                                    if (lstUser.Count > 0)
+                                    {
+                                        objUser = lstUser.FirstOrDefault();
+                                    }
+                                }
                                 else
-                                    objUser = db.User.Get().FirstOrDefault(n => n.ID == msg.SenderID);
+                                {
+                                    List<User> lstUser = db.User.Get(n => n.ID == msg.SenderID).ToList();
+                                    if (lstUser.Count > 0)
+                                    {
+                                        objUser = lstUser.FirstOrDefault();
+                                    }
+                                }
 
                                 if (objUser != null)
                                 {
@@ -2824,10 +3004,14 @@ namespace CrowdWCFservice
                                 objCurrMessage.Type = Convert.ToString(msg.MessageTypeID);
 
                                 //IsUnreadMessage
-                                Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == msg.SenderID && n.MessageTypeID == 1);
-                                if (objCheckMessage != null)
+                                List<Message> lstCheckMessage = db.Message.Get(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == msg.SenderID && n.MessageTypeID == 1).ToList();
+                                if (lstCheckMessage.Count > 0)
                                 {
-                                    objCurrMessage.IsUnreadMessages = "True";
+                                    Message objCheckMessage = lstCheckMessage.FirstOrDefault();
+                                    if (objCheckMessage != null)
+                                    {
+                                        objCurrMessage.IsUnreadMessages = "True";
+                                    }
                                 }
                                 else
                                 {
@@ -2926,7 +3110,7 @@ namespace CrowdWCFservice
                                 objCurrMessage.LinkJobCreatorID = string.Empty;
                                 if (msg.LinkJobID > 0) 
                                 {
-                                    Int64 intJobCreatorID = db.Job.Get().Where(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
+                                    Int64 intJobCreatorID = db.Job.Get(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
                                     objCurrMessage.LinkJobCreatorID = intJobCreatorID.ToString();
                                 }
                                 ///
@@ -2937,10 +3121,14 @@ namespace CrowdWCFservice
                             }
 
                             //IsUnreadMessage
-                            Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1);
-                            if (objCheckMessage != null)
+                            List<Message> lstCheckMessage = db.Message.Get(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1).ToList();
+                            if (lstCheckMessage.Count > 0)
                             {
-                                MessageThreadResult.IsUnreadMessages = "True";
+                                Message objCheckMessage = lstCheckMessage.FirstOrDefault();
+                                if (objCheckMessage != null)
+                                {
+                                    MessageThreadResult.IsUnreadMessages = "True";
+                                }
                             }
                             else
                             {
@@ -2948,11 +3136,14 @@ namespace CrowdWCFservice
                             }
 
                             //Add by Rajendra on 28th October for sender details
-                            User objUser = db.User.Get(n => n.ID == lngSenderID).FirstOrDefault();
-                            MessageThreadResult.OtherUserFirstName = objUser.FirstName;
-                            MessageThreadResult.OtherUserLastName = objUser.LastName;
-                            MessageThreadResult.OtherUserPhotoURL = objUser.PhotoURL;
-
+                            List<User> lstUser = db.User.Get(n => n.ID == lngSenderID).ToList();
+                            if (lstUser.Count > 0)
+                            {
+                                User objUser = lstUser.FirstOrDefault();
+                                MessageThreadResult.OtherUserFirstName = objUser.FirstName;
+                                MessageThreadResult.OtherUserLastName = objUser.LastName;
+                                MessageThreadResult.OtherUserPhotoURL = objUser.PhotoURL;
+                            }
                             //
 
                             ResultStatus.Status = "1";
@@ -3053,42 +3244,50 @@ namespace CrowdWCFservice
                     //===========================//
 
                     //================Code for push notification===========//
-                    User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-                                       
-                    //Get device token of receiver
-                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngReceiverId).DeviceToken;
-                    ///
-                    if (UserDeviceToken != null)
+                    List<User> lstUserInfo = db.User.Get(n => n.ID == lngUserID).ToList();
+                    User objUserInfo = new User();
+                    if (lstUserInfo.Count > 0)
                     {
-                        string strMessage = Message.Length > 40 ? Message.Substring(0, 40) + "..." : Message;
-                        var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName +": "+ strMessage;
+                        objUserInfo = lstUserInfo.FirstOrDefault();
+                    }                  
+                    //Get device token of receiver
+                    List<User> lstUserDeviceToken = db.User.Get(n => n.ID == lngReceiverId).ToList();
+                    string UserDeviceToken = string.Empty;
+                    if (lstUserDeviceToken.Count > 0)
+                    {
+                        UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                        ///
+                        if (UserDeviceToken != null)
+                        {
+                            string strMessage = Message.Length > 40 ? Message.Substring(0, 40) + "..." : Message;
+                            var msg = "Message from " + objUserInfo.FirstName + " " + objUserInfo.LastName + ": " + strMessage;
 
-                        Notification pushNotification = new Notification();
-                        DateTime now = DateTime.Now;
+                            Notification pushNotification = new Notification();
+                            DateTime now = DateTime.Now;
 
-                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                        pushNotification.DeviceToken = UserDeviceToken;
-                        pushNotification.HasSent = false;
-                        pushNotification.PushMessage = msg;
-                        pushNotification.SourceTable = "NewMessage";
-                        pushNotification.UserID = lngUserID.ToString();
-                        
+                            pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                            pushNotification.DeviceToken = UserDeviceToken;
+                            pushNotification.HasSent = false;
+                            pushNotification.PushMessage = msg;
+                            pushNotification.SourceTable = "NewMessage";
+                            pushNotification.UserID = lngUserID.ToString();
 
-                        db.Notification.Add(pushNotification);
-                        db.SaveChanges();
-                        
-                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+                            db.Notification.Add(pushNotification);
+                            db.SaveChanges();
 
-                        //objParam.Add("testDeviceToken", UserDeviceToken);
-                        //objParam.Add("pushMessage", msg);
-                        //objParam.Add("sourceTable", "NewMessage");
-                        //objParam.Add("UserID", lngUserID.ToString());
-                        //SendNotificationMessage(objParam);
+                            //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                            //objParam.Add("testDeviceToken", UserDeviceToken);
+                            //objParam.Add("pushMessage", msg);
+                            //objParam.Add("sourceTable", "NewMessage");
+                            //objParam.Add("UserID", lngUserID.ToString());
+                            //SendNotificationMessage(objParam);
+                        }
                     }
                     //=========================end=======================//
 
                     //Prepare Response
-                    long lngLatestMessageId = db.Message.Get().OrderByDescending(n => n.ID).FirstOrDefault().ID;
+                    long lngLatestMessageId = db.Message.Get(x => x.ID == objNewMessage.ID).FirstOrDefault().ID;
                     if (lngLatestMessageId != 0)
                     {
                         ResultStatus.Status = "1";
@@ -3170,7 +3369,7 @@ namespace CrowdWCFservice
                                 objCurrMessage.LinkJobCreatorID = string.Empty;
                                 if (msg.LinkJobID > 0)
                                 {
-                                    Int64 intJobCreatorID = db.Job.Get().Where(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
+                                    Int64 intJobCreatorID = db.Job.Get(n => n.ID == msg.LinkJobID).Select(n => n.UserID).FirstOrDefault();
                                     objCurrMessage.LinkJobCreatorID = intJobCreatorID.ToString();
                                 }
                                 ///
@@ -3182,10 +3381,14 @@ namespace CrowdWCFservice
                             }
 
                             //IsUnreadMessage
-                            Message objCheckMessage = db.Message.Get().FirstOrDefault(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1);
-                            if (objCheckMessage != null)
+                            List<Message> lstCheckMessage = db.Message.Get(n => n.State == false && n.ReceiverID == lngUserID && n.SenderID == lngSenderID && n.MessageTypeID == 1).ToList();
+                            if (lstCheckMessage.Count > 0)
                             {
-                                GetPastMessageResult.IsUnreadMessages = "True";
+                                Message objCheckMessage = lstCheckMessage.FirstOrDefault();
+                                if (objCheckMessage != null)
+                                {
+                                    GetPastMessageResult.IsUnreadMessages = "True";
+                                }
                             }
                             else
                             {
@@ -3244,13 +3447,17 @@ namespace CrowdWCFservice
                 if (objTokenInfo != null && objTokenInfo.EmailID != null)
                 {
                     long lngUserID = Convert.ToInt64(UserID);
-                    User objUser = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-                    if (objUser != null)
+                    List<User> lstUser = db.User.Get(n => n.ID == lngUserID).ToList();
+                    if (lstUser.Count > 0)
                     {
-                        objUser.DeviceToken = null;
-                        objUser.Token = null;
-                        db.User.Update(objUser);
-                        db.SaveChanges();
+                        User objUser = lstUser.FirstOrDefault();
+                        if (objUser != null)
+                        {
+                            objUser.DeviceToken = null;
+                            objUser.Token = null;
+                            db.User.Update(objUser);
+                            db.SaveChanges();
+                        }
                     }
                 }
                 else
@@ -3292,13 +3499,17 @@ namespace CrowdWCFservice
                         long.TryParse(Messages[i], out lngMsgID);
                         if (lngMsgID > 0)
                         {
-                            Message ObjMsg = db.Message.Get().FirstOrDefault(n => n.ID == lngMsgID);
-                            if (ObjMsg != null)
+                            List<Message> lstMsg = db.Message.Get(n => n.ID == lngMsgID).ToList();
+                            if (lstMsg.Count > 0)
                             {
-                                ObjMsg.State = true;
-                                db.Message.Update(ObjMsg);
-                                db.SaveChanges();
-                                isMessageExist = true;
+                                Message ObjMsg = lstMsg.FirstOrDefault();
+                                if (ObjMsg != null)
+                                {
+                                    ObjMsg.State = true;
+                                    db.Message.Update(ObjMsg);
+                                    db.SaveChanges();
+                                    isMessageExist = true;
+                                }
                             }
                         }
                     }
@@ -3344,7 +3555,7 @@ namespace CrowdWCFservice
                 UnitOfWork db = new UnitOfWork();
                 if (objTokenInfo != null && objTokenInfo.EmailID != null)
                 { 
-                    long lngJobID ;
+                    long lngJobID=0;
                     if (JobID != null && JobID != string.Empty)
                     {
                         lngJobID = Convert.ToInt64(JobID);
@@ -3355,59 +3566,83 @@ namespace CrowdWCFservice
                     {                      
                         if (Convert.ToInt32(Status) == 1)
                         {
-                            Message objGetMessage = db.Message.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(MessageID));
-                            if (objGetMessage != null)
+                            long lngMessageID = Convert.ToInt64(MessageID);
+                            List<Message> lstGetMessage = db.Message.Get(n => n.ID == lngMessageID).ToList();
+                            if (lstGetMessage.Count > 0)
                             {
-                                objGetMessage.MessageTypeID = 3;
-                                objGetMessage.State = true;
-                                db.Message.Update(objGetMessage);
-                                db.SaveChanges();
-
-                                //================Code for push notification===========//
-                                User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-
-                                //Get sender of messge
-                                long lngMessageSenderID = db.Message.Get().FirstOrDefault(n => n.ID == objGetMessage.ID).SenderID;
-
-                                //Get Title of job
-                                string strJobTitle = db.Job.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(JobID)).Title;
-
-                                //Get device token of receiver
-                                string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngMessageSenderID).DeviceToken;
-                                ///
-                                if (UserDeviceToken != null)
+                                Message objGetMessage = lstGetMessage.FirstOrDefault();
+                                if (objGetMessage != null)
                                 {
-                                    var msg = "Your job application for " + strJobTitle + " has been approved.";
-
-                                    Notification pushNotification = new Notification();
-                                    DateTime now = DateTime.Now;
-
-                                    pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                                    pushNotification.DeviceToken = UserDeviceToken;
-                                    pushNotification.HasSent = false;
-                                    pushNotification.PushMessage = msg;
-                                    pushNotification.SourceTable = "ApproveJobApplication";
-                                    pushNotification.UserID = lngUserID.ToString();
-                                    pushNotification.JobID = JobID;
-
-                                    db.Notification.Add(pushNotification);
+                                    objGetMessage.MessageTypeID = 3;
+                                    objGetMessage.State = true;
+                                    db.Message.Update(objGetMessage);
                                     db.SaveChanges();
-                                    
-                                    
-                                    //Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                    //objParam.Add("testDeviceToken", UserDeviceToken);
-                                    //objParam.Add("pushMessage", msg);
-                                    //objParam.Add("sourceTable", "ApproveJobApplication");
-                                    //objParam.Add("UserID", lngUserID.ToString());
-                                    //objParam.Add("JobID", JobID);
-                                    //SendNotificationMessage(objParam);
+                                    //================Code for push notification===========//
+                                    List<User> lstUserInfo = db.User.Get(n => n.ID == lngUserID).ToList();
+                                    User objUserInfo = new User();
+                                    if (lstUserInfo.Count > 0)
+                                    {
+                                        objUserInfo = lstUserInfo.FirstOrDefault();
+                                    }
+
+                                    //Get sender of messge
+                                    List<Message> lstMessageSender = db.Message.Get(n => n.ID == objGetMessage.ID).ToList();
+                                    long lngMessageSenderID = 0;
+                                    if (lstMessageSender.Count > 0)
+                                    {
+                                         lngMessageSenderID = lstMessageSender.FirstOrDefault().SenderID;
+                                    }
+                                    //Get Title of job
+                                    string strJobTitle = string.Empty;
+                                    List<Job> lstJobTitle = db.Job.Get(n => n.ID == lngJobID).ToList();
+                                    if (lstJobTitle.Count > 0)
+                                    {
+                                        strJobTitle = lstJobTitle.FirstOrDefault().Title;
+                                    }
+
+                                    //Get device token of receiver
+                                    string UserDeviceToken = string.Empty;
+                                    List<User> lstUserDeviceToken = db.User.Get(n => n.ID == lngMessageSenderID).ToList();
+                                    if (lstUserDeviceToken.Count > 0)
+                                    {
+                                        UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                                    }
+                                    ///
+                                    if (UserDeviceToken != null)
+                                    {
+                                        var msg = "Your job application for " + strJobTitle + " has been approved.";
+
+                                        Notification pushNotification = new Notification();
+                                        DateTime now = DateTime.Now;
+
+                                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                        pushNotification.DeviceToken = UserDeviceToken;
+                                        pushNotification.HasSent = false;
+                                        pushNotification.PushMessage = msg;
+                                        pushNotification.SourceTable = "ApproveJobApplication";
+                                        pushNotification.UserID = lngUserID.ToString();
+                                        pushNotification.JobID = JobID;
+
+                                        db.Notification.Add(pushNotification);
+                                        db.SaveChanges();
+
+
+                                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                        //objParam.Add("testDeviceToken", UserDeviceToken);
+                                        //objParam.Add("pushMessage", msg);
+                                        //objParam.Add("sourceTable", "ApproveJobApplication");
+                                        //objParam.Add("UserID", lngUserID.ToString());
+                                        //objParam.Add("JobID", JobID);
+                                        //SendNotificationMessage(objParam);
+                                    }
+                                    //=========================end=======================//
+
+                                    ResultStatus.Status = "1";
+                                    ResultStatus.StatusMessage = "";
+                                    AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
                                 }
-                                //=========================end=======================//
-
-                                ResultStatus.Status = "1";
-                                ResultStatus.StatusMessage = "";
-                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
                             }
                             else
                             {
@@ -3418,60 +3653,81 @@ namespace CrowdWCFservice
                         }
                         else if (Convert.ToInt32(Status) == 0)
                         {
-                            Message objGetMessage = db.Message.Get().FirstOrDefault(n => n.ID == Convert.ToInt32(MessageID));
-                            if (objGetMessage != null)
+                            long lngMessageID = Convert.ToInt32(MessageID);
+                            List<Message> lstGetMessage = db.Message.Get(n => n.ID == lngMessageID).ToList();
+                            if (lstGetMessage.Count > 0)
                             {
-                                objGetMessage.MessageTypeID = 4;
-                                objGetMessage.State = true;
-                                db.Message.Update(objGetMessage);
-                                db.SaveChanges();
-
-                                //================Code for push notification===========//
-                                User objUserInfo = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-
-                                //Get sender of messge
-                                long lngMessageSenderID = db.Message.Get().FirstOrDefault(n => n.ID == objGetMessage.ID).SenderID;
-
-                                //Get Title of job
-                                string strJobTitle = db.Job.Get().FirstOrDefault(n => n.ID == Convert.ToInt64(JobID)).Title;
-
-                                //Get device token of receiver
-                                string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == lngMessageSenderID).DeviceToken;
-                                ///
-                                if (UserDeviceToken != null)
+                                Message objGetMessage = lstGetMessage.FirstOrDefault();
+                                if (objGetMessage != null)
                                 {
-                                    var msg = "Your job application for " + strJobTitle + " has been declined.";
-
-                                    Notification pushNotification = new Notification();
-                                    DateTime now = DateTime.Now;
-
-                                    pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                                    pushNotification.DeviceToken = UserDeviceToken;
-                                    pushNotification.HasSent = false;
-                                    pushNotification.PushMessage = msg;
-                                    pushNotification.SourceTable = "DeclineJobApplication";
-                                    pushNotification.UserID = lngUserID.ToString();
-                                    pushNotification.JobID = JobID;
-
-                                    db.Notification.Add(pushNotification);
+                                    objGetMessage.MessageTypeID = 4;
+                                    objGetMessage.State = true;
+                                    db.Message.Update(objGetMessage);
                                     db.SaveChanges();
-                                    
-                                    
-                                    
-                                    //Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                                    //objParam.Add("testDeviceToken", UserDeviceToken);
-                                    //objParam.Add("pushMessage", msg);
-                                    //objParam.Add("sourceTable", "DeclineJobApplication");
-                                    //objParam.Add("UserID", lngUserID.ToString());
-                                    //objParam.Add("JobID", JobID);
-                                    //SendNotificationMessage(objParam);
+                                    //================Code for push notification===========//
+                                    List<User> lstUserInfo = db.User.Get(n => n.ID == lngUserID).ToList();
+                                    User objUserInfo = new User();
+                                    if (lstUserInfo.Count > 0)
+                                    {
+                                        objUserInfo = lstUserInfo.FirstOrDefault();
+                                    }
+                                    //Get sender of messge
+                                    long lngMessageSenderID = 0;
+                                    List<Message> lstMessageSender = db.Message.Get(n => n.ID == objGetMessage.ID).ToList();
+                                    if (lstMessageSender.Count > 0)
+                                    {
+                                        lngMessageSenderID = lstMessageSender.FirstOrDefault().SenderID;
+                                    }
+                                    //Get Title of job
+                                    string strJobTitle = string.Empty;
+                                    List<Job> lstJobTitle = db.Job.Get(n => n.ID == lngJobID).ToList();
+                                    if (lstJobTitle.Count > 0)
+                                    {
+                                        strJobTitle = lstJobTitle.FirstOrDefault().Title;
+                                    }
+                                                                        
+                                    //Get device token of receiver
+                                    List<User> lstUserDeviceToken = db.User.Get(n => n.ID == lngMessageSenderID).ToList();
+                                    string UserDeviceToken = string.Empty;
+                                    if (lstUserDeviceToken.Count > 0)
+                                    {
+                                        UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                                    }
+                                    ///
+                                    if (UserDeviceToken != null)
+                                    {
+                                        var msg = "Your job application for " + strJobTitle + " has been declined.";
+
+                                        Notification pushNotification = new Notification();
+                                        DateTime now = DateTime.Now;
+
+                                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                                        pushNotification.DeviceToken = UserDeviceToken;
+                                        pushNotification.HasSent = false;
+                                        pushNotification.PushMessage = msg;
+                                        pushNotification.SourceTable = "DeclineJobApplication";
+                                        pushNotification.UserID = lngUserID.ToString();
+                                        pushNotification.JobID = JobID;
+
+                                        db.Notification.Add(pushNotification);
+                                        db.SaveChanges();
+
+                                        //Dictionary<string, string> objParam = new Dictionary<string, string>();
+
+                                        //objParam.Add("testDeviceToken", UserDeviceToken);
+                                        //objParam.Add("pushMessage", msg);
+                                        //objParam.Add("sourceTable", "DeclineJobApplication");
+                                        //objParam.Add("UserID", lngUserID.ToString());
+                                        //objParam.Add("JobID", JobID);
+                                        //SendNotificationMessage(objParam);
+                                    }
+                                    //=========================end=======================//
+
+                                    ResultStatus.Status = "1";
+                                    ResultStatus.StatusMessage = "";
+                                    AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
                                 }
-                                //=========================end=======================//
-
-                                ResultStatus.Status = "1";
-                                ResultStatus.StatusMessage = "";
-                                AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
                             }
                             else
                             {
@@ -3522,7 +3778,7 @@ namespace CrowdWCFservice
                 {                 
                     long lngUserID = Convert.ToInt64(UserID);
                     //Get Unread Message Count
-                    int objMessageCount = db.Message.Get().Where(n => n.ReceiverID == lngUserID && n.State == false).ToList().Count;
+                    int objMessageCount = db.Message.Get(n => n.ReceiverID == lngUserID && n.State == false).ToList().Count;
 
                     UnreadMessageCountResult.NumberOfUnreadMessage = Convert.ToString(objMessageCount);
                     //====================================================================//
@@ -3560,39 +3816,44 @@ namespace CrowdWCFservice
         {
             UnitOfWork db = new UnitOfWork();
             //List<Job> objGetJob = db.Job.Get().Where(n => n.State != true && DateTime.Compare(n.DateModified, DateTime.Now.Date) > 30)).ToList();
-            List<Job> objGetJob = db.Job.Get().Where(n => n.State != true && n.DateModified.Date < TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).Date.AddDays(-30)).ToList();
+            List<Job> objGetJob = db.Job.Get(n => n.State != true && n.DateModified.Date < TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).Date.AddDays(-30)).ToList();
             if (objGetJob != null)
             {
                 foreach (var job in objGetJob)
                 { 
                     //Get UserDevice token of JobUserID
-                    string UserDeviceToken = db.User.Get().FirstOrDefault(n => n.ID == job.UserID).DeviceToken;
-                    ///
-                    if (UserDeviceToken != null)
+                    string UserDeviceToken = string.Empty;
+                    List<User> lstUserDeviceToken = db.User.Get(n => n.ID == job.UserID).ToList();
+                    if (lstUserDeviceToken.Count > 0)
                     {
-                        var msg = "Is the job, "+ job.Title  +" still active? Log in to update the status.";
-                        Dictionary<string, string> objParam = new Dictionary<string, string>();
+                        UserDeviceToken = lstUserDeviceToken.FirstOrDefault().DeviceToken;
+                        ///
+                        if (UserDeviceToken != null)
+                        {
+                            var msg = "Is the job, " + job.Title + " still active? Log in to update the status.";
+                            Dictionary<string, string> objParam = new Dictionary<string, string>();
 
-                        Notification pushNotification = new Notification();
-                        DateTime now = DateTime.Now;
+                            Notification pushNotification = new Notification();
+                            DateTime now = DateTime.Now;
 
-                        pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
-                        pushNotification.DeviceToken = UserDeviceToken;
-                        pushNotification.HasSent = false;
-                        pushNotification.PushMessage = msg;
-                        pushNotification.SourceTable = "Unfilled30days";
-                        pushNotification.UserID = job.UserID.ToString();
-                        pushNotification.JobID = job.ID.ToString();
+                            pushNotification.DateCreated = TimeZoneInfo.ConvertTimeToUtc(now);
+                            pushNotification.DeviceToken = UserDeviceToken;
+                            pushNotification.HasSent = false;
+                            pushNotification.PushMessage = msg;
+                            pushNotification.SourceTable = "Unfilled30days";
+                            pushNotification.UserID = job.UserID.ToString();
+                            pushNotification.JobID = job.ID.ToString();
 
-                        db.Notification.Add(pushNotification);
-                        db.SaveChanges();
+                            db.Notification.Add(pushNotification);
+                            db.SaveChanges();
 
-                        //objParam.Add("testDeviceToken", UserDeviceToken);
-                        //objParam.Add("pushMessage", msg);
-                        //objParam.Add("sourceTable", "Unfilled30days");
-                        //objParam.Add("UserID", job.UserID.ToString());
-                        //objParam.Add("JobID", job.ID.ToString());
-                        //SendNotificationMessage(objParam);
+                            //objParam.Add("testDeviceToken", UserDeviceToken);
+                            //objParam.Add("pushMessage", msg);
+                            //objParam.Add("sourceTable", "Unfilled30days");
+                            //objParam.Add("UserID", job.UserID.ToString());
+                            //objParam.Add("JobID", job.ID.ToString());
+                            //SendNotificationMessage(objParam);
+                        }
                     }
                     //=========================end=======================//
 
@@ -3916,167 +4177,170 @@ namespace CrowdWCFservice
             ResultStatus ResultStatus = new ResultStatus();
 
             UnitOfWork db = new UnitOfWork();
-            User objUser = db.User.Get().FirstOrDefault(n => n.ID == lngUserID);
-            if (objUser != null)
+            List<User> lstUser = db.User.Get(n => n.ID == lngUserID).ToList();
+            if (lstUser.Count > 0)
             {
-
-                //=====================Prepare UserDetail Response==============//
-                UserResult.UserId = Convert.ToString(objUser.ID);
-                UserResult.DateCreated = Convert.ToString(objUser.DateCreated);
-                UserResult.DateModified = Convert.ToString(objUser.DateModified);
-                UserResult.Email = objUser.Email;
-                UserResult.FirstName = objUser.FirstName;
-                UserResult.LastName = objUser.LastName;
-                UserResult.LocationCity = objUser.LocationCity;
-                UserResult.LocationState = objUser.LocationState;
-                UserResult.LocationCountry = objUser.LocationCountry;
-                UserResult.Industry = objUser.Industry;
-                UserResult.Industry2 = objUser.Industry2;
-                UserResult.Summary = objUser.Summary;
-                UserResult.PhotoURL = objUser.PhotoURL;
-                UserResult.LinkedInId = objUser.LinkedInId;
-                UserResult.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
-                UserResult.Token = objUser.Token;
-
-                //==We determine whether the user is available for Twilio calls=====//
-                UserResult.IsAvailableForCall = IsUserAvailableForCall(objUser);
-
-                if (IsSetToken == true)
+                User objUser = lstUser.FirstOrDefault();
+                if (objUser != null)
                 {
-                    //======================Set Token value====================//
-                    CrowdWCFservice.Token.tbl_TokenInfo tokeninfo = new CrowdWCFservice.Token.tbl_TokenInfo();
-                    tokeninfo.EmailID = objUser.Email.Trim();
-                    Token objToken = new Token();
-                    string token = objToken.SetUserToken(tokeninfo, "30");
-                    Response.Headers.Add("token", token);
-                    UserResult.Token = token;
-                    //================================+========================//
-                }
+                    //=====================Prepare UserDetail Response==============//
+                    UserResult.UserId = Convert.ToString(objUser.ID);
+                    UserResult.DateCreated = Convert.ToString(objUser.DateCreated);
+                    UserResult.DateModified = Convert.ToString(objUser.DateModified);
+                    UserResult.Email = objUser.Email;
+                    UserResult.FirstName = objUser.FirstName;
+                    UserResult.LastName = objUser.LastName;
+                    UserResult.LocationCity = objUser.LocationCity;
+                    UserResult.LocationState = objUser.LocationState;
+                    UserResult.LocationCountry = objUser.LocationCountry;
+                    UserResult.Industry = objUser.Industry;
+                    UserResult.Industry2 = objUser.Industry2;
+                    UserResult.Summary = objUser.Summary;
+                    UserResult.PhotoURL = objUser.PhotoURL;
+                    UserResult.LinkedInId = objUser.LinkedInId;
+                    UserResult.ExperienceLevel = Convert.ToString(objUser.ExperienceLevelType);
+                    UserResult.Token = objUser.Token;
 
-                //Get Unread Message Count
-                int objMessageCount = db.Message.Get().Where(n => n.ReceiverID == objUser.ID && n.State == false).ToList().Count;
-                //
-                UserResult.NumberOfUnreadMessage = Convert.ToString(objMessageCount);
-                //====================================================================//
+                    //==We determine whether the user is available for Twilio calls=====//
+                    UserResult.IsAvailableForCall = IsUserAvailableForCall(objUser);
 
-                //===========================GetUserSkill=====================================//
-                List<UserSkill> objUserSkill = db.UserSkill.Get().Where(n => n.UserID == objUser.ID).ToList();
-                if (objUserSkill.Count > 0)
-                {
-                    foreach (var skill in objUserSkill)
+                    if (IsSetToken == true)
                     {
-                        GetUserSkillResult objCurrUserSkill = new GetUserSkillResult();
-                        objCurrUserSkill.ID = Convert.ToString(skill.ID);
-                        objCurrUserSkill.DateCreated = Convert.ToString(skill.DateCreated);
-                        objCurrUserSkill.UserID = Convert.ToString(skill.UserID);
-                        objCurrUserSkill.Skills = skill.Skill;
-                        lstUserSkillResult.Add(objCurrUserSkill);
+                        //======================Set Token value====================//
+                        CrowdWCFservice.Token.tbl_TokenInfo tokeninfo = new CrowdWCFservice.Token.tbl_TokenInfo();
+                        tokeninfo.EmailID = objUser.Email.Trim();
+                        Token objToken = new Token();
+                        string token = objToken.SetUserToken(tokeninfo, "30");
+                        Response.Headers.Add("token", token);
+                        UserResult.Token = token;
+                        //================================+========================//
                     }
-                }
-                //=====================================================================================//
 
-                //============================GetUserEmployment===========================================//
-                List<UserEmployment> objUserEmployment = db.UserEmployment.Get().Where(n => n.UserID == objUser.ID).ToList();
-                if (objUserEmployment.Count > 0)
-                {
-                    foreach (var employment in objUserEmployment)
+                    //Get Unread Message Count
+                    int objMessageCount = db.Message.Get(n => n.ReceiverID == objUser.ID && n.State == false).ToList().Count;
+                    //
+                    UserResult.NumberOfUnreadMessage = Convert.ToString(objMessageCount);
+                    //====================================================================//
+
+                    //===========================GetUserSkill=====================================//
+                    List<UserSkill> objUserSkill = db.UserSkill.Get(n => n.UserID == objUser.ID).ToList();
+                    if (objUserSkill.Count > 0)
                     {
-                        //Prepare UserEmploment Response
-                        GetUserEmploymentResult objCurrUserEmployment = new GetUserEmploymentResult();
-                        objCurrUserEmployment.ID = Convert.ToString(employment.ID);
-                        objCurrUserEmployment.DateCreated = Convert.ToString(employment.DateCreated);
-                        objCurrUserEmployment.DateModified = Convert.ToString(employment.DateModified);
-                        objCurrUserEmployment.UserID = Convert.ToString(employment.UserID);
-                        objCurrUserEmployment.EmployerName = employment.EmployerName;
-                        objCurrUserEmployment.Title = employment.Title;
-                        objCurrUserEmployment.LocationCity = employment.LocationCity;
-                        objCurrUserEmployment.LocationCountry = employment.LocationCountry;
-                        objCurrUserEmployment.LocationState = employment.LocationState;
-                        objCurrUserEmployment.StartYear = Convert.ToString(employment.StartYear);
-                        objCurrUserEmployment.EndYear = employment.EndYear != null ? Convert.ToString(employment.EndYear) : string.Empty;
-                        objCurrUserEmployment.Summary = employment.Summary;
-                        objCurrUserEmployment.StartMonth = Convert.ToString(employment.StartMonth);
-                        objCurrUserEmployment.EndMonth = employment.EndMonth != null ? Convert.ToString(employment.EndMonth) : string.Empty;
-
-                        lstUserEmploymentResult.Add(objCurrUserEmployment);
-                        ////============================================================================//
-                    }
-                }
-                //=============================================================================================================================//
-
-                //===================GetUserEmploymentRecommendation=========================//
-                List<UserEmploymentRecommendation> objEmploymentRecommendation = db.UserEmploymentRecommendation.Get().Where(n => n.UserID == lngUserID).ToList();
-                if (objEmploymentRecommendation.Count > 0)
-                {
-                    foreach (var er in objEmploymentRecommendation)
-                    {
-                        GetUserEmploymentRecommendationResult objCurrRecommendation = new GetUserEmploymentRecommendationResult();
-                        objCurrRecommendation.ID = Convert.ToString(er.ID);
-                        objCurrRecommendation.DateCreated = Convert.ToString(er.DateCreated);
-                        objCurrRecommendation.UserID = Convert.ToString(er.UserID);
-                        objCurrRecommendation.Recommendation = er.Recommendation;
-                        objCurrRecommendation.RecommenderName = er.RecommenderName;
-                        lstUserEmploymentrecommendation.Add(objCurrRecommendation);
-                    }
-                }
-
-                //========================================GetUserEducationResult===============================================================//
-                List<UserEducation> objUserEducation = db.UserEducation.Get().Where(n => n.UserID == objUser.ID).ToList();
-                if (objUserEducation.Count > 0)
-                {
-                    foreach (var education in objUserEducation)
-                    {
-                        //Prepare UserEducation Response
-                        GetUserEducationWithCourseResult objCurrUserEducation = new GetUserEducationWithCourseResult();
-                        objCurrUserEducation.ID = Convert.ToString(education.ID);
-                        objCurrUserEducation.DateCreated = Convert.ToString(education.DateCreated);
-                        objCurrUserEducation.DateModified = Convert.ToString(education.DateModified);
-                        objCurrUserEducation.UserID = Convert.ToString(education.UserID);
-                        objCurrUserEducation.Name = education.Name;
-                        objCurrUserEducation.Degree = education.Degree;
-                        objCurrUserEducation.StartYear = Convert.ToString(education.StartYear);
-                        objCurrUserEducation.EndYear = education.EndYear != null ? Convert.ToString(education.EndYear) : string.Empty;
-                        objCurrUserEducation.StartMonth = Convert.ToString(education.StartMonth);
-                        objCurrUserEducation.EndMonth = education.EndMonth != null ? Convert.ToString(education.EndMonth) : string.Empty;
-
-                        //======================GetUserEducationCourse Result==============//
-                        List<UserEducationCourse> objEducationCourse = db.UserEducationCourse.Get().Where(n => n.EducationID == education.ID).ToList();
-                        if (objEducationCourse.Count > 0)
+                        foreach (var skill in objUserSkill)
                         {
-                            List<GetUserEducationCourseResult> lstCourseForCurrEducation = new List<GetUserEducationCourseResult>();
-                            foreach (var course in objEducationCourse)
+                            GetUserSkillResult objCurrUserSkill = new GetUserSkillResult();
+                            objCurrUserSkill.ID = Convert.ToString(skill.ID);
+                            objCurrUserSkill.DateCreated = Convert.ToString(skill.DateCreated);
+                            objCurrUserSkill.UserID = Convert.ToString(skill.UserID);
+                            objCurrUserSkill.Skills = skill.Skill;
+                            lstUserSkillResult.Add(objCurrUserSkill);
+                        }
+                    }
+                    //=====================================================================================//
+
+                    //============================GetUserEmployment===========================================//
+                    List<UserEmployment> objUserEmployment = db.UserEmployment.Get(n => n.UserID == objUser.ID).ToList();
+                    if (objUserEmployment.Count > 0)
+                    {
+                        foreach (var employment in objUserEmployment)
+                        {
+                            //Prepare UserEmploment Response
+                            GetUserEmploymentResult objCurrUserEmployment = new GetUserEmploymentResult();
+                            objCurrUserEmployment.ID = Convert.ToString(employment.ID);
+                            objCurrUserEmployment.DateCreated = Convert.ToString(employment.DateCreated);
+                            objCurrUserEmployment.DateModified = Convert.ToString(employment.DateModified);
+                            objCurrUserEmployment.UserID = Convert.ToString(employment.UserID);
+                            objCurrUserEmployment.EmployerName = employment.EmployerName;
+                            objCurrUserEmployment.Title = employment.Title;
+                            objCurrUserEmployment.LocationCity = employment.LocationCity;
+                            objCurrUserEmployment.LocationCountry = employment.LocationCountry;
+                            objCurrUserEmployment.LocationState = employment.LocationState;
+                            objCurrUserEmployment.StartYear = Convert.ToString(employment.StartYear);
+                            objCurrUserEmployment.EndYear = employment.EndYear != null ? Convert.ToString(employment.EndYear) : string.Empty;
+                            objCurrUserEmployment.Summary = employment.Summary;
+                            objCurrUserEmployment.StartMonth = Convert.ToString(employment.StartMonth);
+                            objCurrUserEmployment.EndMonth = employment.EndMonth != null ? Convert.ToString(employment.EndMonth) : string.Empty;
+
+                            lstUserEmploymentResult.Add(objCurrUserEmployment);
+                            ////============================================================================//
+                        }
+                    }
+                    //=============================================================================================================================//
+
+                    //===================GetUserEmploymentRecommendation=========================//
+                    List<UserEmploymentRecommendation> objEmploymentRecommendation = db.UserEmploymentRecommendation.Get(n => n.UserID == lngUserID).ToList();
+                    if (objEmploymentRecommendation.Count > 0)
+                    {
+                        foreach (var er in objEmploymentRecommendation)
+                        {
+                            GetUserEmploymentRecommendationResult objCurrRecommendation = new GetUserEmploymentRecommendationResult();
+                            objCurrRecommendation.ID = Convert.ToString(er.ID);
+                            objCurrRecommendation.DateCreated = Convert.ToString(er.DateCreated);
+                            objCurrRecommendation.UserID = Convert.ToString(er.UserID);
+                            objCurrRecommendation.Recommendation = er.Recommendation;
+                            objCurrRecommendation.RecommenderName = er.RecommenderName;
+                            lstUserEmploymentrecommendation.Add(objCurrRecommendation);
+                        }
+                    }
+
+                    //========================================GetUserEducationResult===============================================================//
+                    List<UserEducation> objUserEducation = db.UserEducation.Get(n => n.UserID == objUser.ID).ToList();
+                    if (objUserEducation.Count > 0)
+                    {
+                        foreach (var education in objUserEducation)
+                        {
+                            //Prepare UserEducation Response
+                            GetUserEducationWithCourseResult objCurrUserEducation = new GetUserEducationWithCourseResult();
+                            objCurrUserEducation.ID = Convert.ToString(education.ID);
+                            objCurrUserEducation.DateCreated = Convert.ToString(education.DateCreated);
+                            objCurrUserEducation.DateModified = Convert.ToString(education.DateModified);
+                            objCurrUserEducation.UserID = Convert.ToString(education.UserID);
+                            objCurrUserEducation.Name = education.Name;
+                            objCurrUserEducation.Degree = education.Degree;
+                            objCurrUserEducation.StartYear = Convert.ToString(education.StartYear);
+                            objCurrUserEducation.EndYear = education.EndYear != null ? Convert.ToString(education.EndYear) : string.Empty;
+                            objCurrUserEducation.StartMonth = Convert.ToString(education.StartMonth);
+                            objCurrUserEducation.EndMonth = education.EndMonth != null ? Convert.ToString(education.EndMonth) : string.Empty;
+
+                            //======================GetUserEducationCourse Result==============//
+                            List<UserEducationCourse> objEducationCourse = db.UserEducationCourse.Get(n => n.EducationID == education.ID).ToList();
+                            if (objEducationCourse.Count > 0)
                             {
-                                GetUserEducationCourseResult objCurrCourse = new GetUserEducationCourseResult();
-                                objCurrCourse.ID = Convert.ToString(course.ID);
-                                objCurrCourse.DateCreated = Convert.ToString(course.DateCreated);
-                                objCurrCourse.EducationID = Convert.ToString(course.EducationID);
-                                objCurrCourse.Course = course.Course;
-                                lstCourseForCurrEducation.Add(objCurrCourse);
-                            }                         
-                            objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
-                        }
-                        //Added by himanshu: mail on 03-10-2014.
-                        else
-                        {
-                            List<GetUserEducationCourseResult> lstCourseForCurrEducation = new List<GetUserEducationCourseResult>();                           
-                            objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
-                        }
-                        //Done Added by himanshu
-                        //==================================================================//
+                                List<GetUserEducationCourseResult> lstCourseForCurrEducation = new List<GetUserEducationCourseResult>();
+                                foreach (var course in objEducationCourse)
+                                {
+                                    GetUserEducationCourseResult objCurrCourse = new GetUserEducationCourseResult();
+                                    objCurrCourse.ID = Convert.ToString(course.ID);
+                                    objCurrCourse.DateCreated = Convert.ToString(course.DateCreated);
+                                    objCurrCourse.EducationID = Convert.ToString(course.EducationID);
+                                    objCurrCourse.Course = course.Course;
+                                    lstCourseForCurrEducation.Add(objCurrCourse);
+                                }
+                                objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
+                            }
+                            //Added by himanshu: mail on 03-10-2014.
+                            else
+                            {
+                                List<GetUserEducationCourseResult> lstCourseForCurrEducation = new List<GetUserEducationCourseResult>();
+                                objCurrUserEducation.GetUserEducationCourseResult = lstCourseForCurrEducation;
+                            }
+                            //Done Added by himanshu
+                            //==================================================================//
 
-                        lstUserEducationWithCourseResult.Add(objCurrUserEducation);
+                            lstUserEducationWithCourseResult.Add(objCurrUserEducation);
+                        }
                     }
+                    //==================================================================================================================================//
+
+                    ResultStatus.Status = "1";
+                    ResultStatus.StatusMessage = "";
+                    GetUserDetailResult.ResultStatus = ResultStatus;
+                    GetUserDetailResult.GetUserResult = UserResult;
+                    GetUserDetailResult.GetUserSkillResult = lstUserSkillResult;
+                    GetUserDetailResult.GetUserEmploymentResult = lstUserEmploymentResult;
+                    GetUserDetailResult.GetUserEducationWithCourseResult = lstUserEducationWithCourseResult;
+                    GetUserDetailResult.GetUserEmploymentRecommendationResult = lstUserEmploymentrecommendation;
                 }
-                //==================================================================================================================================//
-                
-                ResultStatus.Status = "1";
-                ResultStatus.StatusMessage = "";
-                GetUserDetailResult.ResultStatus = ResultStatus;
-                GetUserDetailResult.GetUserResult = UserResult;
-                GetUserDetailResult.GetUserSkillResult = lstUserSkillResult;
-                GetUserDetailResult.GetUserEmploymentResult = lstUserEmploymentResult;
-                GetUserDetailResult.GetUserEducationWithCourseResult = lstUserEducationWithCourseResult;
-                GetUserDetailResult.GetUserEmploymentRecommendationResult = lstUserEmploymentrecommendation;
             }
             else
             {

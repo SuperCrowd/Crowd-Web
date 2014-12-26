@@ -62,7 +62,7 @@ namespace CrowdWCFservice
             get { return _tokenExpiretime; }
             set { _tokenExpiretime = value; }
         }
-       
+
         #endregion
 
         #region Public method
@@ -104,19 +104,26 @@ namespace CrowdWCFservice
                 this.Email = objToken.Email.Trim();
 
                 var db = new UnitOfWork();
-                User obj = db.User.Get().FirstOrDefault(l => l.Email == objToken.Email);
-                //tblUser obj = db.tblUsers.Get().FirstOrDefault(l => l.Token == this.TokenValue);
-                //if (obj == null)
-                //{
-                //    throw new Exception("Token To Be Fetched is not Found");
-                //}
-                //if (obj != null)
-                //{
-                obj.TokenExpireTime = this.TokenExpiretime;
-                // obj.PkServiceTokenId = this.GUID;
-                obj.Token = this.TokenValue;
-                db.User.Update(obj);
-                db.SaveChanges();
+                List<User> lstUser = db.User.Get(l => l.Email == objToken.Email).ToList();
+                if (lstUser.Count > 0)
+                {
+                    User obj = lstUser.FirstOrDefault();
+                    //tblUser obj = db.tblUsers.Get().FirstOrDefault(l => l.Token == this.TokenValue);
+                    //if (obj == null)
+                    //{
+                    //    throw new Exception("Token To Be Fetched is not Found");
+                    //}
+                    //if (obj != null)
+                    //{
+                    if (obj != null)
+                    {
+                        obj.TokenExpireTime = this.TokenExpiretime;
+                        // obj.PkServiceTokenId = this.GUID;
+                        obj.Token = this.TokenValue;
+                        db.User.Update(obj);
+                        db.SaveChanges();
+                    }
+                }
                 //}
             }
             else
@@ -126,11 +133,19 @@ namespace CrowdWCFservice
                 this.Email = tbluser.EmailID.Trim();
 
                 var db = new UnitOfWork();
-                User obj = db.User.Get().FirstOrDefault(l => l.Email == tbluser.EmailID);
-                obj.TokenExpireTime = this.TokenExpiretime;
-                obj.Token = this.TokenValue;
-                db.User.Update(obj);
-                db.SaveChanges();
+                List<User> lstUser = db.User.Get(l => l.Email == tbluser.EmailID).ToList();
+                if (lstUser.Count > 0)
+                {
+                    //User obj = db.User.Get().FirstOrDefault(l => l.Email == tbluser.EmailID);
+                    User obj = lstUser.FirstOrDefault();
+                    if (obj != null)
+                    {
+                        obj.TokenExpireTime = this.TokenExpiretime;
+                        obj.Token = this.TokenValue;
+                        db.User.Update(obj);
+                        db.SaveChanges();
+                    }
+                }
             }
             objToken = null;
             return token;
@@ -150,7 +165,7 @@ namespace CrowdWCFservice
             public string EmailID { get; set; }
 
         }
-        
+
         [Serializable()]
         [DataContract]
         public class tbl_UserInfoToken
