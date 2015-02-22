@@ -2480,11 +2480,9 @@ namespace CrowdWCFservice
                                 objCurrUser.UserCurrentEmployer = lstCurrentEmployerList;
                             }
 
-                            //---------------------------------------------------------------------------------//
-                            if (lstCurrentEmployerList.Count > 0)
-                            {
+                          
                                 lstUserDetail.Add(objCurrUser);
-                            }
+                         
                         }
 
                         if (PageNumber != null && PageNumber != "")
