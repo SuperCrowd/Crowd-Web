@@ -589,517 +589,477 @@ Date: 17/10/2014 14:15:55 ::: Method name: Notification ::: UserID: 0 ::: Messag
 Date: 17/10/2014 15:00:15 ::: Method name: Notification ::: UserID: 0 ::: Message: START
 Date: 17/10/2014 15:00:15 ::: Method name: Notification ::: UserID: 0 ::: Message: STOP
 Date: 17/10/2014 16:04:44 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
-Date: 11/7/2014 11:10:26 AM ::: Method name: IsUserExists ::: UserID: kbU6OrlYdd ::: Message: START
-Date: 11/7/2014 11:10:37 AM ::: Method name: IsUserExists ::: UserID: kbU6OrlYdd ::: Message: STOP
-Date: 11/7/2014 11:10:46 AM ::: Method name: GetActivityFeeds ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:46 AM ::: Method name: GetActivityFeeds ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:10:46 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:47 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:10:52 AM ::: Method name: GetMessageList ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:53 AM ::: Method name: GetMessageList ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:10:54 AM ::: Method name: GetMessageList ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:54 AM ::: Method name: GetMessageList ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:10:57 AM ::: Method name: GetMessageThread ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:58 AM ::: Method name: GetMessageThread ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:10:58 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:10:58 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:10 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:11 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:15 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:15 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:18 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:18 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:19 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:20 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:21 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:21 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:23 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:23 AM ::: Method name: SearchJob ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:38 AM ::: Method name: SearchCandidates ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:38 AM ::: Method name: SearchCandidates ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:51 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:52 AM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:55 AM ::: Method name: GetUserJobs ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:56 AM ::: Method name: GetUserJobs ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:11:59 AM ::: Method name: GetJobDetails ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:11:59 AM ::: Method name: GetJobDetails ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 11:12:03 AM ::: Method name: GetUserJobs ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 11:12:04 AM ::: Method name: GetUserJobs ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 3:57:38 PM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: START
-Date: 11/7/2014 3:57:38 PM ::: Method name: GetUnreadMessageCount ::: UserID: 712 ::: Message: STOP
-Date: 11/7/2014 3:57:38 PM ::: Method name: GetActivityFeeds ::: UserID: 712 ::: Message: STOP
-Date: 11/11/2014 1:22:44 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:22:45 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:22:45 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:22:53 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:22:54 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:35:29 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:35:29 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:35:29 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:35:30 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:42:11 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:42:12 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:42:12 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:42:58 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:42:59 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:42:59 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:42:59 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:43:20 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:43:20 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:43:20 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:43:20 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:49:42 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:49:43 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:49:43 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:50:08 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:50:10 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:50:16 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:50:16 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:50:17 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:50:17 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:52:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:52:08 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 1:52:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 1:52:08 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 2:01:12 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 2:01:12 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/11/2014 2:13:21 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/11/2014 2:13:22 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:02 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:03 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:03 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:04 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:04 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:05 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:05 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:13 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:14 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:18 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:18 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:19 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:19 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:51 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:52 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:18:52 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:18:52 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:20:23 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:20:23 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:20:24 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:20:24 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:20:24 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:20:29 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:20:29 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:20:55 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:20:55 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:21:45 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/12/2014 6:21:45 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/12/2014 6:21:45 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/12/2014 6:21:46 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/12/2014 6:21:47 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/12/2014 6:21:47 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/12/2014 6:24:49 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:24:50 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:24:50 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:24:50 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:25:01 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:25:02 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/12/2014 6:30:34 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/12/2014 6:30:34 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:31:17 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:31:18 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:31:18 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:31:19 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:31:25 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:31:26 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:32:31 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:32:31 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:32:31 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:32:32 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:32:35 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:32:35 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:32:51 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:32:52 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:33:13 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:33:13 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:33:14 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 8:33:14 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 8:33:15 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:33:15 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 8:37:10 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:37:11 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 8:46:02 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:46:02 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:46:02 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 8:46:03 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 8:50:51 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:50:52 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 8:50:52 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 8:50:52 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:02:53 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:02:54 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:02:54 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:02:55 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:03:10 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:03:10 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:03:11 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:03:11 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:03:23 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:03:23 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:03:59 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:04:00 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:04:04 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:04:05 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:04:05 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:04:06 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:04:17 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:04:17 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:04:17 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:04:18 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:04:30 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:04:31 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:04:31 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:04:31 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:04:32 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:04:32 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:04:59 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:05:00 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:07:52 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:07:53 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:07:53 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:07:53 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:08:09 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:08:10 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:08:10 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:08:10 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:11:18 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:11:18 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:11:28 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:11:28 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:11:28 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:11:29 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:11:31 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:11:31 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:11:31 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:11:32 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:16:17 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:16:18 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:17:17 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:17:17 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:17:17 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:17:18 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:17:18 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:17:19 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:17:28 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:17:29 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:17:29 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:17:29 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:17:52 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:17:52 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:09 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:10 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:10 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:10 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:18 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:18 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:18 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:19 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:51 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:51 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:52 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:52 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:54 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:54 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:18:55 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 9:18:55 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 9:19:29 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:19:29 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:19:30 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:19:30 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:19:43 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:19:44 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 9:19:44 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/13/2014 9:19:44 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/13/2014 11:56:57 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:56:58 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:56:59 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:56:59 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:08 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:08 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:09 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:11 PM ::: Method name: GetUserDetails ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:12 PM ::: Method name: GetUserDetails ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:14 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:15 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:15 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:16 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:19 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:20 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/13/2014 11:57:20 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/13/2014 11:57:22 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:03:59 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:04:00 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:04:00 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:04:00 AM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:04:04 AM ::: Method name: GetUserDetails ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:04:05 AM ::: Method name: GetUserDetails ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:07:29 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:07:29 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:09:21 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:09:21 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:11:02 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:11:02 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:11:09 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:11:10 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:11:10 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:11:10 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:11:18 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:11:19 AM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:11:19 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/14/2014 7:11:20 AM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/14/2014 7:12:25 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:12:25 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:12:29 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:12:29 AM ::: Method name: GetMessageThread ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:12:29 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:12:30 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:39:03 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:39:03 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:42:05 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:42:05 AM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/14/2014 7:42:07 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/14/2014 7:42:07 AM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/17/2014 6:16:04 PM ::: Method name: IsUserExists ::: UserID: bDS_-uO-xk ::: Message: START
-Date: 11/17/2014 6:18:03 PM ::: Method name: IsUserExists ::: UserID: bDS_-uO-xk ::: Message: STOP
-Date: 11/17/2014 6:22:53 PM ::: Method name: IsUserExists ::: UserID: bDS_-uO-xk ::: Message: START
-Date: 11/17/2014 6:22:58 PM ::: Method name: IsUserExists ::: UserID: bDS_-uO-xk ::: Message: STOP
-Date: 11/26/2014 12:00:36 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:00:36 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:00:37 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:00:38 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:00:38 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:00:52 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:00:53 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:00:53 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:00:53 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:05:22 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:05:22 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:05:23 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:05:23 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:10 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:06:10 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:11 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:06:11 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:11 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:06:11 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:23 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:06:23 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:23 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:06:23 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:06:55 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:06:55 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:06:55 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:06:56 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:06:58 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:06:58 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:00 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:02 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:03 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:03 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:15 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:15 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:15 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:15 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:18 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:18 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:18 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:18 PM ::: Method name: SearchCandidates ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:34 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:34 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:34 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:34 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:45 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:45 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:45 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:45 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:56 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:56 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:56 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:07:56 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:07:59 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:07:59 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:07:59 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:08:00 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:08:02 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:08:03 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:39 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:39 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:39 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:40 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:41 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:41 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:52 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:53 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:55 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:55 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:56 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:56 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:17:58 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:17:58 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:18:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:18:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:18:08 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:18:09 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:18:22 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:18:23 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:18:49 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:18:49 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:18:49 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:18:49 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:06 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:06 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:06 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:07 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:07 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:07 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:19 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:19 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:25 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:26 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:28 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:20:28 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:20:39 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:39 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:40 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:40 PM ::: Method name: SearchCandidates ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:20:43 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:20:43 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:20:45 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:20:45 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:20:47 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:20:48 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:21:00 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:21:00 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:21:09 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:21:09 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:21:10 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:21:10 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:21:12 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:21:12 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:21:30 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:21:31 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:21:40 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:21:40 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:21:48 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:21:48 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:21:52 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:21:52 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:21:53 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:21:53 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:21:56 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:21:56 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:22:53 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:22:55 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:02 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:23:02 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:02 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:23:03 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:03 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:23:03 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:06 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:23:06 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:09 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:23:09 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:23:09 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:23:10 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:23:18 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:23:18 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:23:22 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:23:23 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:23:23 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:23:23 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:24:17 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:17 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:17 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:18 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:18 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:18 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:22 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:22 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:26 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:24:26 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:24:32 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:32 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:38 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:39 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:45 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:24:46 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:24:47 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:24:47 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:24:48 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:24:48 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:28:07 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:08 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:08 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:08 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:09 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:09 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:27 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:27 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:32 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:28:33 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:28:38 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:28:38 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:28:39 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:40 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:40 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:40 PM ::: Method name: GetMyCrowd ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:42 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:28:43 PM ::: Method name: GetUserDetails ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:28:54 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:28:54 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:28:54 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:28:55 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:30:47 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:30:47 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:03 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:03 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:03 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:04 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:14 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:15 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:15 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:15 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:18 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:20 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:48 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:48 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:50 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:51 PM ::: Method name: GetMessageList ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:54 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:56 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:31:57 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:31:57 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:32:11 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:32:11 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:32:21 PM ::: Method name: SendMessage ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:32:23 PM ::: Method name: SendMessage ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:32:34 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:32:35 PM ::: Method name: GetMessageThread ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:32:36 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:32:36 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:35:28 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:35:29 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:35:36 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:35:36 PM ::: Method name: GetUnreadMessageCount ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:35:36 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:35:37 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:35:41 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:35:42 PM ::: Method name: GetMyCrowd ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:36:00 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: START
-Date: 11/26/2014 12:36:01 PM ::: Method name: GetActivityFeeds ::: UserID: 5 ::: Message: STOP
-Date: 11/26/2014 12:44:42 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:44:42 PM ::: Method name: GetUnreadMessageCount ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
-Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: START
-Date: 11/26/2014 12:44:43 PM ::: Method name: GetActivityFeeds ::: UserID: 11 ::: Message: STOP
+Date: 18/11/2014 14:23:56 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 18/11/2014 14:24:11 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 18/11/2014 14:24:48 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 18/11/2014 14:24:55 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 18/11/2014 14:25:37 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 18/11/2014 14:25:57 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 18/11/2014 14:26:37 ::: Method name: IsUserExists ::: UserID: 1811tejal@test.com ::: Message: START
+Date: 18/11/2014 14:27:20 ::: Method name: IsUserExists ::: UserID: 1811tejal@test.com ::: Message: STOP
+Date: 18/11/2014 14:28:15 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:28:15 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:29:19 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:29:22 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:29:39 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:29:47 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:30:53 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:30:53 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:31:08 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:31:38 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:32:18 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:32:45 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:33:16 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:33:31 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:34:07 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:34:10 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:34:31 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:34:38 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:34:55 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:34:55 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:35:51 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:36:06 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:37:12 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:37:12 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:37:16 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:37:16 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:37:21 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:37:21 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:37:24 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:37:24 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:38:01 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:38:06 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:38:14 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:38:16 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:38:23 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:38:24 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:38:27 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:38:29 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:34 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:34 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:36 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:36 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:37 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:37 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:38 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:38 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:38 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:38 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:42 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:42:42 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:42:56 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:43:09 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:44:28 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:44:29 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:44:32 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:44:32 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:47:08 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:47:08 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:49:09 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:49:11 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:49:45 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:49:45 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:50:04 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:50:14 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:50:21 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:50:23 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:50:55 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:50:55 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:52:47 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:52:50 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:53:23 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:53:23 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:54:07 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:54:07 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:54:23 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:54:53 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:55:20 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:55:20 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:56:02 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:56:02 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:56:18 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:56:35 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:57:10 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:57:24 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:58:05 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:58:07 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:58:51 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:58:55 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:59:20 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:59:20 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 14:59:38 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 14:59:43 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:00:17 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:00:17 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:00:44 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:00:49 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:01:22 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:01:22 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:02:40 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:02:41 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:02:58 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:03:09 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:03:34 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:03:40 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:03:49 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:03:49 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:03:56 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:04:01 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:04:39 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:04:40 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:04:47 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:04:47 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:05:10 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:05:10 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:05:32 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:05:34 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:09:50 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:10:00 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:13:22 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:13:23 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:13:30 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:13:30 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:13:44 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:13:44 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:20:07 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:20:07 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:20:19 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:20:19 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:20:30 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:20:30 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:24:19 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:24:21 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:29:54 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:29:54 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:36:16 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:36:16 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:37:09 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:37:11 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:51:40 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:51:40 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:52:01 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:52:02 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 18/11/2014 15:56:01 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 18/11/2014 15:56:01 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:01:25 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 24/11/2014 11:01:26 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 24/11/2014 11:02:09 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 24/11/2014 11:02:13 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 24/11/2014 11:04:07 ::: Method name: IsUserExists ::: UserID: 2411tejal@test.com ::: Message: START
+Date: 24/11/2014 11:04:38 ::: Method name: IsUserExists ::: UserID: 2411tejal@test.com ::: Message: STOP
+Date: 24/11/2014 11:05:26 ::: Method name: IsUserExists ::: UserID: 2411tejal@test.com ::: Message: START
+Date: 24/11/2014 11:05:55 ::: Method name: IsUserExists ::: UserID: 2411tejal@test.com ::: Message: STOP
+Date: 24/11/2014 11:06:27 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:06:27 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:07:36 ::: Method name: GetUserDetails ::: UserID: 1 ::: Message: START
+Date: 24/11/2014 11:07:36 ::: Method name: GetUserDetails ::: UserID: 1 ::: Message: STOP
+Date: 24/11/2014 11:08:20 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:08:20 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:08:40 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:08:55 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:09:06 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:09:10 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:10:07 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:10:16 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:10:28 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:10:38 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:11:34 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:11:35 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:11:58 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:12:59 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:14:02 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:14:18 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:14:34 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:14:52 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:15:52 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:15:55 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:16:31 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:16:41 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:17:13 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:17:13 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:18:01 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:18:01 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:18:10 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:18:10 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:19:18 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:19:19 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:19:49 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:19:52 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:20:26 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:20:26 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:20:38 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:20:44 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:21:18 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:21:31 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:21:39 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:21:40 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:22:01 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:22:29 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:23:00 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:23:00 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:23:10 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:23:10 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:23:14 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:23:14 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:24:05 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:24:19 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:24:37 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:24:37 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:24:47 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:24:47 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:25:26 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:25:40 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:26:07 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:26:07 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:26:42 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:27:04 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:27:21 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:27:22 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:28:05 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:28:05 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:28:20 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:28:29 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:29:21 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:29:25 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:29:42 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:29:42 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:30:11 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:30:11 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:30:28 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:30:30 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:31:01 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:31:01 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:31:12 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:31:12 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:31:40 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:31:40 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:32:15 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:32:23 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:35:07 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:35:16 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:35:23 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:35:28 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 24/11/2014 11:37:37 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 24/11/2014 11:37:40 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:32:27 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 16/12/2014 16:32:27 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 16/12/2014 16:33:43 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 16/12/2014 16:33:43 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 16/12/2014 16:35:07 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 16/12/2014 16:35:17 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 16/12/2014 16:36:56 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 16/12/2014 16:37:10 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 16/12/2014 16:38:06 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: START
+Date: 16/12/2014 16:38:19 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: STOP
+Date: 16/12/2014 16:40:27 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: START
+Date: 16/12/2014 16:40:30 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: STOP
+Date: 16/12/2014 16:44:29 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: START
+Date: 16/12/2014 16:44:29 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: STOP
+Date: 16/12/2014 16:44:52 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: START
+Date: 16/12/2014 16:44:54 ::: Method name: IsUserExists ::: UserID: 1612test@test.com ::: Message: STOP
+Date: 16/12/2014 16:48:04 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:48:04 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:48:47 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:48:47 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:49:14 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:49:18 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:51:14 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:51:28 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:52:29 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:52:44 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:54:42 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:54:47 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:54:58 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:55:00 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:55:23 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:55:32 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:55:38 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:56:00 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 16:57:29 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 16:57:29 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:00:10 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:00:12 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:01:17 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:01:17 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:03:32 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:03:32 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:04:19 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:04:19 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:04:38 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:04:40 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 17:04:44 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 17:04:44 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 18:34:40 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 18:34:45 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 16/12/2014 18:36:11 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 16/12/2014 18:36:14 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:47:21 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:47:23 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:47:30 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:47:34 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:47:39 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:47:40 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:48:55 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:49:02 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:49:08 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:49:46 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:56:15 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:56:20 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:56:29 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:56:52 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:56:57 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:56:57 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:57:20 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:57:20 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:57:55 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:57:55 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:57:58 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:57:58 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:58:02 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:58:02 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:58:09 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:58:12 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:58:18 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:58:20 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:58:25 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:58:26 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:58:30 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:58:31 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 09:59:36 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 09:59:36 ::: Method name: FillReopenJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:00:11 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:00:11 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:00:25 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:00:35 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:01:50 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:01:55 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:02:06 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:02:07 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:04:17 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:04:18 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:05:45 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:06:05 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:07:01 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:07:19 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:08:49 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:08:54 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:09:06 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:09:11 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:09:52 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:10:00 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:11:48 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:11:51 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:14:17 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:14:17 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:15:00 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:15:19 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:15:25 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:15:44 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:22:45 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:22:52 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:23:03 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:23:05 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:23:23 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:23:24 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:23:37 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:23:39 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:23:48 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:23:52 ::: Method name: GetPastMessages ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:24:40 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:24:42 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:24:56 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:24:58 ::: Method name: UpdateMessageState ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:33:02 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:33:04 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:33:27 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:33:34 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:33:39 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:33:43 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:33:46 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:34:03 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:34:09 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:34:18 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:34:31 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:34:31 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:34:45 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:34:45 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:34:52 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 17/12/2014 10:34:58 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP
+Date: 17/12/2014 10:36:03 ::: Method name: LogoutUser ::: UserID: 5 ::: Message: START
+Date: 17/12/2014 10:36:03 ::: Method name: LogoutUser ::: UserID: 5 ::: Message: STOP
+Date: 18-12-2014 12:17:15 ::: Method name: GetUnreadMessageCount ::: UserID: 27 ::: Message: START
+Date: 18-12-2014 12:17:15 ::: Method name: GetUnreadMessageCount ::: UserID: 27 ::: Message: STOP
+Date: 18-12-2014 12:17:37 ::: Method name: GetUnreadMessageCount ::: UserID: 27 ::: Message: START
+Date: 18-12-2014 12:17:37 ::: Method name: GetUnreadMessageCount ::: UserID: 27 ::: Message: STOP
+Date: 18-12-2014 12:18:05 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 18-12-2014 12:18:07 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 18-12-2014 12:18:18 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 18-12-2014 12:18:18 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 18-12-2014 12:18:33 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 18-12-2014 12:18:33 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 18-12-2014 12:21:06 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 18-12-2014 12:21:10 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 18-12-2014 12:21:43 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 18-12-2014 12:21:46 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:17:06 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:17:06 ::: Method name: GetMyCrowd ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:18:14 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: START
+Date: 25-12-2014 17:18:14 ::: Method name: IsUserExists ::: UserID: linkedInmalavitejal@test.com ::: Message: STOP
+Date: 25-12-2014 17:19:16 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: START
+Date: 25-12-2014 17:19:16 ::: Method name: IsUserExists ::: UserID: 220914-tejaltest3@test.com ::: Message: STOP
+Date: 25-12-2014 17:19:24 ::: Method name: IsUserExists ::: UserID: 220914-tejalte1st3@test.com ::: Message: START
+Date: 25-12-2014 17:19:24 ::: Method name: IsUserExists ::: UserID: 220914-tejalte1st3@test.com ::: Message: STOP
+Date: 25-12-2014 17:19:41 ::: Method name: IsUserExists ::: UserID: 220914-tejalte1st3@test.com ::: Message: START
+Date: 25-12-2014 17:19:44 ::: Method name: IsUserExists ::: UserID: 220914-tejalte1st3@test.com ::: Message: STOP
+Date: 25-12-2014 17:20:35 ::: Method name: IsUserExists ::: UserID:  ::: Message: START
+Date: 25-12-2014 17:20:35 ::: Method name: IsUserExists ::: UserID:  ::: Message: STOP
+Date: 25-12-2014 17:21:04 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:21:04 ::: Method name: GetUserDetails ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:21:32 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:21:39 ::: Method name: GetActivityFeeds ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:22:08 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:22:16 ::: Method name: FollowUnfollowUser ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:22:41 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:22:42 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:22:59 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:23:05 ::: Method name: AddEditJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:23:31 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:23:31 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:24:05 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:24:05 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:24:32 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:24:38 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:24:58 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:24:58 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:25:23 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:25:23 ::: Method name: ApplyToJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:25:34 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:25:34 ::: Method name: FavoriteJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:25:41 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:25:41 ::: Method name: GetJobDetails ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:26:01 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:26:01 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:26:10 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:26:11 ::: Method name: DeleteJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:26:36 ::: Method name: SearchJob ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:27:00 ::: Method name: SearchJob ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:27:31 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:27:36 ::: Method name: SearchCandidates ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:28:04 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:28:07 ::: Method name: GetUserJobs ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:28:34 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:28:36 ::: Method name: GetMessageList ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:29:05 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:29:05 ::: Method name: GetMessageThread ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:29:40 ::: Method name: SendMessage ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:29:42 ::: Method name: SendMessage ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:30:10 ::: Method name: UpdateMessageState ::: UserID: 10 ::: Message: START
+Date: 25-12-2014 17:30:10 ::: Method name: UpdateMessageState ::: UserID: 10 ::: Message: STOP
+Date: 25-12-2014 17:30:26 ::: Method name: LogoutUser ::: UserID: 22 ::: Message: START
+Date: 25-12-2014 17:30:26 ::: Method name: LogoutUser ::: UserID: 22 ::: Message: STOP
+Date: 25-12-2014 17:30:46 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:30:46 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:30:55 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:30:55 ::: Method name: AcceptDeclineJobApplication ::: UserID: 3 ::: Message: STOP
+Date: 25-12-2014 17:31:56 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: START
+Date: 25-12-2014 17:31:56 ::: Method name: GetUnreadMessageCount ::: UserID: 3 ::: Message: STOP

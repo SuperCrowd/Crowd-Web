@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Share/_ShareLayout.cshtml";
+}
+@model CrowdWeb.Models.ViewModels.CandidateViewModel
+<div id="user_meta">
+    <img id="user_photo" src="@Model.PhotoURL" />
+    <div>
+        <h2 id="position">@Model.Name</h2>
+
+        <span id="title">@Model.Title</span>
+
+
+        <span id="citystate">@Model.City, @Model.State, @Model.Country</span>
+        @if (string.IsNullOrEmpty(Model.Industry2))
+        {
+        <span id="company">@Model.Company </span><span class="industry">(@Model.Industry)</span>
+        }
+        else
+        {
+        <span id="company">@Model.Company </span><span class="industry">(@Model.Industry, @Model.Industry2)</span>
+
+        }
+
+        <span id="school">@Model.School</span>
+    </div>
+</div>
+
+@if (Model.Experience != null &&
+    Model.Experience.Count()> 0)
+{ 
+<div id="work_experience">
+    <h3>Work Experience</h3>
+    <ul>
+        @foreach (dynamic experience in Model.Experience)
+        {
+            <li>
+                <div class="experience">
+                    <div>
+                        <span class="title">@experience.Title</span>
+                        <span class="company">@experience.Company</span>
+
+                    </div>
+                    <span class="date">@experience.Date</span>
+                    <span class="summary">@experience.Summary</span>
+                </div>
+            </li>
+        }
+
+    </ul>
+
+
+</div>
+}
+
+@if (Model.Recommendations != null &&
+    Model.Recommendations.Count() >0)
+{ 
+<div id="work_recommendations">
+    <h3>Recommendations</h3>
+    <ul>
+        @foreach (var recommendation in Model.Recommendations)
+        {
+        <li>
+            <div class="recommendation">
+                <span class="recommendationtext">@recommendation.Recommendation</span>
+                <span class="name">@recommendation.Name</span>
+            </div>
+        </li>
+        }
+
+    </ul>
+</div>
+}
+
+@if (Model.Education != null &&
+    Model.Education.Count() >0)
+{ 
+<div id="education_history">
+    <h3>Education</h3>
+    <ul>
+        @foreach (var education in Model.Education)
+        {
+        <li>
+            <div class="education">
+                <div>
+                    <span class="school">@education.School</span>
+                    <span class="degree">@education.Degree</span>
+
+                </div>
+                <span class="date">@education.Date</span>
+                           </div>
+        </li>
+        }
+    </ul>
+</div>
+}
+@if (!string.IsNullOrEmpty(Model.Skills))
+{ 
+<div id="skills">
+    <h3>Skills</h3>
+    <span>@Model.Skills</span>
+</div>
+}
+

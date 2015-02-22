@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,7 +25,7 @@ namespace CrowdWeb.Models.ViewModels
 
         public JobViewModel() { }
 
-        public JobViewModel (Job j, CrowdEntities context)
+        public JobViewModel (Job j)
         {
             this.Job = j;
             this.ID = j.ID;

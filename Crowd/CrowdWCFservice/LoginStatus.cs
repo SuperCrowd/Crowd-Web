@@ -57,13 +57,17 @@ namespace CrowdWCFservice
             var db = new UnitOfWork();
             User user = new User();
             //user = db.tblUsers.Get().FirstOrDefault(l => l.Email == PEmail.Trim() && (l.TokenExpireTime > DateTime.Now || l.TokenExpireTime == null));
-            user = db.User.Get().FirstOrDefault(l => l.Email == PEmail.Trim() && l.TokenExpireTime > DateTime.Now);
-            if (user != null)
+            List<User> lstUser = db.User.Get(l => l.Email == PEmail.Trim() && l.TokenExpireTime > DateTime.Now).ToList();
+            if (lstUser.Count > 0)
             {
-                objToken.Email = Convert.ToString(user.Email);
-                // objToken.UserType = Convert.ToInt16(obj.UserType);
-                objToken.TokenExpiretime = Convert.ToDateTime(user.TokenExpireTime);
-                objToken.TokenValue = Convert.ToString(user.DeviceToken);
+                user = lstUser.FirstOrDefault();
+                if (user != null)
+                {
+                    objToken.Email = Convert.ToString(user.Email);
+                    // objToken.UserType = Convert.ToInt16(obj.UserType);
+                    objToken.TokenExpiretime = Convert.ToDateTime(user.TokenExpireTime);
+                    objToken.TokenValue = Convert.ToString(user.DeviceToken);
+                }
             }
             return objToken;
         }
@@ -72,24 +76,29 @@ namespace CrowdWCFservice
         public static Token.tbl_TokenInfo ValidateToken(string token, string userID)
         {
             var db = new UnitOfWork();
-            User obj = db.User.Get().FirstOrDefault(s => s.Token == token && s.ID == Convert.ToInt64(userID));
-
-            if (obj != null)
+            long lngUserID = Convert.ToInt64(userID);
+            List<User> lstUser = db.User.Get(s => s.Token == token && s.ID == lngUserID).ToList();
+            if (lstUser.Count > 0)
             {
-                //===============Not using token expire time================
-                //if (obj.TokenExpireTime > DateTime.Now)
-                //{
-                obj.TokenExpireTime = DateTime.Now.AddMinutes(30.00);
-                obj.Token = token;
-                db.User.Update(obj);
-                db.SaveChanges();
-                return EncryptionDecryption.Encoding.DeserializeXmlString<CrowdWCFservice.Token.tbl_TokenInfo>(EncryptionDecryption.Encoding.GetDecrypt(token));
-                //}
-                //else
-                //{
-                //    return null;
-                //}
-                //===========================End============================
+                User obj = lstUser.FirstOrDefault();
+
+                if (obj != null)
+                {
+                    //===============Not using token expire time================
+                    //if (obj.TokenExpireTime > DateTime.Now)
+                    //{
+                    obj.TokenExpireTime = DateTime.Now.AddMinutes(30.00);
+                    obj.Token = token;
+                    db.User.Update(obj);
+                    db.SaveChanges();
+                    return EncryptionDecryption.Encoding.DeserializeXmlString<CrowdWCFservice.Token.tbl_TokenInfo>(EncryptionDecryption.Encoding.GetDecrypt(token));
+                    //}
+                    //else
+                    //{
+                    //    return null;
+                    //}
+                    //===========================End============================
+                }
             }
             return null;
         }

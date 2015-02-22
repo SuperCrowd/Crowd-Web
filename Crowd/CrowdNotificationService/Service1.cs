@@ -34,6 +34,7 @@ namespace CrowdNotificationService
         protected override void OnStart(string[] args)
         {
             string activityName = "OnStart:";
+
             Trace.TraceInformation("{0}Notification service starting...", activityName);
 
             this.isSandbox = bool.Parse(ConfigurationManager.AppSettings["IsSandbox"]);
@@ -74,10 +75,13 @@ namespace CrowdNotificationService
             pushBroker.RegisterAppleService(new ApplePushChannelSettings(appleCert, this.p12FilePassword));
 
             this.runTimer = new Timer();
+            Trace.TraceInformation("Timer Interval" + timerInterval);
             this.runTimer.Interval = timerInterval;
             this.runTimer.Elapsed += new ElapsedEventHandler(onRunTimerTick);
             this.runTimer.Enabled = true;
-
+            Trace.TraceInformation("Before timer start");
+            this.runTimer.Start();
+            Trace.TraceInformation("After timer start");
             Trace.TraceInformation("{0}Completed initialization of service", activityName);
         }
 
@@ -133,19 +137,26 @@ namespace CrowdNotificationService
 
         private void onRunTimerTick(object sender, ElapsedEventArgs e)
         {
+            Trace.TraceInformation("Timer ticked");
+
             string activityName = "onRunTimerTick:";
 
             DateTime start = DateTime.Now;
             DateTime dateTimeNow = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
-            Trace.TraceInformation("{0}Begin processing of outstanding notifications at {1}", activityName, dateTimeNow);
 
+            Trace.TraceInformation("Before using");
             using (CrowdEntities context = new CrowdEntities())
             {
+                Trace.TraceInformation("after using");
+                //lets find all notifications that are pending
                 try
                 {
-                    Trace.TraceInformation("{0}About to query for outstanding notifications", activityName);
-                    //lets find all notifications that are pending
+
+                    Trace.TraceInformation("---------------pendingNotifications- start--------------- ");
+
                     var pendingNotifications = context.Notifications.Where(n => n.HasSent == false && !string.IsNullOrEmpty(n.DeviceToken)).ToList();
+
+                    Trace.TraceInformation("---------------pendingNotifications- ends--------------- ");
 
                     if (pendingNotifications.Count() > 0)
                     {
@@ -153,13 +164,8 @@ namespace CrowdNotificationService
                         Trace.TraceInformation("{0}Found {1} outstanding notifications to send", activityName, pendingNotifications.Count());
 
                     }
-                    else
-                    {
-                        Trace.TraceInformation("{0}No pending notifications were found", activityName);
-                    }
 
-
-
+                    Trace.TraceInformation("---------------foreach- start--------------- ");
                     foreach (Notification notification in pendingNotifications)
                     {
                         AppleNotification appleNotification = new AppleNotification();
@@ -185,6 +191,7 @@ namespace CrowdNotificationService
                         appleNotification.Payload.Alert.LocalizedArgs = parameters;
                         appleNotification.Tag = notification.ID;
 
+                        Trace.TraceInformation("---------------Enqueued notification- start--------------- ");
                         pushBroker.QueueNotification(appleNotification);
                         Trace.TraceInformation("{0}Enqueued notification {1} sent to deviceToken {2}", activityName, notification.ID, notification.DeviceToken);
 
@@ -193,21 +200,20 @@ namespace CrowdNotificationService
 
                         try
                         {
+                            Trace.TraceInformation("---------------Try- start--------------- ");
                             context.SaveChanges();
+                            Trace.TraceInformation("---------------Try- ends--------------- ");
                         }
                         catch (Exception ex)
                         {
                             Trace.TraceError("{0}Received error on saving to db:{1}", activityName, ex);
                         }
-
                     }
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError("{0}Received error: {1}", ex.ToString());
+                    Trace.TraceError("{0}Received error", ex.Message);
                 }
-
-
             }
 
             DateTime end = DateTime.Now;

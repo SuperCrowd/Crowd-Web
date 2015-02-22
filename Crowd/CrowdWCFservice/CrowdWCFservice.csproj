@@ -15,7 +15,7 @@
     <AssemblyName>CrowdWCFservice</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -97,6 +97,7 @@
     <None Include="Properties\PublishProfiles\04092014.pubxml" />
     <None Include="Properties\PublishProfiles\041114-2.pubxml" />
     <None Include="Properties\PublishProfiles\041114-3.pubxml" />
+    <None Include="Properties\PublishProfiles\041114-4.pubxml" />
     <None Include="Properties\PublishProfiles\041114.pubxml" />
     <None Include="Properties\PublishProfiles\05092014.pubxml" />
     <None Include="Properties\PublishProfiles\071014.pubxml" />
@@ -117,11 +118,14 @@
     <None Include="Properties\PublishProfiles\17092014.pubxml" />
     <None Include="Properties\PublishProfiles\171014-2.pubxml" />
     <None Include="Properties\PublishProfiles\171014.pubxml" />
+    <None Include="Properties\PublishProfiles\171214.pubxml" />
+    <None Include="Properties\PublishProfiles\181114.pubxml" />
     <None Include="Properties\PublishProfiles\201014-2.pubxml" />
     <None Include="Properties\PublishProfiles\201014.pubxml" />
     <None Include="Properties\PublishProfiles\23092014-2.pubxml" />
     <None Include="Properties\PublishProfiles\23092014.pubxml" />
     <None Include="Properties\PublishProfiles\25092014.pubxml" />
+    <None Include="Properties\PublishProfiles\251114.pubxml" />
     <None Include="Properties\PublishProfiles\281014.pubxml" />
     <None Include="Properties\PublishProfiles\291014.pubxml" />
     <None Include="Web.Debug.config">
@@ -156,7 +160,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61090</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/crowd</IISUrl>
+          <IISUrl>http://localhost:61090/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
