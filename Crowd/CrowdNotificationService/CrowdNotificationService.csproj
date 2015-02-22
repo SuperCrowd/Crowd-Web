@@ -63,13 +63,11 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="JdSoft.Apns.Notifications">
       <HintPath>DLLs\JdSoft.Apns.Notifications.dll</HintPath>
@@ -78,13 +76,32 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PushSharp.Apple, Version=2.2.1.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Apple.dll</HintPath>
+    <Reference Include="PushSharp.Amazon.Adm">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Amazon.Adm.dll</HintPath>
     </Reference>
-    <Reference Include="PushSharp.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Core.dll</HintPath>
+    <Reference Include="PushSharp.Android">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Blackberry">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Blackberry.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.FirefoxOS">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.FirefoxOS.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Google.Chrome">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Google.Chrome.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Windows">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.WindowsPhone">
+      <HintPath>..\packages\PushSharp.2.2.1.0\lib\net40\PushSharp.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -173,7 +190,6 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
