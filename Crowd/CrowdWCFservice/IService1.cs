@@ -30,7 +30,7 @@ namespace CrowdWCFservice
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetActivityFeeds", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        GetActivityFeedsResult GetActivityFeeds(string UserID, string UserToken, string PageNumber);
+        GetActivityFeedsResult GetActivityFeeds(string UserID, string UserToken, string PageNumber, string IsRequiredAcceptDeclineJobFeed);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetMyCrowd", BodyStyle = WebMessageBodyStyle.Wrapped)]
@@ -102,7 +102,7 @@ namespace CrowdWCFservice
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "AcceptDeclineJobApplication", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status);
+        GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status, string IsRequiredFeedCreated);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetUnreadMessageCount", BodyStyle = WebMessageBodyStyle.Wrapped)]

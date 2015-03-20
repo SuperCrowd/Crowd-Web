@@ -281,9 +281,9 @@
           <Property Name="UserID" Type="bigint" Nullable="false" />
           <Property Name="EmployerName" Type="nvarchar" Nullable="false" MaxLength="250" />
           <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="LocationCity" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationCity" Type="nvarchar" MaxLength="250" />
           <Property Name="LocationState" Type="nvarchar" MaxLength="250" />
-          <Property Name="LocationCountry" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="LocationCountry" Type="nvarchar" MaxLength="250" />
           <Property Name="StartYear" Type="int" Nullable="false" />
           <Property Name="EndYear" Type="int" />
           <Property Name="Summary" Type="text" />
@@ -911,9 +911,9 @@
           <Property Name="UserID" Type="Int64" Nullable="false" />
           <Property Name="EmployerName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="LocationCity" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCity" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
           <Property Name="LocationState" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
-          <Property Name="LocationCountry" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCountry" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
           <Property Name="StartYear" Type="Int32" Nullable="false" />
           <Property Name="EndYear" Type="Int32" />
           <Property Name="Summary" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />

@@ -259,7 +259,7 @@ namespace CrowdWCFservice
                 {
                     foreach (var em in UserEmployments)
                     {
-                        if (em.EmployerName == "" || em.Title == "" || em.LocationCity == "" || em.LocationCountry == "" || em.StartYear == "" || em.StartMonth == "")
+                        if (em.EmployerName == "" || em.Title == "" || em.StartYear == "" || em.StartMonth == "")
                         {
                             IsInValidParameter = true;
                         }
@@ -935,7 +935,7 @@ namespace CrowdWCFservice
 
         #region GetActivityFeeds
 
-        public GetActivityFeedsResult GetActivityFeeds(string UserID, string UserToken, string PageNumber)
+        public GetActivityFeedsResult GetActivityFeeds(string UserID, string UserToken, string PageNumber, string IsRequiredAcceptDeclineJobFeed)
         {
             GetActivityFeedsResult ActivityFeedsList = new GetActivityFeedsResult();
             ResultStatus ResultStatus = new ResultStatus();
@@ -950,7 +950,10 @@ namespace CrowdWCFservice
                 {
                     long lngUserID = Convert.ToInt64(UserID);
 
-                    List<Feed> objGetFeed = db.Feed.Get(n => n.UserID == lngUserID).OrderByDescending(n => n.DateCreated).ToList();
+                    List<Feed> objGetFeed = db.Feed.Get(n => n.UserID == lngUserID && n.FeedTypeID != 6 && n.FeedTypeID != 7).OrderByDescending(n => n.DateCreated).ToList();
+
+                    if (IsRequiredAcceptDeclineJobFeed != null && IsRequiredAcceptDeclineJobFeed == "1")
+                        objGetFeed = db.Feed.Get(n => n.UserID == lngUserID).OrderByDescending(n => n.DateCreated).ToList();
 
                     if (objGetFeed.Count > 0)
                     {
@@ -3541,7 +3544,7 @@ namespace CrowdWCFservice
 
         #region AcceptDeclineJobApplication
 
-        public GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status)
+        public GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplication(string UserID, string UserToken, string MessageID, string JobID, string Status, string IsRequiredFeedCreated)
         {
             GetAcceptDeclineJobApplicationResult AcceptDeclineJobApplicationResult = new GetAcceptDeclineJobApplicationResult();
             ResultStatus ResultStatus = new ResultStatus();
@@ -3637,6 +3640,26 @@ namespace CrowdWCFservice
                                     }
                                     //=========================end=======================//
 
+                                    if (IsRequiredFeedCreated != null && IsRequiredFeedCreated == "1")
+                                    {
+                                        try
+                                        {
+                                            //-----------------add record in Feed Table For Accept application --------------------------------//
+                                            Feed objNewFeed = new Feed();
+                                            objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            objNewFeed.UserID = lngMessageSenderID;
+                                            objNewFeed.FeedTypeID = 6;
+                                            objNewFeed.JobID = lngJobID;
+                                            objNewFeed.OtherUserID = lngUserID;
+                                            db.Feed.Add(objNewFeed);
+                                            db.SaveChanges();
+                                            //-------------------------------------------------------------------------//
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    }
+
                                     ResultStatus.Status = "1";
                                     ResultStatus.StatusMessage = "";
                                     AcceptDeclineJobApplicationResult.ResultStatus = ResultStatus;
@@ -3721,6 +3744,27 @@ namespace CrowdWCFservice
                                         //SendNotificationMessage(objParam);
                                     }
                                     //=========================end=======================//
+
+                                    if (IsRequiredFeedCreated != null && IsRequiredFeedCreated == "1")
+                                    {
+                                        try
+                                        {
+                                            //-----------------add record in Feed Table For Accept application --------------------------------//
+                                            Feed objNewFeed = new Feed();
+                                            objNewFeed.DateCreated = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+                                            objNewFeed.UserID = lngMessageSenderID;
+                                            objNewFeed.FeedTypeID = 7;
+                                            objNewFeed.JobID = lngJobID;
+                                            objNewFeed.OtherUserID = lngUserID;
+                                            db.Feed.Add(objNewFeed);
+                                            db.SaveChanges();
+                                            //-------------------------------------------------------------------------//
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    }
+
 
                                     ResultStatus.Status = "1";
                                     ResultStatus.StatusMessage = "";
